@@ -27,18 +27,18 @@ module.exports = function (grunt) {
         },
         sass: {
             // this is the "dev" Sass config used with "grunt watch" command
-            dev: {
-                options: {
-                    style: 'expanded',
-                    // tell Sass to look in the Bootstrap stylesheets directory when compiling,
-                    // it is also possible to use an array.
-                    loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
-                },
-                files: {
-                    // the first path is the output and the second is the input
-                    'css/index.css': 'assets/sass/index.scss'
-                }
-            },
+            // dev: {
+            //     options: {
+            //         style: 'expanded',
+            //         // tell Sass to look in the Bootstrap stylesheets directory when compiling,
+            //         // it is also possible to use an array.
+            //         loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
+            //     },
+            //     files: {
+            //         // the first path is the output and the second is the input
+            //         'css/index.css': 'assets/sass/index.scss'
+            //     }
+            // },
             // this is the "production" Sass config used with the "grunt buildcss" command
             dist: {
                 options: {
@@ -68,7 +68,7 @@ module.exports = function (grunt) {
         watch: {
             sass: {
                 files: 'assets/sass/*.scss',
-                tasks: ['sass:dev']
+                tasks: ['sass:dist']
             },
             browserify: {
                 files: 'assets/js/**',
@@ -88,6 +88,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['clean', 'browserify', 'uglify', 'copy', 'sass:dev']);
+    grunt.registerTask('default', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
     grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
 };

@@ -1,8 +1,9 @@
 /nbproject/
 /public/.sass-cache/
-/public/node_modules/
+node_modules/
 /public/css/
 /public/dist/
 /public/fonts/
 /public/js/
 *.log
+/vendor/
