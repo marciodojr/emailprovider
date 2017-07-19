@@ -9,6 +9,10 @@ if (!file_exists('./vendor/autoload.php')) {
     echo 'Please run `composer install` first!';
 }
 
+$localConfigFile = './app/config/config.local.php';
+if (file_exists($localConfigFile)) {require_once $localConfigFile;
+}
+
 $loader = include './vendor/autoload.php';
 
 use Intec\Router\SimpleRouter;

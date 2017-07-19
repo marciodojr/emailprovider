@@ -8,3 +8,5 @@ node_modules/
 *.log
 /vendor/
 /composer.lock
+/app/config/config.local.php
+/public/package-lock.json

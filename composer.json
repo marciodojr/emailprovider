@@ -12,5 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "intec/simple-router": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"IntecPhp\\": "app/src"}
     }
 }
