@@ -9,7 +9,6 @@
 ## Instalar pacotes NPM
 Obs: é possível que seja necessário instalar o pacote **rub-compass** para utilizar o `grunt-contrib-sass` (`sudo apt-get install ruby-compass`)
 ```
-cd public
 npm install
 npm install grunt-cli -g
 npm install grunt grunt-contrib-clean grunt-contrib-watch grunt-contrib-copy grunt-rework grunt-browserify grunt-contrib-sass grunt-contrib-uglify --save-dev

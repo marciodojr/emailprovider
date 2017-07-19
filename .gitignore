@@ -1,7 +1,8 @@
 /nbproject/
-/public/.sass-cache/
+/.sass-cache/
 node_modules/
 /public/css/
+/public/img/
 /public/dist/
 /public/fonts/
 /public/js/
@@ -9,4 +10,4 @@ node_modules/
 /vendor/
 /composer.lock
 /app/config/config.local.php
-/public/package-lock.json
+package-lock.json

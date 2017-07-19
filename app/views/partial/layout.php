@@ -19,6 +19,9 @@
         <meta prefix="og: http://ogp.me/ns#" property="og:description" content="<?php echo $this->metaOgDataArray['description']; ?>" />
         <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website"/>
 
+        <link rel="icon" type="image/png" sizes="16x16" href="/img/favicon.png">
+
+        <link type="text/css" rel="stylesheet" href="/css/app.min.css" />
         <?php foreach ($this->stylesheets as $href): ?>
             <link href="<?php echo $href; ?>" rel="stylesheet" type="text/css">
         <?php endforeach; ?>

@@ -2,10 +2,9 @@ global.jQuery = $ = require('jquery');
 require('bootstrap-sass');
 
 $(function(){
-	console.log('testing....');
-
-	$("#say-hello").click(function(){
-		alert('Hello?????');
+    console.log('????');
+	$("#sayHello").click(function(){
+		alert('Hello from /hello!!');
 	});
 
 });

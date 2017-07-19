@@ -1,6 +1,5 @@
 <?php
 
-
 namespace IntecPhp;
 
 use IntecPhp\View\Layout;
@@ -16,7 +15,10 @@ return [
         'pattern' => '/hello',
         'callback' => function() {
             $layout = new Layout();
-            $layout->render('hello/index', Controller\HelloController::index());
+            $layout
+                ->addStylesheet('/css/hello.min.css')
+                ->addScript('/js/hello.min.js')
+                ->render('hello/index', Controller\HelloController::index());
         },
     ],
 ];

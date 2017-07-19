@@ -1,13 +1,16 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        clean: ['css/', 'img/', 'js/'],
+        clean: ['public/css/*.min.css', 'public/img/', 'public/js/*.min.js'],
         browserify: {
-            options: {
-                browserifyOptions: {
-                    debug: true
-                }
-            },
-            'js/index.js': ['assets/js/index.js']
+            dist: {
+                files: [{
+                    expand: true,       // Enable dynamic expansion.
+                    cwd: 'assets/js/',  // Source Path
+                    src: ['*.js'],      // Actual pattern(s) to match.
+                    dest: 'public/js',  // Destination folder
+                    ext: '.js',         // Dest filepaths will have this extension.
+                }]
+            }
         },
         uglify: {
             options: {
@@ -17,12 +20,12 @@ module.exports = function (grunt) {
             },
             build: {
                 files: [{
-                        expand: true,
-                        src: '**/*.js',
-                        cwd: 'js/',
-                        dest: 'dist/js',
-                        ext: '.min.js'
-                    }]
+                    expand: true,
+                    src: ['**/*.js', '!**/*.min.js'],
+                    cwd: 'public/js',
+                    dest: 'public/js',
+                    ext: '.min.js'
+                }]
             }
         },
         sass: {
@@ -45,22 +48,27 @@ module.exports = function (grunt) {
                     style: 'compressed',
                     loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
                 },
-                files: {
-                    'dist/css/index.css': 'assets/sass/index.scss'
-                }
+                files: [{
+                    expand: true,
+                    cwd: 'assets/sass',
+                    src: ['*.scss'],
+                    dest: 'public/css',
+                    ext: '.min.css'
+                }]
             }
         },
         copy: {
             images: {
-                src: 'assets/img/*',
-                dest: 'dist/img/',
-                expand: true
+                expand: true,
+                cwd: 'assets/img/',
+                src: ['**/*.{png,jpg,svg}'],
+                dest: 'public/img/'
             },
             fonts: {
                 expand: true,
                 flatten: true,
                 src: ['node_modules/bootstrap-sass/assets/fonts/bootstrap/*'],
-                dest: 'dist/fonts/',
+                dest: 'public/fonts/',
                 filter: 'isFile'
             }
         },
@@ -72,7 +80,7 @@ module.exports = function (grunt) {
             },
             browserify: {
                 files: 'assets/js/**',
-                tasks: ['browserify', 'uglify']
+                tasks: ['browserify:dist', 'uglify']
             },
 			copy: {
 				files: 'assets/img/**',
@@ -88,6 +96,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
-    grunt.registerTask('default', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
+    grunt.registerTask('default', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist']);
     grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
 };
