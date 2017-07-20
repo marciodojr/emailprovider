@@ -27,11 +27,11 @@ putenv('DB_PASS=root');
 putenv('DB_CHARSET=utf8');
 ```
 # Bibliotecas base
- - Bootstrap
- - Moment
- - FontAwesome
- - Entypo Plus
- - Mask
+ - [x] Bootstrap
+ - [x] Moment
+ - [x] FontAwesome
+ - [x] Entypo Plus
+ - [] Mask
 
 # Como desenvolver
   - Abra o terminal na pasta raiz e digite `grunt dev`

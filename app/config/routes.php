@@ -9,8 +9,19 @@ return [
         'pattern' => '(/|/index|/home)',
         'callback' => function() {
             $layout = new Layout();
-            $layout->render('home/index');
+            $layout
+
+                ->render('home/index');
         },
+    ],
+    [
+        'pattern' => '/intec-icons',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout
+                ->addStylesheet('/css/icons.min.css')
+                ->render('home/icons');
+        }
     ],
 	[
         'pattern' => '/hello',

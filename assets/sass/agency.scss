@@ -587,8 +587,10 @@ section#contact {
 // Footer
 
 footer {
+    background-color: $gray-darker;
     padding: 25px 0;
     text-align: center;
+    color: white;
     span.copyright {
         line-height: 40px;
         @include heading-font;

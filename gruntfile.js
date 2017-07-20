@@ -69,7 +69,8 @@ module.exports = function (grunt) {
                 flatten: true,
                 src: [
                     'node_modules/bootstrap-sass/assets/fonts/bootstrap/*',
-                    'node_modules/font-awesome/fonts/*'
+                    'node_modules/font-awesome/fonts/*',
+                    'assets/fonts/*'
                 ],
                 dest: 'public/fonts/',
                 filter: 'isFile'
@@ -87,7 +88,7 @@ module.exports = function (grunt) {
             },
 			copy: {
 				files: 'assets/img/**',
-				tasks: ['copy:images']
+				tasks: ['copy:images', 'copy:fonts']
 			}
         },
         php: {
