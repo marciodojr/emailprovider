@@ -11,10 +11,11 @@ Obs: é possível que seja necessário instalar o pacote **rub-compass** para ut
 ```
 npm install
 npm install grunt-cli -g
-npm install grunt grunt-contrib-clean grunt-contrib-watch grunt-contrib-copy grunt-rework grunt-browserify grunt-contrib-sass grunt-contrib-uglify --save-dev
+npm install grunt grunt-contrib-clean grunt-contrib-watch grunt-contrib-copy grunt-rework grunt-browserify grunt-contrib-sass grunt-contrib-uglify grunt-php \
+grunt-browser-sync --save-dev
 ```
 
-## Criar um arquivo de configuração local **config.local.php**
+## Criar um arquivo de configuração local **app/config/config.local.php**
 Ex:
 ```.php
 <?php

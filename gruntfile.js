@@ -21,7 +21,7 @@ module.exports = function (grunt) {
             build: {
                 files: [{
                     expand: true,
-                    src: ['**/*.js', '!**/*.min.js'],
+                    src: ['*.js', '!*.min.js'],
                     cwd: 'public/js',
                     dest: 'public/js',
                     ext: '.min.js'
@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         // configure the "grunt watch" task
         watch: {
             sass: {
-                files: 'assets/sass/*.scss',
+                files: 'assets/sass/**',
                 tasks: ['sass:dist']
             },
             browserify: {
@@ -86,6 +86,40 @@ module.exports = function (grunt) {
 				files: 'assets/img/**',
 				tasks: ['copy:images']
 			}
+        },
+        php: {
+            dist: {
+                options: {
+                    hostname: '0.0.0.0',
+                    base: 'public',
+                    port: 3000,
+                    keepAlive: false,
+                    open: false
+                }
+            }
+        },
+        browserSync: {
+            dist: {
+                bsFiles: {
+                    src: [
+                        'app/**/*.php',
+                        'public/**/*',
+                    ]
+                },
+                options: {
+                    proxy: '<%= php.dist.options.hostname %>:<%= php.dist.options.port %>',
+                    watchTask: true,
+                    notify: true,
+                    open: true,
+                    logLevel: 'silent',
+                    ghostMode: {
+                        clicks: true,
+                        scroll: true,
+                        links: true,
+                        forms: true
+                    }
+                }
+            }
         }
     });
 
@@ -95,7 +129,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-php');
+    grunt.loadNpmTasks('grunt-browser-sync');
 
-    grunt.registerTask('default', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist']);
-    grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
+    grunt.registerTask('default', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
+    // grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
 };
