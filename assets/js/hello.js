@@ -1,10 +1,10 @@
 global.jQuery = $ = require('jquery');
 require('bootstrap-sass');
+var moment = require('moment')
 
 $(function(){
-    console.log('????');
 	$("#sayHello").click(function(){
-		alert('Hello from /hello testing browserSync!!');
+		alert('Hello ' + moment().format());
 	});
 
 });

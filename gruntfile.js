@@ -7,7 +7,7 @@ module.exports = function (grunt) {
                     expand: true,       // Enable dynamic expansion.
                     cwd: 'assets/js/',  // Source Path
                     src: ['*.js'],      // Actual pattern(s) to match.
-                    dest: 'public/js',  // Destination folder
+                    dest: 'public/pjs',  // Destination folder
                     ext: '.js',         // Dest filepaths will have this extension.
                 }]
             }
@@ -21,8 +21,8 @@ module.exports = function (grunt) {
             build: {
                 files: [{
                     expand: true,
-                    src: ['*.js', '!*.min.js'],
-                    cwd: 'public/js',
+                    src: ['*.js'],
+                    cwd: 'public/pjs',
                     dest: 'public/js',
                     ext: '.min.js'
                 }]
@@ -106,7 +106,11 @@ module.exports = function (grunt) {
                 bsFiles: {
                     src: [
                         'app/**/*.php',
-                        'public/**/*',
+                        'public/css/*.css',
+                        'public/fonts/*',
+                        'public/img/**',
+                        'public/js/*',
+                        'public/**/*.php'
                     ]
                 },
                 options: {
@@ -135,6 +139,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
 
-    grunt.registerTask('default', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
+    grunt.registerTask('dev', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
     // grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
 };

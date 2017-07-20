@@ -6,6 +6,7 @@ node_modules/
 /public/dist/
 /public/fonts/
 /public/js/
+/public/pjs/
 *.log
 /vendor/
 /composer.lock

@@ -14,6 +14,7 @@ class Layout
     private $scripts;
     private $metaKeywords = "keyword1, keyword2";
     private $metaDescription = "Meta description ...";
+    private $metaAuthor = 'Author';
     private $metaOgDataArray = [
         'name' => 'Meta Og Name',
         'photo_url' => 'http://0.0.0.0:3000/assets/img/favicon.png',
@@ -31,9 +32,6 @@ class Layout
     {
         $this->stylesheets = $stylesheets;
         $this->scripts = $scripts;
-        $this->metaDescription;
-        $this->metaKeywords;
-        $this->metaOgDataArray;
         $this->layout = self::DEFAULT_LAYOUT;
     }
 
