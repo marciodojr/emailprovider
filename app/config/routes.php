@@ -9,8 +9,7 @@ return [
         'pattern' => '(/|/index|/home)',
         'callback' => function() {
             $layout = new Layout();
-            $layout
-                ->render('home/index');
+            $layout->render('home/index');
         },
     ],
 	[
