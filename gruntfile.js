@@ -67,7 +67,10 @@ module.exports = function (grunt) {
             fonts: {
                 expand: true,
                 flatten: true,
-                src: ['node_modules/bootstrap-sass/assets/fonts/bootstrap/*'],
+                src: [
+                    'node_modules/bootstrap-sass/assets/fonts/bootstrap/*',
+                    'node_modules/font-awesome/fonts/*'
+                ],
                 dest: 'public/fonts/',
                 filter: 'isFile'
             }

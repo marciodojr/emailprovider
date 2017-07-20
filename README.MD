@@ -26,3 +26,8 @@ putenv('DB_USER=root');
 putenv('DB_PASS=root');
 putenv('DB_CHARSET=utf8');
 ```
+# Bibliotecas base
+ - Bootstrap
+ - FontAwesome
+ - Entypo Plus
+ - Mask
