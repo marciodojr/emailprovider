@@ -1,3 +1,5 @@
+
+
 $icon-font-path: '../fonts/';
 @import 'bootstrap';
 // @import "bootstrap/theme";
@@ -5,4 +7,7 @@ $icon-font-path: '../fonts/';
 $fa-font-path: '../fonts/';
 @import 'node_modules/font-awesome/scss/font-awesome.scss';
 
+$intecEntypoPath: '../fonts/';
 @import 'intec-entypo/entypo.scss';
+
+@import 'intec-theme.scss';

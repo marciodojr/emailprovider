@@ -1,0 +1,32 @@
+// Variables
+
+// Gray and Brand Colors for use across theme
+
+$theme-primary: #64237b;
+$theme-info: #b059cf;
+$theme-danger: #e74c3c;
+$theme-lighter-gray: #f0f0f0;
+$theme-darker-gray: #c4c8cb;
+
+$border-radius-base: 4px 0 4px 0;
+$border-radius-large: 6px 0 6px 0;
+$border-radius-small: 3px 0 3px 0;
+
+$gray-base:			#595959 !default;
+$gray-darker:		lighten($gray-base, 13.5%) !default; // #222
+$gray-dark:			lighten($gray-base, 20%) !default;   // #333
+$gray:				lighten($gray-base, 33.5%) !default; // #555
+$gray-light:		lighten($gray-base, 46.7%) !default; // #777
+$gray-lighter:		$theme-lighter-gray;
+
+
+//  Textos
+$text-color: $gray-base;
+
+// Verde para botões de sucesso
+// Vermelho botões de desistência
+// Seleção de texto fundo cinza claro texto branco ou preto.
+// fundo primario branco e cinza mais escuro.
+// fundo secundário cinza mais claro e texto cinza mais escuro.
+// icones primários roxo
+// fundo terceário cinza escuro, cinza mais claro.

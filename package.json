@@ -11,6 +11,7 @@
   "dependencies": {
     "bootstrap-sass": "^3.3.7",
     "font-awesome": "^4.7.0",
+    "inputmask": "^3.3.7",
     "jquery": "^3.2.1",
     "jquery-easing": "0.0.1",
     "moment": "^2.18.1"

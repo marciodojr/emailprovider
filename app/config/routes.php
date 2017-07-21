@@ -15,6 +15,13 @@ return [
         },
     ],
     [
+        'pattern' => '/components',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout->render('home/components');
+        },
+    ],
+    [
         'pattern' => '/intec-icons',
         'callback' => function() {
             $layout = new Layout();

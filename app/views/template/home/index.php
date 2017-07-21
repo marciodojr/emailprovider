@@ -17,7 +17,7 @@
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#services">Services</a>
+                            <a class="page-scroll" href="/components">Components</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="#portfolio">Portfolio</a>
@@ -364,7 +364,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h2 class="section-heading">Contact Us</h2>
-                <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                <h3 class="section-subheading text-muted-light">Lorem ipsum dolor sit amet consectetur.</h3>
             </div>
         </div>
         <div class="row">
