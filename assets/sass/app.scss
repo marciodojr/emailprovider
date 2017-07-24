@@ -1,6 +1,5 @@
+@import 'intec-theme/intec-variables.scss';
 
-
-$icon-font-path: '../fonts/';
 @import 'bootstrap';
 // @import "bootstrap/theme";
 
@@ -10,4 +9,4 @@ $fa-font-path: '../fonts/';
 $intecEntypoPath: '../fonts/';
 @import 'intec-entypo/entypo.scss';
 
-@import 'intec-theme.scss';
+// @import 'intec-theme.scss';

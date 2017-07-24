@@ -107,11 +107,10 @@ module.exports = function (grunt) {
                 bsFiles: {
                     src: [
                         'app/**/*.php',
-                        'public/css/*.css',
+                        'public/css/*',
                         'public/fonts/*',
                         'public/img/**',
-                        'public/js/*',
-                        'public/**/*.php'
+                        'public/js/*'
                     ]
                 },
                 options: {
