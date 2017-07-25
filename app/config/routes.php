@@ -22,6 +22,13 @@ return [
         },
     ],
     [
+        'pattern' => '/validator',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout->render('home/validator');
+        },
+    ],
+    [
         'pattern' => '/intec-icons',
         'callback' => function() {
             $layout = new Layout();

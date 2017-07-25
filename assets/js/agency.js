@@ -1,5 +1,6 @@
 global.jQuery = $ = require('jquery');
 require('bootstrap-sass');
+require('bootstrap-validator');
 Query = require("jquery-easing");
 Inputmask = require('inputmask');
 
@@ -101,4 +102,12 @@ Inputmask = require('inputmask');
         autoGroup: true,
         placeholder: '0,00'
     }).mask($(".mask-money-no-currency"));
+
+    $(".intec-form-validator").validator({
+        feedback: {
+            success: 'icon-check',
+            error: 'icon-cross'
+        }
+    })
+
 })(jQuery);
