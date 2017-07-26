@@ -1,4 +1,6 @@
-@import 'intec-theme.scss';
+@import "theme/variables.scss";
+@import "theme/mixins.scss";
+
 @import 'bootstrap';
 // @import "bootstrap/theme";
 
@@ -7,3 +9,5 @@ $fa-font-path: '../fonts/';
 
 $intecEntypoPath: '../fonts/';
 @import 'intec-entypo/entypo.scss';
+
+@import 'theme/theme.scss';
