@@ -22,7 +22,7 @@ class Layout
         'description' => 'Meta Og description ...'
     ];
     private $contentId;
-    private $title = 'Page Title';
+    private $title = "Intec Project Starter Pack";
     private $layout;
     private $renderLayout = true;
 

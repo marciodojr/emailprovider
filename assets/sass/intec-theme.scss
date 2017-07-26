@@ -17,7 +17,7 @@ body {
 }
 
 .text-primary {
-    color: $theme-primary;
+    color: $brand-primary;
 }
 
 p {
@@ -38,14 +38,14 @@ a.active {
 }
 
 a {
-    color: $theme-primary;
+    color: $brand-primary;
 }
 
 a:hover,
 a:focus,
 a:active,
 a.active {
-    color: darken($theme-primary, 10%);
+    color: darken($brand-primary, 10%);
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -58,7 +58,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .bg-light-gray {
-    background-color: $theme-lighter-gray;
+    background-color: $gray-lighter;
 }
 
 .bg-darkest-gray {
@@ -68,13 +68,13 @@ h1, h2, h3, h4, h5, h6 {
 // Restyled Primary Buttons
 
 .btn-primary {
-    @include button-variant(white, $theme-primary, $theme-primary);
+    @include button-variant(white, $brand-primary, $brand-primary);
     @include heading-font;
     font-weight: 700;
 }
 
 .btn-xl {
-    @include button-variant(white, $theme-primary, $theme-primary);
+    @include button-variant(white, $brand-primary, $brand-primary);
     @include heading-font;
     font-weight: 700;
     border-radius: $border-radius-large;
@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5, h6 {
     border-color: transparent;
     .navbar-brand {
         color: white;
-        @include script-font;
+        // @include script-font;
         &:hover,
         &:focus,
         &:active,
@@ -101,40 +101,39 @@ h1, h2, h3, h4, h5, h6 {
         border-color: fade-out(white, .02);
     }
     .navbar-toggle {
-        background-color: $theme-primary;
-        border-color: $theme-primary;
-        @include heading-font;
+        background-color: inherit;
+        border-color: $brand-primary;
+        // @include heading-font;
         color: white;
-        font-size: 12px;
-        &:hover,
-        &:focus {
-            background-color: $theme-primary;
+        &:hover {
+            background-color: $brand-primary;
         }
     }
     .nav {
         li {
             a {
-                @include heading-font;
+                // @include heading-font;
                 font-weight: 400;
                 letter-spacing: 1px;
                 color: white;
-                &:hover,
-                &:focus {
+                &:hover {
                     color: $gray-lighter;
-                    // outline: none;
+                    background-color: darken($brand-primary, 10%);
+                }
+                &:focus {
+                    background-color: darken($brand-primary, 15%);
                 }
             }
         }
     }
     .navbar-nav>.active>a {
-        border-radius: 0;
         color: white;
-        background-color: $theme-info;
+        background-color: darken($brand-primary, 10%);
     }
     .navbar-nav>.active>a:hover,
     .navbar-nav>.active>a:focus {
         color: white;
-        background-color: $theme-info;
+        background-color: darken($brand-primary, 10%);
     }
 }
 
@@ -152,9 +151,6 @@ h1, h2, h3, h4, h5, h6 {
             -moz-transition: all 0.3s;
             transition: all 0.3s;
         }
-        .navbar-nav>.active>a {
-            border-radius: 3px;
-        }
     }
 }
 
@@ -162,7 +158,7 @@ h1, h2, h3, h4, h5, h6 {
 
 @media(min-width:768px) {
     .navbar-custom.affix {
-        background-color: $theme-primary;
+        background-color: $brand-primary;
         transition: all ease 0.5s;
         -webkit-transition: all ease 0.5s;
         -moz-transition: all ease 0.5s;
@@ -268,7 +264,7 @@ section {
             max-width: 400px;
             margin: 0 auto;
             .portfolio-hover {
-                background: fade-out($theme-primary, .3);
+                background: fade-out($brand-primary, .3);
                 position: absolute;
                 width: 100%;
                 height: 100%;
@@ -383,7 +379,7 @@ section {
             height: 80px;
             position: absolute;
             z-index: 100;
-            background-color: $theme-primary;
+            background-color: $brand-primary;
             color: white;
             border-radius: 100%;
             border: 7px solid #f1f1f1;
@@ -563,13 +559,13 @@ section#contact {
         }
     }
     .form-control:focus {
-        border-color: $theme-primary;
+        border-color: $brand-primary;
         box-shadow: none;
     }
     ::-webkit-input-placeholder {
        @include heading-font;
        font-weight: 700;
-       color: $theme-darker-gray;
+       color: $gray-darker;
     }
     :-moz-placeholder { /* Firefox 18- */
        @include heading-font;
@@ -587,7 +583,7 @@ section#contact {
        color: $gray-light;
     }
     .text-danger {
-        color: $theme-danger;
+        color: $brand-danger;
     }
 }
 
@@ -616,7 +612,7 @@ ul.social-buttons {
     li {
         a {
             display: block;
-            background-color: $theme-primary;
+            background-color: $brand-primary;
             height: 40px;
             width: 40px;
             border-radius: 100%;
@@ -630,7 +626,7 @@ ul.social-buttons {
             &:hover,
             &:focus,
             &:active {
-                background-color: $theme-info;
+                background-color: darken($brand-primary, 10%);
             }
         }
     }
@@ -724,26 +720,26 @@ ul.social-buttons {
 
 ::-moz-selection {
     text-shadow: none;
-    background: $theme-darker-gray;
-    color: $gray-base;
+    background: $gray-light;
+    color: $gray-lighter;
 }
 
 ::selection {
     text-shadow: none;
-    background: $theme-darker-gray;
-    color: $gray-base;
+    background: $gray-light;
+    color: $gray-lighter;
 }
 
 img::selection {
     background: transparent;
-    color: $theme-darker-gray;
+    color: $gray-lighter;
 }
 
 img::-moz-selection {
     background: transparent;
-    color: $theme-darker-gray;
+    color: $gray-lighter;
 }
 
 body {
-    webkit-tap-highlight-color: $theme-primary;
+    webkit-tap-highlight-color: $brand-primary;
 }
