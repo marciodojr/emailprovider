@@ -72,7 +72,7 @@
                 </div>
             </div>
         </footer>
-        <script type='text/javascript' src="/js/agency.min.js"></script>
+        <script type='text/javascript' src="/js/app.min.js"></script>
         <?php foreach ($this->scripts as $path): ?>
             <script type='text/javascript' src="<?php echo $path; ?>"></script>
         <?php endforeach; ?>

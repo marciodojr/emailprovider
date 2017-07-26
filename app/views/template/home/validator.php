@@ -95,16 +95,21 @@
           <div class="form-group">
             <div class="radio">
               <label>
-                <input type="radio" name="underwear" required>
+                <input type="radio" name="underwear"
+                data-error="Marque uma das opções"
+                required>
                 Boxers
               </label>
             </div>
             <div class="radio">
               <label>
-                <input type="radio" name="underwear" required>
+                <input type="radio"
+                    name="underwear"
+                    required>
                 Briefs
               </label>
             </div>
+            <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
             <div class="checkbox">
@@ -117,6 +122,62 @@
               </label>
               <div class="help-block with-errors"></div>
             </div>
+          </div>
+          <div class="form-group">
+              <label>Multiplas opções</label>
+            <div class="checkbox">
+              <label>
+                <input
+                    type="checkbox"
+                    name="fruits[]"
+                    value="Maçã"
+                    data-atleast="2"
+                    data-error="Selecione pelo menos 2 itens"
+                    required
+                    >
+                Maçã
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input
+                    type="checkbox"
+                    value="Banana"
+                    name="fruits[]"
+                    data-atleast="2"
+                    data-error="Selecione pelo menos 2 itens"
+                    required
+                    >
+                Banana
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input
+                    type="checkbox"
+                    value="Pera"
+                    name="fruits[]"
+                    data-atleast="2"
+                    data-error="Selecione pelo menos 2 itens"
+                    required
+                    >
+                Pera
+              </label>
+            </div>
+            <div class="checkbox">
+              <label>
+                <input
+                    type="checkbox"
+                    value="Uva"
+                    name="fruits[]"
+                    data-atleast="2"
+                    data-error="Selecione pelo menos 2 itens"
+                    required
+                    >
+                Uva
+              </label>
+            </div>
+            <div class="help-block with-errors"></div>
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Submit</button>

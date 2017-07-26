@@ -20,10 +20,10 @@
                             <a class="page-scroll" href="/components">Components</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#portfolio">Portfolio</a>
+                            <a class="page-scroll" href="/intec-icons">Ícones</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="#about">About</a>
+                            <a class="page-scroll" href="/validator">Validações</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="#team">Team</a>
@@ -37,7 +37,6 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-
         <!-- Header -->
         <header>
             <div class="container">
@@ -48,7 +47,6 @@
                 </div>
             </div>
         </header>
-
 <!-- Services Section -->
 <section id="services">
     <div class="container">

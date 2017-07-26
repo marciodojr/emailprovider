@@ -103,11 +103,29 @@ Inputmask = require('inputmask');
         placeholder: '0,00'
     }).mask($(".mask-money-no-currency"));
 
-    $(".intec-form-validator").validator({
+    var $formToValidate = $(".intec-form-validator");
+
+    $formToValidate.validator({
         feedback: {
             success: 'icon-check',
             error: 'icon-cross'
         }
-    })
+    });
+
+    $formToValidate.on("click",'.form-group input:checkbox',function(){
+        var $el = $(this);
+        if($el.attr('data-atleast')) {
+            var sameCheckbox = $el.attr('name');
+            var atLeast = $el.attr('data-atleast');
+            var count = $('input[name="' + sameCheckbox + '"]:checked').length;
+            console.log('atleast counter:', count);
+            var $notChecked = $('input[name="' + sameCheckbox + '"]:not(checked)');
+            if (count >= atLeast) {
+                $notChecked.prop('required', false);
+            } else {
+                $notChecked.prop('required', true);
+            }
+        }
+    });
 
 })(jQuery);
