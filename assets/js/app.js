@@ -1,8 +1,10 @@
 global.jQuery = $ = require('jquery');
 require('bootstrap-sass');
 require('bootstrap-validator');
-Query = require("jquery-easing");
+require("jquery-easing");
+// require('./lib/ajaxForm')($);
 Inputmask = require('inputmask');
+
 
 (function($){
     "use strict"; // Start of use strict

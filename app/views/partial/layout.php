@@ -72,9 +72,27 @@
                 </div>
             </div>
         </footer>
+
+        <div class="alert alert-feedback-fixed alert-dismissable alert-info">
+            <button type="button" class="close" data-dismiss="alert"><span class="icon-cross"></span></button>
+            <h4> <span class="icon-warning"></span> Oops!</h4>
+            <p id="alertFeedbackText">Parece que algo deu errado. Não se preocupe, te ajudaremos a encontrar o caminho <span class="icon-emoji-flirt"></span>.</p>
+        </div>
+
         <script type='text/javascript' src="/js/app.min.js"></script>
         <?php foreach ($this->scripts as $path): ?>
             <script type='text/javascript' src="<?php echo $path; ?>"></script>
         <?php endforeach; ?>
+
+        <?php if(IntecPhp\Model\Config::$GOOGLE_ANALYTICS_ID): ?>
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+              (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+              m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+              ga('create', '<?php echo IntecPhp\Model\Config::$GOOGLE_ANALYTICS_ID; ?>', 'auto');
+              ga('send', 'pageview');
+            </script>
+        <?php endif; ?>
     </body>
 </html>

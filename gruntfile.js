@@ -83,7 +83,7 @@ module.exports = function (grunt) {
                 tasks: ['sass:dist']
             },
             browserify: {
-                files: 'assets/js/**',
+                files: 'assets/js/*',
                 tasks: ['browserify:dist', 'uglify']
             },
 			copy: {

@@ -23,7 +23,6 @@ class DbHandler
     private function __construct()
     {
         try {
-
             $host = getenv('DB_HOST');
             $db = getenv('DB_NAME');
             $user = getenv('DB_USER');
@@ -41,7 +40,7 @@ class DbHandler
                 ]
             );
         } catch (\Exception $e) {
-            die("Erro na conexão com o banco de dados: ". $e->getMessage());
+            error_log($e->getMessage());
         }
     }
 

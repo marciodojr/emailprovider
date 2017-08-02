@@ -53,7 +53,7 @@ return [
         'middlewares' => [
             function($request) {
                 AuthenticationMiddleware::isAuthenticated($request);
-            }
+            },
         ],
         'callback' => function() {
             die('Acesso liberado');
