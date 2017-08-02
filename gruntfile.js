@@ -140,5 +140,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browser-sync');
 
     grunt.registerTask('dev', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
-    // grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
+    grunt.registerTask('build', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist']);
 };
