@@ -27,8 +27,7 @@
             <link href="<?php echo $href; ?>" rel="stylesheet" type="text/css">
         <?php endforeach; ?>
 
-        <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|PT+Sans|Fira+Mono" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,8 +72,8 @@
             </div>
         </footer>
 
-        <div class="alert alert-feedback-fixed alert-dismissable alert-info">
-            <button type="button" class="close" data-dismiss="alert"><span class="icon-cross"></span></button>
+        <div id="ajaxFormAlert" class="alert alert-feedback-fixed">
+            <button type="button" class="close" id="alert-close" data-toggle="alert"><span class="icon-cross"></span></button>
             <h4> <span class="icon-warning"></span> Oops!</h4>
             <p id="alertFeedbackText">Parece que algo deu errado. Não se preocupe, te ajudaremos a encontrar o caminho <span class="icon-emoji-flirt"></span>.</p>
         </div>

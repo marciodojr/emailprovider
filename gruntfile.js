@@ -106,11 +106,11 @@ module.exports = function (grunt) {
             dist: {
                 bsFiles: {
                     src: [
-                        'app/**/*.php',
                         'public/css/*',
                         'public/fonts/*',
                         'public/img/**',
-                        'public/js/*'
+                        'public/js/**',
+                        'app/**/*.php'
                     ]
                 },
                 options: {

@@ -23,6 +23,13 @@ return [
         },
     ],
     [
+        'pattern' => '/bootstrap',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout->render('home/bootstrap');
+        },
+    ],
+    [
         'pattern' => '/validator',
         'callback' => function() {
             $layout = new Layout();
@@ -30,12 +37,29 @@ return [
         },
     ],
     [
-        'pattern' => '/intec-icons',
+        'pattern' => '/icons',
         'callback' => function() {
             $layout = new Layout();
             $layout
                 ->addStylesheet('/css/icons.min.css')
                 ->render('home/icons');
+        }
+    ],
+    [
+        'pattern' => '/ajax-form',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout
+                ->render('home/ajax-form');
+        }
+    ],
+    [
+        'pattern' => '/ajax-form-submit',
+        'callback' => function() {
+            http_response_code(404);
+            echo json_encode([
+                'errorMessage' => 'O recurso solicitado não está mais disponível',
+            ]);
         }
     ],
 	[

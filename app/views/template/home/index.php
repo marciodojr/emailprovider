@@ -17,13 +17,10 @@
                             <a href="#page-top"></a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="/components">Components</a>
+                            <a class="page-scroll" href="/components">Componentes</a>
                         </li>
                         <li>
-                            <a class="page-scroll" href="/intec-icons">Ícones</a>
-                        </li>
-                        <li>
-                            <a class="page-scroll" href="/validator">Validações</a>
+                            <a class="page-scroll" href="#services">Services</a>
                         </li>
                         <li>
                             <a class="page-scroll" href="#team">Team</a>

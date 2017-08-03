@@ -5,7 +5,8 @@ $icon-font-path: '../fonts/';
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-$font-family-sans-serif:  'Poiret One', cursive !default;
+$heading-font:            'Roboto Slab';
+$font-family-sans-serif:  'PT Sans', cursive !default;
 $font-family-serif:       Georgia, "Times New Roman", Times, serif !default;
 //** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
 $font-family-monospace:   'Fira Mono', monospace !default;
@@ -32,11 +33,11 @@ $gray-light:             lighten($gray-base, 46.7%) !default; // #777
 $gray-lighter:           lighten($gray-base, 93.5%) !default; // #eee
 
 // Padrão de Cores
-$brand-primary:         darken(#e44b4e, 6.5%) !default; // #337ab7
+$brand-primary:         #303F9F !default;
 $brand-success:         #5cb85c !default;
 $brand-info:            #5bc0de !default;
 $brand-warning:         #f0ad4e !default;
-$brand-danger:          #424242 !default;
+$brand-danger:          #d9534f !default;
 
 // Padrão de borda arredondada
 $border-radius-base:        0px !default;
@@ -57,9 +58,32 @@ $state-warning-text:             #8a6d3b !default;
 $state-warning-bg:               #fcf8e3 !default;
 $state-warning-border:           darken(adjust-hue($state-warning-bg, -10), 5%) !default;
 
-$state-danger-text:              #141414 !default;
-$state-danger-bg:                #BDBDBD !default;
+$state-danger-text:              #a94442 !default;
+$state-danger-bg:                #f2dede !default;
 $state-danger-border:            darken(adjust-hue($state-danger-bg, -10), 5%) !default;
+
+
+//== Labels
+//
+//##
+
+//** Default label background color
+$label-default-bg:            $gray-light !default;
+//** Primary label background color
+$label-primary-bg:            $brand-primary !default;
+//** Success label background color
+$label-success-bg:            $brand-success !default;
+//** Info label background color
+$label-info-bg:               $brand-info !default;
+//** Warning label background color
+$label-warning-bg:            $brand-warning !default;
+//** Danger label background color
+$label-danger-bg:             $brand-danger !default;
+
+//** Default label text color
+$label-color:                 #fff !default;
+//** Default text color of a linked label
+$label-link-hover-color:      #fff !default;
 
 
 // Navbar
@@ -90,7 +114,7 @@ $navbar-default-toggle-border-color:       #ddd !default;
 //=== Inverted navbar
 // Reset inverted navbar basics
 $navbar-inverse-color:                      lighten($gray-light, 15%) !default;
-$navbar-inverse-bg:                         darken($brand-danger, 20%) !default;
+$navbar-inverse-bg:                         darken($gray-darker, 20%) !default;
 $navbar-inverse-border:                     darken($navbar-inverse-bg, 30%) !default;
 
 // Inverted navbar links
