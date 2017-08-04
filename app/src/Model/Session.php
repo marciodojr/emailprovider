@@ -11,6 +11,11 @@ class Session
     // Construtor privado: só a própria classe pode invocá-lo
     private function __construct()
     {
+        self::start();
+    }
+
+    public static function start()
+    {
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
         }
