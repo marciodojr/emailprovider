@@ -12,3 +12,5 @@ node_modules/
 /composer.lock
 /app/config/config.local.php
 package-lock.json
+error.log
+access.log
