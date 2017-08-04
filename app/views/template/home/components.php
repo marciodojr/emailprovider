@@ -24,5 +24,11 @@
                 <h3>Resposta de Formulários</h3>
             </a>
         </div>
+        <div class="col-md-4">
+            <a href="/facebook/pages">
+                <i class="fa fa-facebook fa-5x"></i> <br>
+                <h3>Facebook Pages</h3>
+            </a>
+        </div>
     </div>
 </section>

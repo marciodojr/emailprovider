@@ -18,6 +18,11 @@ class Config
     public static $PROJECT_NAME;
     public static $GOOGLE_ANALYTICS_ID;
 
+    // facebook app
+    public static $FACEBOOK_APP_ID;
+    public static $FACEBOOK_APP_SECRET;
+    public static $FACEBOOK_API_VERSION;
+
     // public static $USER_PHOTO_PATH;
     // public static $DEFAULT_PHOTO;
 
@@ -67,6 +72,10 @@ class Config
         self::$PROJECT_ID = getenv('PROJECT_ID');
         self::$PROJECT_NAME = getenv('PROJECT_NAME');
         self::$GOOGLE_ANALYTICS_ID = getenv('GOOGLE_ANALYTICS_ID');
+
+        self::$FACEBOOK_APP_ID = getenv('FACEBOOK_APP_ID');
+        self::$FACEBOOK_APP_SECRET = getenv('FACEBOOK_APP_SECRET');
+        self::$FACEBOOK_API_VERSION = getenv('FACEBOOK_API_VERSION');
 
         // self::$USER_PHOTO_PATH = getenv('USER_PHOTO_PATH');
         // self::$DEFAULT_PHOTO = getenv('DEFAULT_PHOTO');

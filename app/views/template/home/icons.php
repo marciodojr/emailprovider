@@ -1,3 +1,5 @@
+<section>
+<div class="container">
     <h3 class="text-center">Ícones</h3>    <div class="clearfix mhl ptl">
         <div class="container">
             <div class="bgc1 clearfix">
@@ -6581,3 +6583,5 @@
             </div>
         </div>
         </div>
+</div>
+</section>

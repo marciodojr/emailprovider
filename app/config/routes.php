@@ -96,5 +96,20 @@ return [
             $layout = new Layout();
             $layout->render('home/403');
         }
-    ]
+    ],
+    [
+        'pattern' => '/facebook/pages',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout
+                ->addScript('/js/facebookPages.min.js')
+                ->render('facebook/pages', Controller\FacebookController::page());
+        }
+    ],
+    [
+        'pattern' => '/facebook/requestPageAccessToken',
+        'callback' => function() {
+            Controller\FacebookController::requestPageAccessToken();
+        }
+    ],
 ];
