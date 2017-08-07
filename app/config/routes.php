@@ -10,9 +10,7 @@ return [
         'pattern' => '(/|/index|/home)',
         'callback' => function() {
             $layout = new Layout();
-            $layout
-
-                ->render('home/index');
+            $layout->render('home/home');
         },
     ],
     [
@@ -110,6 +108,21 @@ return [
         'pattern' => '/facebook/requestPageAccessToken',
         'callback' => function() {
             Controller\FacebookController::requestPageAccessToken();
+        }
+    ],
+    [
+        'pattern' => '/facebook/page',
+        'callback' => function() {
+            $layout = new Layout();
+            $layout
+                ->addScript('/js/facebookPages.min.js')
+                ->render('facebook/page', Controller\FacebookController::page());
+        }
+    ],
+    [
+        'pattern' => '/facebook/page/([a-zA-Z0-9]+)',
+        'callback' => function($request) {
+            Controller\FacebookController::getUserInfo($request);
         }
     ],
 ];

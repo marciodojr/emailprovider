@@ -5,6 +5,8 @@ namespace IntecPhp\Controller;
 
 
 use IntecPhp\Model\FacebookHandler;
+use IntecPhp\Model\Config;
+use Intec\Router\Request;
 
 class FacebookController
 {
@@ -12,10 +14,9 @@ class FacebookController
     public static function page()
     {
         $fbHandler = new FacebookHandler();
-        $accessToken = $fbHandler->getAccessToken();
 
         return [
-            'accessToken' => $accessToken
+            'accessToken' => $fbHandler->getAccessToken()
         ];
     }
 
@@ -27,6 +28,16 @@ class FacebookController
         echo json_encode([
             'url' => $url
         ]);
+    }
+
+    public static function getUserInfo(Request $request)
+    {
+        $userId = $request->getUrlParams()[0];
+
+        $fbHandler = new FacebookHandler();
+        $userGraphData = $fbHandler->getUserInfo($userId);
+
+        var_dump($userGraphData);
     }
 
 }

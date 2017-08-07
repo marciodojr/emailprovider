@@ -38,6 +38,11 @@ class FacebookHandler
 
     public function getAccessToken()
     {
+
+        if(Config::$MODE === Config::MODE_DEV) {
+            return Config::$FACEBOOK_ACCESS_TOKEN;
+        }
+
         $helper = $this->fb->getRedirectLoginHelper();
 
         try {
@@ -54,8 +59,13 @@ class FacebookHandler
         }
     }
 
-    public function getPageInfo($pageId, $accessToken)
+    public function getPageInfo($pageId, $accessToken = null)
     {
+
+        if(!$accessToken) {
+            $accessToken = $this->getAccessToken();
+        }
+
         $request = new FacebookRequest(
           $this->fbApp,
           $accessToken,
@@ -65,6 +75,25 @@ class FacebookHandler
 
         $response = $request->execute();
         $graphObject = $response->getGraphObject();
+    }
+
+    public function getUserInfo($userId, $accessToken = null)
+    {
+        if(!$accessToken) {
+            $accessToken = $this->getAccessToken();
+        }
+
+        try {
+            $response = $this->fb->get('me?fields=id,accounts', $accessToken);
+            return $response->getGraphObject();
+
+        } catch(FacebookResponseException $e) {
+            echo 'Graph returned an error: ' . $e->getMessage();
+            exit;
+        } catch(FacebookSDKException $e) {
+            echo 'Facebook SDK returned an error: ' . $e->getMessage();
+            exit;
+        }
     }
 
     public static function permissionsForPages()

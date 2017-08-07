@@ -3,3 +3,13 @@ $("#requestAccessToken").click(function(){
         location.href = response.url;
     });
 });
+
+$("#pageIdBtn").click(function(){
+    var pageId = $("#pageId").val();
+    if(pageId) {
+        console.log('click...', pageId);
+        $.getJSON('/facebook/page/' + pageId).then(function(response){
+            console.log('page', response);
+        });
+    }
+});
