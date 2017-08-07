@@ -27,8 +27,7 @@
             <link href="<?php echo $href; ?>" rel="stylesheet" type="text/css">
         <?php endforeach; ?>
 
-        <link href="https://fonts.googleapis.com/css?family=Poiret+One" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Fira+Mono" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab|PT+Sans|Fira+Mono" rel="stylesheet">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -40,6 +39,41 @@
     </head>
     <body id="page-top" class="index">
 
+                <!-- Navigation -->
+                <nav id="mainNav" class="navbar navbar-custom navbar-fixed-top">
+                    <div class="container">
+                        <!-- Brand and toggle get grouped for better mobile display -->
+                        <div class="navbar-header page-scroll">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                                <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                            </button>
+                            <a class="navbar-brand page-scroll" href="#page-top">PHP Start</a>
+                        </div>
+
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li class="hidden">
+                                    <a href="#page-top"></a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="/components">Componentes</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#services">Services</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#team">Team</a>
+                                </li>
+                                <li>
+                                    <a class="page-scroll" href="#contact">Contact</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
         <?php
         if(is_array($resp)) extract($resp);
         require_once 'app/views/template/' . $page . '.php';
@@ -73,8 +107,8 @@
             </div>
         </footer>
 
-        <div class="alert alert-feedback-fixed alert-dismissable alert-info">
-            <button type="button" class="close" data-dismiss="alert"><span class="icon-cross"></span></button>
+        <div id="ajaxFormAlert" class="alert alert-feedback-fixed">
+            <button type="button" class="close" id="alert-close" data-toggle="alert"><span class="icon-cross"></span></button>
             <h4> <span class="icon-warning"></span> Oops!</h4>
             <p id="alertFeedbackText">Parece que algo deu errado. Não se preocupe, te ajudaremos a encontrar o caminho <span class="icon-emoji-flirt"></span>.</p>
         </div>

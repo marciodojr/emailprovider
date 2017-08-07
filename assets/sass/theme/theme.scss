@@ -39,7 +39,7 @@ a.active {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    @include heading-font;
+    font-family: $heading-font;
     font-weight: 700;
 }
 
@@ -76,7 +76,7 @@ h1, h2, h3, h4, h5, h6 {
     .navbar-toggle {
         background-color: inherit;
         border-color: $brand-primary;
-        // @include heading-font;
+        // font-family: $heading-font;
         color: white;
         &:hover {
             background-color: $brand-primary;
@@ -85,7 +85,7 @@ h1, h2, h3, h4, h5, h6 {
     .nav {
         li {
             a {
-                // @include heading-font;
+                // font-family: $heading-font;
                 font-weight: 400;
                 letter-spacing: 1px;
                 color: white;
@@ -161,7 +161,7 @@ header {
             margin-bottom: 25px;
         }
         .intro-heading {
-            @include heading-font;
+            font-family: $heading-font;
             font-weight: 700;
             font-size: 50px;
             line-height: 50px;
@@ -183,7 +183,7 @@ header {
                 margin-bottom: 25px;
             }
             .intro-heading {
-                @include heading-font;
+                font-family: $heading-font;
                 font-weight: 700;
                 font-size: 75px;
                 line-height: 75px;
@@ -536,22 +536,22 @@ section#contact {
         box-shadow: none;
     }
     ::-webkit-input-placeholder {
-       @include heading-font;
+       font-family: $heading-font;
        font-weight: 700;
        color: $gray-light;
     }
     :-moz-placeholder { /* Firefox 18- */
-       @include heading-font;
+       font-family: $heading-font;
        font-weight: 700;
        color: $gray-light;
     }
     ::-moz-placeholder {  /* Firefox 19+ */
-       @include heading-font;
+       font-family: $heading-font;
        font-weight: 700;
        color: $gray-light;
     }
     :-ms-input-placeholder {
-       @include heading-font;
+       font-family: $heading-font;
        font-weight: 700;
        color: $gray-light;
     }
@@ -567,13 +567,13 @@ footer {
     text-align: center;
     span.copyright {
         line-height: 40px;
-        @include heading-font;
+        font-family: $heading-font;
         text-transform: none;
     }
     ul.quicklinks {
         margin-bottom: 0;
         line-height: 40px;
-        @include heading-font;
+        font-family: $heading-font;
         text-transform: none;
     }
 }
@@ -693,24 +693,24 @@ ul.social-buttons {
 
 ::-moz-selection {
     text-shadow: none;
-    background: $gray-light;
-    color: $gray-lighter;
+    background: darken($gray-lighter, 7%);
+    color: $gray-dark;
 }
 
 ::selection {
     text-shadow: none;
-    background: $gray-light;
-    color: $gray-lighter;
+    background: darken($gray-lighter, 7%);
+    color: $gray-dark;
 }
 
 img::selection {
     background: transparent;
-    color: $gray-lighter;
+    color: $gray-dark;
 }
 
 img::-moz-selection {
     background: transparent;
-    color: $gray-lighter;
+    color: $gray-dark;
 }
 
 body {

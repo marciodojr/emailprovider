@@ -2,7 +2,7 @@ global.jQuery = $ = require('jquery');
 require('bootstrap-sass');
 require('bootstrap-validator');
 require("jquery-easing");
-// require('./lib/ajaxForm')($);
+ajaxForm = require('./lib/ajaxForm')($);
 Inputmask = require('inputmask');
 
 
@@ -130,4 +130,8 @@ Inputmask = require('inputmask');
         }
     });
 
+    $("").find('.close').click(function(){
+
+    });
+    ajaxForm.init('.intec-ajax-form');
 })(jQuery);

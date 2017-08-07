@@ -106,11 +106,11 @@ module.exports = function (grunt) {
             dist: {
                 bsFiles: {
                     src: [
-                        'app/**/*.php',
                         'public/css/*',
                         'public/fonts/*',
                         'public/img/**',
-                        'public/js/*'
+                        'public/js/**',
+                        'app/**/*.php'
                     ]
                 },
                 options: {
@@ -140,5 +140,5 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browser-sync');
 
     grunt.registerTask('dev', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
-    // grunt.registerTask('production', ['clean', 'browserify', 'uglify', 'copy', 'sass:dist']);
+    grunt.registerTask('build', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist']);
 };
