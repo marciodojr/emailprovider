@@ -1,6 +1,9 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        clean: ['public/css/*.min.css', 'public/img/', 'public/js/*.min.js'],
+        clean: {
+            build: ['public/css/*.min.css', 'public/img/', 'public/js/*.min.js'],
+            release: ['public/pjs/']
+        },
         browserify: {
             dist: {
                 files: [{
@@ -139,6 +142,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
 
-    grunt.registerTask('dev', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
-    grunt.registerTask('build', ['clean', 'browserify:dist', 'uglify', 'copy', 'sass:dist']);
+    grunt.registerTask('dev', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
+    grunt.registerTask('build', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'clean:release']);
 };
