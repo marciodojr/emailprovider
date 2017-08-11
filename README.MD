@@ -11,8 +11,8 @@ Obs: é possível que seja necessário instalar o pacote **rub-compass** para ut
 ```
 npm install
 npm install grunt-cli -g
-npm install grunt grunt-contrib-clean grunt-contrib-watch grunt-contrib-copy grunt-rework grunt-browserify grunt-contrib-sass grunt-contrib-uglify grunt-php \
-grunt-browser-sync --save-dev
+npm install grunt grunt-contrib-clean grunt-contrib-watch grunt-contrib-copy grunt-rework grunt-browserify grunt-contrib-sass \
+grunt-contrib-uglify grunt-php grunt-newer grunt-browser-sync --save-dev
 ```
 
 ## Criar um arquivo de configuração local **app/config/config.local.php**
@@ -31,7 +31,7 @@ putenv('DB_CHARSET=utf8');
  - [x] Moment
  - [x] FontAwesome
  - [x] Entypo Plus
- - [] Mask
+ - [x] Mask
 
 # Como desenvolver
   - Abra o terminal na pasta raiz e digite `grunt dev`
