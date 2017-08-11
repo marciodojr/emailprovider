@@ -31,7 +31,7 @@ putenv('DB_CHARSET=utf8');
  - [x] Moment
  - [x] FontAwesome
  - [x] Entypo Plus
- - [] Mask
+ - [x] Mask
 
 # Como desenvolver
   - Abra o terminal na pasta raiz e digite `grunt dev`
