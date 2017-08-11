@@ -83,15 +83,15 @@ module.exports = function (grunt) {
         watch: {
             sass: {
                 files: 'assets/sass/**',
-                tasks: ['sass:dist']
+                tasks: ['newer:sass:dist']
             },
             browserify: {
                 files: 'assets/js/*',
-                tasks: ['browserify:dist', 'uglify']
+                tasks: ['newer:browserify:dist', 'newer:uglify']
             },
 			copy: {
 				files: 'assets/img/**',
-				tasks: ['copy:images', 'copy:fonts']
+				tasks: ['newer:copy:images', 'newer:copy:fonts']
 			}
         },
         php: {
@@ -141,6 +141,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
+    grunt.loadNpmTasks('grunt-newer');
 
     grunt.registerTask('dev', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
     grunt.registerTask('build', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'clean:release']);
