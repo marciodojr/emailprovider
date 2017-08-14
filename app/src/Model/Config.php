@@ -5,7 +5,7 @@ namespace IntecPhp\Model;
 /**
  * Define constantes da aplicação
  *
- * @author intec
+ * @mstile-150x150author intec
  */
 class Config
 {
@@ -24,6 +24,16 @@ class Config
     public static $FACEBOOK_API_VERSION;
     public static $FACEBOOK_ACCESS_TOKEN;
     public static $MODE;
+
+    public static $META_KEYWORDS;
+    public static $META_AUTHOR;
+    public static $META_DESCRIPTION;
+    public static $META_PHOTO;
+    public static $META_NAME;
+
+    public static $TITLE;
+
+    public static $BLACK_LISTED_IPS;
 
     const MODE_DEV = 'dev';
     const MODE_PROD = 'prod';
@@ -83,44 +93,16 @@ class Config
         self::$FACEBOOK_API_VERSION = getenv('FACEBOOK_API_VERSION');
         self::$FACEBOOK_ACCESS_TOKEN = getenv('FACEBOOK_ACCESS_TOKEN');
 
+        self::$META_KEYWORDS = getenv('META_KEYWORDS');
+        self::$META_AUTHOR = getenv('META_AUTHOR');
+        self::$META_DESCRIPTION = getenv('META_DESCRIPTION');
+        self::$META_PHOTO = getenv('META_PHOTO');
+        self::$META_NAME = getenv('META_NAME');
+        self::$TITLE = getenv('TITLE');
+
         self::$MODE = getenv('MODE');
 
-        // self::$USER_PHOTO_PATH = getenv('USER_PHOTO_PATH');
-        // self::$DEFAULT_PHOTO = getenv('DEFAULT_PHOTO');
-
-        // para email
-        // self::$SMTP_SERVER = getenv('SMTP_SERVER');
-        // self::$SMTP_PORT = getenv('SMTP_PORT');
-        // self::$EMAIL = getenv('EMAIL');
-        // self::$EMAIL_PASS = getenv('EMAIL_PASS');
-        // self::$EMAIL_NAME = getenv('EMAIL_NAME');
-        // self::$EMAIL_FROM = getenv('EMAIL_FROM');
-        // self::$EMAIL_BCC_NAME = getenv('EMAIL_BCC_NAME');
-        // self::$EMAIL_BCC_EMAIL = getenv('EMAIL_BCC_EMAIL');
-        // self::$EMAIL_SUBJECT_PREFIX = getenv('EMAIL_SUBJECT_PREFIX');
-        // self::$SMTP_SSL = getenv('SMTP_SSL');
-
-        // self::$SALT = getenv('SALT');
-        // self::$GOOGLE_MAPS_API_KEY = getenv('GOOGLE_MAPS_API_KEY');
-        // self::$BLACK_LISTED_IPS = getenv('BLACK_LISTED_IPS');
-        // self::$MIN_PASSWORD_LENGTH = getenv('MIN_PASSWORD_LENGTH');
-        // self::$MOIP_SANDBOX_APP_ID = getenv('MOIP_SANDBOX_APP_ID');
-        // self::$MOIP_SANDBOX_ACCESS_TOKEN = getenv('MOIP_SANDBOX_ACCESS_TOKEN');
-        // self::$MOIP_SANDBOX_SECRET = getenv('MOIP_SANDBOX_SECRET');
-        // self::$MOIP_SANDBOX_TOKEN = getenv('MOIP_SANDBOX_TOKEN');
-        // self::$MOIP_SANDBOX_KEY = getenv('MOIP_SANDBOX_KEY');
-        // self::$MOIP_PRODUCTION_APP_ID = getenv('MOIP_PRODUCTION_APP_ID');
-        // self::$MOIP_PRODUCTION_ACCESS_TOKEN = getenv('MOIP_PRODUCTION_ACCESS_TOKEN');
-        // self::$MOIP_PRODUCTION_TOKEN = getenv('MOIP_PRODUCTION_TOKEN');
-        // self::$MOIP_PRODUCTION_KEY = getenv('MOIP_PRODUCTION_KEY');
-        // self::$MOIP_PRODUCTION_DESCRIPTION = getenv('MOIP_PRODUCTION_DESCRIPTION');
-        // self::$MOIP_PRODUCTION_SECRET = getenv('MOIP_PRODUCTION_SECRET');
-        // self::$MOIP_REDIRECT_URI = getenv('MOIP_REDIRECT_URI');
-        // self::$LOGO_IMG = getenv('LOGO_IMG');
-        // self::$PAYMENT_NOTIFICATIONS_URI = getenv('PAYMENT_NOTIFICATIONS_URI');
-        // self::$PAYMENT_DESCRIPTION = getenv('PAYMENT_DESCRIPTION');
-        // self::$PLATAFORM_PERCENTUAL = getenv('PLATAFORM_PERCENTUAL');
-        // self::$PRODUCT_DESCRIPTION = getenv('PRODUCT_DESCRIPTION');
+        self::$BLACK_LISTED_IPS = getenv('BLACK_LISTED_IPS');
     }
 
     public function setConfig($config1, $config2 = [])
@@ -148,7 +130,7 @@ class Config
 
     public static function isProduction()
     {
-        return !preg_match('/teste|lan|localhost/', self::getDomain());
+        return self::$MODE === self::MODE_PROD;
     }
 
     public static function notBlacklisted($ip = null)
@@ -159,5 +141,10 @@ class Config
         }
 
         return strstr($ip, self::$BLACK_LISTED_IPS) === false;
+    }
+
+    public static function getMetaPhotoUrl()
+    {
+        return self::getDomain(self::$META_PHOTO);
     }
 }

@@ -2,6 +2,9 @@
 
 namespace IntecPhp\View;
 
+
+use IntecPhp\Model\Config;
+
 /**
  * Description of Layout
  *
@@ -12,17 +15,20 @@ class Layout
 
     private $stylesheets;
     private $scripts;
-    private $metaKeywords = "keyword1, keyword2";
-    private $metaDescription = "Meta description ...";
-    private $metaAuthor = 'Author';
+    private $metaKeywords;
+    private $metaDescription;
+    private $metaAuthor;
+
     private $metaOgDataArray = [
-        'name' => 'Meta Og Name',
-        'photo_url' => 'http://0.0.0.0:3000/assets/img/favicon.png',
-        'url' => 'http://0.0.0.0:3000',
-        'description' => 'Meta Og description ...'
+        'name' => '',
+        'photo_url' => '',
+        'url' => '',
+        'description' => ''
     ];
+
+    private $title = '';
+
     private $contentId;
-    private $title = "Intec Project Starter Pack";
     private $layout;
     private $renderLayout = true;
 
@@ -33,6 +39,19 @@ class Layout
         $this->stylesheets = $stylesheets;
         $this->scripts = $scripts;
         $this->layout = self::DEFAULT_LAYOUT;
+
+        $this->metaKeywords = Config::$META_KEYWORDS;
+        $this->metaDescription = Config::$META_DESCRIPTION;
+        $this->metaAuthor = Config::$META_AUTHOR;
+
+        $this->metaOgDataArray = [
+            'name' => Config::$META_NAME,
+            'photo_url' => Config::getMetaPhotoUrl(),
+            'url' => Config::getDomain(),
+            'description' => Config::$META_DESCRIPTION
+        ];
+
+        $this->title = Config::$TITLE;
     }
 
     public function setLayout($layout)

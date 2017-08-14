@@ -15,17 +15,42 @@ npm install grunt grunt-contrib-clean grunt-contrib-watch grunt-contrib-copy gru
 grunt-contrib-uglify grunt-php grunt-newer grunt-browser-sync --save-dev
 ```
 
+## Gerar o conjunto de favicons em http://realfavicongenerator.net/
+
 ## Criar um arquivo de configuração local **app/config/config.local.php**
 Ex:
 ```.php
 <?php
-putenv('MODE=DEV');
+putenv('MODE=dev');
+
+// Database
 putenv('DB_HOST=localhost');
 putenv('DB_NAME=phpstart');
 putenv('DB_USER=root');
 putenv('DB_PASS=root');
-putenv('DB_CHARSET=utf8');
+putenv('DB_CHARSET=utf8mb4');
+
+putenv("PROJECT_ID=phpstart");
+putenv("PROJECT_NAME=PhpStart");
+putenv("GOOGLE_ANALYTICS_ID=");
+
+// Facebook
+putenv("FACEBOOK_APP_ID=");
+putenv("FACEBOOK_APP_SECRET=");
+putenv("FACEBOOK_API_VERSION=");
+
+// Layout
+putenv('META_KEYWORDS=Php, composer, grunt, npm, projeto inicial');
+putenv('META_AUTHOR=');
+putenv('META_DESCRIPTION=Projeto Inicial');
+putenv('META_PHOTO=/img/phpstart.png');
+putenv('META_NAME=Php Start');
+
+putenv('TITLE=PhpStart');
+
+putenv('BLACK_LISTED_IPS=179.108.');
 ```
+
 # Bibliotecas base
  - [x] Bootstrap
  - [x] Moment
@@ -35,3 +60,6 @@ putenv('DB_CHARSET=utf8');
 
 # Como desenvolver
   - Abra o terminal na pasta raiz e digite `grunt dev`
+
+# Deploy
+    - `grunt build`
