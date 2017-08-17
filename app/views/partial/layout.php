@@ -16,7 +16,7 @@
         <meta prefix="og: http://ogp.me/ns#" property="og:image:height" content="300"/>
         <meta prefix="og: http://ogp.me/ns#" property="og:image" content="<?php echo $this->metaOgDataArray['photo_url']; ?>" />
         <meta prefix="og: http://ogp.me/ns#" property="og:url" content="<?php echo $this->metaOgDataArray['url']; ?>" />
-        <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="LibrasSAC"/>
+        <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="<?php echo $this->metaOgDataArray['name']; ?>"/>
         <meta prefix="og: http://ogp.me/ns#" property="og:description" content="<?php echo $this->metaOgDataArray['description']; ?>" />
         <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website"/>
 
