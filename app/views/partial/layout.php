@@ -86,6 +86,15 @@
                     </div>
                     <!-- /.container-fluid -->
                 </nav>
+                <header>
+                    <div class="container">
+                        <div class="intro-text">
+                            <div class="intro-lead-in">Welcome To Our Studio!</div>
+                            <div class="intro-heading">It's Nice To Meet You</div>
+                            <a href="#services" class="page-scroll btn btn-primary btn-lg">Tell Me More</a>
+                        </div>
+                    </div>
+                </header>
         <?php
         if(is_array($resp)) extract($resp);
         require_once 'app/views/template/' . $page . '.php';
