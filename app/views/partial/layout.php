@@ -16,7 +16,7 @@
         <meta prefix="og: http://ogp.me/ns#" property="og:image:height" content="300"/>
         <meta prefix="og: http://ogp.me/ns#" property="og:image" content="<?php echo $this->metaOgDataArray['photo_url']; ?>" />
         <meta prefix="og: http://ogp.me/ns#" property="og:url" content="<?php echo $this->metaOgDataArray['url']; ?>" />
-        <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="LibrasSAC"/>
+        <meta prefix="og: http://ogp.me/ns#" property="og:site_name" content="<?php echo $this->metaOgDataArray['name']; ?>"/>
         <meta prefix="og: http://ogp.me/ns#" property="og:description" content="<?php echo $this->metaOgDataArray['description']; ?>" />
         <meta prefix="og: http://ogp.me/ns#" property="og:type" content="website"/>
 
@@ -86,6 +86,15 @@
                     </div>
                     <!-- /.container-fluid -->
                 </nav>
+                <header>
+                    <div class="container">
+                        <div class="intro-text">
+                            <div class="intro-lead-in">Welcome To Our Studio!</div>
+                            <div class="intro-heading">It's Nice To Meet You</div>
+                            <a href="#services" class="page-scroll btn btn-primary btn-lg">Tell Me More</a>
+                        </div>
+                    </div>
+                </header>
         <?php
         if(is_array($resp)) extract($resp);
         require_once 'app/views/template/' . $page . '.php';
