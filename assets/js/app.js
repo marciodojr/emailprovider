@@ -130,8 +130,8 @@ Inputmask = require('inputmask');
         }
     });
 
-    $("").find('.close').click(function(){
-
+    $("#ajaxFormAlert").on('click', '.close', function(){
+        $(this).closest("#ajaxFormAlert").hide();
     });
     ajaxForm.init('.intec-ajax-form');
 })(jQuery);
