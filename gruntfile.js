@@ -97,7 +97,7 @@ module.exports = function (grunt) {
         php: {
             dist: {
                 options: {
-                    hostname: '0.0.0.0',
+                    hostname: 'localhost',
                     base: 'public',
                     port: 3000,
                     keepAlive: false,
