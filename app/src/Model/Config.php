@@ -115,6 +115,10 @@ class Config
         if (empty(self::$domain)) {
             self::$domain = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
         }
+        
+        if($_SERVER['SERVER_PORT'] !== 80 && $_SERVER['SERVER_PORT'] !== 443) {
+            self::$domain .= ':' . $_SERVER['SERVER_PORT'];
+        }
 
         return self::$domain . $suffix;
     }
