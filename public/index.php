@@ -12,14 +12,26 @@ if (file_exists($localConfigFile)) {
     require_once $localConfigFile;
 }
 
-$loader = include './vendor/autoload.php';
+include './vendor/autoload.php';
 
 use IntecPhp\Model\Config;
 use Intec\Router\SimpleRouter;
-Use IntecPhp\Model\Session;
+use Intec\Tracker\Middleware\TrackerMiddleware;
+use IntecPhp\Middleware\HttpMiddleware;
 
-Session::start();
 Config::init();
+SimpleRouter::setDefaultMiddlewares([function($request) {
+    TrackerMiddleware::userTracker($request);
+}]);
 
 SimpleRouter::setRoutes(require 'app/config/routes.php');
+
+SimpleRouter::setNotFoundFallback(function($request){
+    HttpMiddleware::pageNotFound($request);
+});
+
+SimpleRouter::setErrorFallback(function($request, $err){
+    HttpMiddleware::fatalError($request, $err);
+});
+
 SimpleRouter::match($_SERVER['REQUEST_URI']);

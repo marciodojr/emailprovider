@@ -3,7 +3,7 @@
 namespace IntecPhp;
 
 use IntecPhp\View\Layout;
-use IntecPhp\Model\AuthenticationMiddleware;
+use IntecPhp\Middleware\AuthenticationMiddleware;
 
 return [
     [
@@ -80,20 +80,6 @@ return [
         'callback' => function() {
             die('Acesso liberado');
         },
-    ],
-    [
-        'pattern' => '/404',
-        'callback' => function() {
-            $layout = new Layout();
-            $layout->render('home/404');
-        }
-    ],
-    [
-        'pattern' => '/403',
-        'callback' => function() {
-            $layout = new Layout();
-            $layout->render('home/403');
-        }
     ],
     [
         'pattern' => '/facebook/pages',

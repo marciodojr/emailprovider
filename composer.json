@@ -12,6 +12,8 @@
     "minimum-stability": "dev",
     "require": {
         "intec/simple-router": "dev-master",
+        "intec/session": "dev-master",
+        "intec/tracker": "dev-master",
         "facebook/graph-sdk": "5.x-dev"
     },
     "autoload": {
