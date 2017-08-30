@@ -20,9 +20,6 @@ use Intec\Tracker\Middleware\TrackerMiddleware;
 use IntecPhp\Middleware\HttpMiddleware;
 
 Config::init();
-SimpleRouter::setDefaultMiddlewares([function($request) {
-    TrackerMiddleware::userTracker($request);
-}]);
 
 SimpleRouter::setRoutes(require 'app/config/routes.php');
 
