@@ -130,6 +130,17 @@ module.exports = function (grunt) {
                     }
                 }
             }
+        },
+        newer: {
+          options: {
+            override: function(detail, include) {
+                if (detail.task === "sass" || detail.task === "browserify") {
+                    include(true);
+                } else {
+                    include(false);
+                }
+            }
+          }
         }
     });
 
