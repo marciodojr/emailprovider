@@ -13,6 +13,15 @@ module.exports = function (grunt) {
                     dest: 'public/pjs',  // Destination folder
                     ext: '.js',         // Dest filepaths will have this extension.
                 }]
+            },
+			dev: {
+                files: [{
+                    expand: true,       // Enable dynamic expansion.
+                    cwd: 'assets/js/',  // Source Path
+                    src: ['*.js'],      // Actual pattern(s) to match.
+                    dest: 'public/js',  // Destination folder
+                    ext: '.min.js',         // Dest filepaths will have this extension.
+                }]
             }
         },
         uglify: {
@@ -32,20 +41,6 @@ module.exports = function (grunt) {
             }
         },
         sass: {
-            // this is the "dev" Sass config used with "grunt watch" command
-            // dev: {
-            //     options: {
-            //         style: 'expanded',
-            //         // tell Sass to look in the Bootstrap stylesheets directory when compiling,
-            //         // it is also possible to use an array.
-            //         loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
-            //     },
-            //     files: {
-            //         // the first path is the output and the second is the input
-            //         'css/index.css': 'assets/sass/index.scss'
-            //     }
-            // },
-            // this is the "production" Sass config used with the "grunt buildcss" command
             dist: {
                 options: {
                     style: 'compressed',
@@ -87,7 +82,7 @@ module.exports = function (grunt) {
             },
             browserify: {
                 files: 'assets/js/*',
-                tasks: ['newer:browserify:dist', 'newer:uglify']
+                tasks: ['newer:browserify:dev']
             },
 			copy: {
 				files: 'assets/img/**',
@@ -97,9 +92,10 @@ module.exports = function (grunt) {
         php: {
             dist: {
                 options: {
+                    bin: '/usr/bin/php',
                     hostname: 'localhost',
-                    base: 'public',
                     port: 3000,
+                    base: 'public',
                     keepAlive: false,
                     open: false
                 }
@@ -134,7 +130,7 @@ module.exports = function (grunt) {
         newer: {
           options: {
             override: function(detail, include) {
-                if (detail.task === "sass" || detail.task === "browserify") {
+                if (detail.task === "sass") {
                     include(true);
                 } else {
                     include(false);
@@ -153,7 +149,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-newer');
-
-    grunt.registerTask('dev', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
+    grunt.registerTask('dev', ['clean:build', 'browserify:dev', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
     grunt.registerTask('build', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'clean:release']);
 };
