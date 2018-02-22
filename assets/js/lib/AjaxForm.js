@@ -1,6 +1,6 @@
 
-function AjaxForm($) {
-    this.$ = $;
+function AjaxForm() {
+
 }
 
 
@@ -69,8 +69,4 @@ AjaxForm.prototype.init = function(form) {
     });
 }
 
-function createInstance($) {
-    return new AjaxForm($);
-}
-
-module.exports = createInstance;
+module.exports = AjaxForm;
