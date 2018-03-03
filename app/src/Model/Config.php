@@ -42,16 +42,16 @@ class Config
     // public static $DEFAULT_PHOTO;
 
     // para email
-    // public static $SMTP_SERVER;
-    // public static $SMTP_PORT;
-    // public static $EMAIL;
-    // public static $EMAIL_PASS;
-    // public static $EMAIL_NAME;
-    // public static $EMAIL_FROM;
-    // public static $EMAIL_BCC_NAME;
-    // public static $EMAIL_BCC_EMAIL;
-    // public static $EMAIL_SUBJECT_PREFIX;
-    // public static $SMTP_SSL;
+    public static $SMTP_SERVER;
+    public static $SMTP_PORT;
+    public static $EMAIL;
+    public static $EMAIL_PASS;
+    public static $EMAIL_NAME;
+    public static $EMAIL_FROM;
+    public static $EMAIL_BCC_NAME;
+    public static $EMAIL_BCC_EMAIL;
+    public static $EMAIL_SUBJECT_PREFIX;
+    public static $SMTP_SSL;
 
     // public static $SALT;
     // public static $GOOGLE_MAPS_API_KEY;
@@ -100,6 +100,17 @@ class Config
         self::$META_NAME = getenv('META_NAME');
         self::$TITLE = getenv('TITLE');
 
+        self::$SMTP_SERVER = getenv('SMTP_SERVER');
+        self::$SMTP_PORT = getenv('SMTP_PORT');
+        self::$EMAIL = getenv('EMAIL');
+        self::$EMAIL_PASS = getenv('EMAIL_PASS');
+        self::$EMAIL_NAME = getenv('EMAIL_NAME');
+        self::$EMAIL_FROM = getenv('EMAIL_FROM');
+        self::$EMAIL_BCC_NAME = getenv('EMAIL_BCC_NAME');
+        self::$EMAIL_BCC_EMAIL = getenv('EMAIL_BCC_EMAIL');
+        self::$EMAIL_SUBJECT_PREFIX = getenv('EMAIL_SUBJECT_PREFIX');
+        self::$SMTP_SSL = getenv('SMTP_SSL');
+
         self::$MODE = getenv('MODE');
 
         self::$BLACK_LISTED_IPS = getenv('BLACK_LISTED_IPS');
@@ -115,7 +126,7 @@ class Config
         if (empty(self::$domain)) {
             self::$domain = (isset($_SERVER['HTTPS']) ? 'https://' : 'http://') . $_SERVER['SERVER_NAME'];
         }
-        
+
         if($_SERVER['SERVER_PORT'] !== 80 && $_SERVER['SERVER_PORT'] !== 443) {
             self::$domain .= ':' . $_SERVER['SERVER_PORT'];
         }

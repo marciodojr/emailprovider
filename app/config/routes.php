@@ -111,4 +111,10 @@ return [
             Controller\FacebookController::getUserInfo($request);
         }
     ],
+    [
+        'pattern' => '/notify',
+        'callback' => function($request) {
+            Controller\EmailController::simpleEmail($request);
+        }
+    ]
 ];
