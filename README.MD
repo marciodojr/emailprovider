@@ -19,7 +19,7 @@ grunt-contrib-uglify grunt-php grunt-newer grunt-browser-sync --save-dev
 
 ## Criar um arquivo de configuração local **app/config/config.local.php**
 Ex:
-```.php
+```php
 <?php
 putenv('MODE=dev');
 
@@ -48,7 +48,30 @@ putenv('META_NAME=Php Start');
 
 putenv('TITLE=PhpStart');
 
-putenv('BLACK_LISTED_IPS=179.108.');
+putenv('BLACK_LISTED_IPS=179.108.');// para email
+putenv("SMTP_SERVER=mail2.incluirtecnologia.com.br");
+putenv("SMTP_PORT=587");
+putenv("EMAIL=contato@incluirtecnologia.com.br");
+putenv("EMAIL_FROM=contato@incluirtecnologia.com.br");
+putenv("EMAIL_BCC_EMAIL=contato@incluirtecnologia.com.br");
+putenv("EMAIL_PASS=intec700");
+putenv("EMAIL_NAME=PhpStart");
+putenv("EMAIL_BCC_NAME=PhpStart");
+putenv("EMAIL_SUBJECT_PREFIX=[PhpStart]");
+putenv("SMTP_SSL=tls");
+
+// para email
+putenv("SMTP_SERVER=mail2.incluirtecnologia.com.br");
+putenv("SMTP_PORT=587");
+putenv("EMAIL=contato@incluirtecnologia.com.br");
+putenv("EMAIL_FROM=contato@incluirtecnologia.com.br");
+putenv("EMAIL_BCC_EMAIL=contato@incluirtecnologia.com.br");
+putenv("EMAIL_PASS=intec700");
+putenv("EMAIL_NAME=PhpStart");
+putenv("EMAIL_BCC_NAME=PhpStart");
+putenv("EMAIL_SUBJECT_PREFIX=[PhpStart]");
+putenv("SMTP_SSL=tls");
+
 ```
 
 # Bibliotecas base
