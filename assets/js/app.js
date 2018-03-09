@@ -5,7 +5,7 @@ AjaxForm = require('./lib/AjaxForm');
 Masks = require('./lib/Masks');
 FormValidator = require('./lib/FormValidator');
 ZipFinder = require('./lib/ZipFinder');
-global.FormFiller = require('./FormFiller');
+global.FormFiller = require('./lib/FormFiller');
 
 (function($){
     "use strict"; // Start of use strict
