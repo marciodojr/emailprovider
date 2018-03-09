@@ -13,6 +13,7 @@ FormValidator.V_PHONE = 'validatorPhone';
 FormValidator.V_ZIP = 'validatorZip';
 FormValidator.V_NUMERIC = 'validatorNumeric';
 FormValidator.V_AT_LEAST = 'validatorAtLeast';
+FormValidator.V_AT_MOST = 'validatorAtMost';
 
 
 FormValidator.checkCpf = function (str) {
@@ -90,6 +91,21 @@ FormValidator.hasAtLeast = function($el, numberSelected) {
     //@Todo implementar para multiselect
 }
 
+FormValidator.hasAtMost = function($el, numberSelected) {
+    var $formGroup = $el.closest('.form-group');
+
+    if($el.attr('type') == 'checkbox') {
+        var selecteds = $formGroup.find('input[name="'+$el.attr('name')+'"]').filter(':checked').length;
+        // console.log('blalalal', selecteds, numberSelected);
+
+        return selecteds <= numberSelected;
+    }
+
+
+    return false;
+    //@Todo implementar para multiselect
+}
+
 FormValidator.getElementErrorMessage = function ($el) {
 
     if(!$el.length) {
@@ -140,6 +156,8 @@ FormValidator.getElementErrorMessage = function ($el) {
             case FormValidator.V_AT_LEAST:
                 dontStop = FormValidator.hasAtLeast($el, value);
                 break;
+            case FormValidator.V_AT_MOST:
+                dontStop = FormValidator.hasAtMost($el, value);
         }
 
         if (!dontStop) {
@@ -264,14 +282,11 @@ FormValidator.setListeners = function ($form) {
         FormValidator.validateElement($(this), true);
     });
 
-    $alert = $("#formValidatorAlert");
-
     $form.on("ajaxForm:submitError", function (e, response) {
 
         if(!response || !response.data) {
             return;
         }
-
 
         // Server side field messages
         var keys = Object.keys(response.data);
@@ -283,16 +298,15 @@ FormValidator.setListeners = function ($form) {
         });
 
         // server side global message
-
         if (response.message) {
             text = response.message;
         }
 
-        $alert.removeClass('hidden');
-        $alert.find("#defaultAlertMessage").html(text);
-        setTimeout(function () {
-             $alert.addClass('hidden');
-        }, 10000);
+        PrettyAlerts.show({
+            type: 'danger',
+            dismissable: true,
+            message: text
+        });
     });
 
     $form.on('formValidator:revalidate', function(){

@@ -1,11 +1,10 @@
 var Inputmask = require('inputmask');
 
 function Masks() {
-
 }
 
 
-Masks.prototype.init = function() {
+Masks.init = function() {
     Inputmask({
       mask: ["999-999"],
       keepStatic: true,
@@ -46,20 +45,20 @@ Masks.prototype.init = function() {
         skipOptionalPartCharacter: ""
     }).mask($(".mask-cpf-cnpj"));
 
-    Inputmask({
-        mask: ["9", "99", "999"],
-        keepStatic: true,
-        skipOptionalPartCharacter: ""
-    }).mask($(".mask-bank-code"));
+    // Inputmask({
+    //     mask: ["9", "99", "999"],
+    //     keepStatic: true,
+    //     skipOptionalPartCharacter: ""
+    // }).mask($(".mask-bank-code"));
 
     Inputmask({
-        mask: ["9", "99", "999", "9999", "99999"],
+        mask: ["9999"],
         keepStatic: true,
         skipOptionalPartCharacter: ""
     }).mask($(".mask-bank-agency"));
 
     Inputmask({
-        mask: ["9", "99", "999", "9999", "99999", "999999", "9999999"],
+        mask: ["99", "999", "9999", "99999", "999999", "9999999", "99999999", "999999999", "9999999999", "99999999999", "99999999999", "99999999999" ],
         keepStatic: true,
         skipOptionalPartCharacter: ""
     }).mask($(".mask-bank-account"));
@@ -73,6 +72,11 @@ Masks.prototype.init = function() {
         mask: ["99/99/9999"],
         keepStatic: true
     }).mask($(".mask-date"));
+
+    Inputmask({
+        mask: ["99-99-9999"],
+        keepStatic: true
+    }).mask($(".mask-date-trace"));
 
     Inputmask('decimal',{
         radixPoint: ",",
@@ -101,15 +105,29 @@ Masks.prototype.init = function() {
         autoGroup: true,
         placeholder: '0'
     }).mask($(".mask-money-no-currency-no-cent"));
-}
 
-Masks.prototype.initVerificationCode = function(){
-  Inputmask({
-    mask: ["999-999"],
-    keepStatic: true,
-    skipOptionalPartCharacter: ""
-  }).mask($(".mask-verification-code"));
-}
+    $(".mask-at-most").on("change", "input[type=checkbox]", function(){
+        var $anchor = $(this);
+        var name = $anchor.attr('name');
+        var $atMost = $(this).closest('.mask-at-most');
+        var number = $atMost.attr('data-mask-at-most');
+        var isOk = $atMost.find("input[name=\""+name+"\"]").filter(":checked").length <= number;
 
+        console.log('asdasd ', $atMost.find("input[name=\""+name+"\"]").filter(":checked").length, number);
+
+        if(!isOk) {
+            if($anchor.is(":checked")) {
+                $anchor.prop("checked", false);
+                $anchor.trigger("change");
+            }
+        }
+    });
+
+    Inputmask({
+        mask: ["999-999"],
+        keepStatic: true,
+        skipOptionalPartCharacter: ""
+    }).mask($(".mask-verification-code"));
+}
 
 module.exports = Masks;
