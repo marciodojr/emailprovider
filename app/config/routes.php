@@ -17,13 +17,6 @@ return [
         'pattern' => '/components',
         'callback' => function() {
             $layout = new Layout();
-            $layout->render('home/components');
-        },
-    ],
-    [
-        'pattern' => '/bootstrap',
-        'callback' => function() {
-            $layout = new Layout();
             $layout->render('home/bootstrap');
         },
     ],
