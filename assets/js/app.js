@@ -43,6 +43,6 @@ global.FormFiller = require('./FormFiller');
 
     AjaxForm.init('.intec-ajax-form');
     Masks.init();
-    FormValidator.init();
+    FormValidator.init('.intec-form-validator');
 
 })(jQuery);
