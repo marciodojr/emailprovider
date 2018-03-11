@@ -6,6 +6,7 @@ Masks = require('./lib/Masks');
 FormValidator = require('./lib/FormValidator');
 ZipFinder = require('./lib/ZipFinder');
 global.FormFiller = require('./lib/FormFiller');
+global.PrettyAlerts = require('./lib/PrettyAlerts');
 
 (function($){
     "use strict"; // Start of use strict
@@ -41,6 +42,7 @@ global.FormFiller = require('./lib/FormFiller');
         $(this).closest("#ajaxFormAlert").hide();
     });
 
+    PrettyAlerts.init();
     AjaxForm.init('.intec-ajax-form');
     Masks.init();
     FormValidator.init('.intec-form-validator');

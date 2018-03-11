@@ -717,11 +717,11 @@ body {
     webkit-tap-highlight-color: $brand-primary;
 }
 
-.alert-feedback-fixed {
-    position:fixed;
-    top: 1%;
-    left: 5%;
-    z-index:9999;
-    width: 90%;
-    display: none;
+.alert-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10001;
+    padding: 20px 10px;
 }

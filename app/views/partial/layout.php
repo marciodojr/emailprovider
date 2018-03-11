@@ -123,12 +123,6 @@
             </div>
         </footer>
 
-        <div id="ajaxFormAlert" class="alert alert-feedback-fixed">
-            <button type="button" class="close" id="alert-close" data-toggle="alert"><span class="icon-cross"></span></button>
-            <h4> <span class="icon-warning"></span> Oops!</h4>
-            <p id="alertFeedbackText">Parece que algo deu errado. Não se preocupe, te ajudaremos a encontrar o caminho <span class="icon-emoji-flirt"></span>.</p>
-        </div>
-
         <script type='text/javascript' src="/js/app.min.js"></script>
         <?php foreach ($this->scripts as $path): ?>
             <script type='text/javascript' src="<?php echo $path; ?>"></script>
