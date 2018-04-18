@@ -109,5 +109,20 @@ return [
         'callback' => function($request) {
             Controller\EmailController::simpleEmail($request);
         }
-    ]
+    ],
+    [
+        'pattern' => '/vue-example',
+        'callback' => function($request) {
+            $layout = new Layout();
+            $layout
+                ->addScript('/js/vue-example.min.js')
+                ->render('vue/example');
+        }
+    ],
+    [
+        'pattern' => '/vue-example/data',
+        'callback' => function($request) {
+            Controller\VueController::getData();
+        }
+    ],
 ];
