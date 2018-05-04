@@ -14,8 +14,7 @@
         "intec/simple-router": "dev-master",
         "intec/session": "dev-master",
         "intec/tracker": "dev-master",
-        "txthinking/mailer": "dev-master",
-        "facebook/graph-sdk": "^5.6"
+        "txthinking/mailer": "dev-master"
     },
     "autoload": {
         "psr-4": {"IntecPhp\\": "app/src"}
