@@ -125,4 +125,8 @@ return [
             Controller\VueController::getData();
         }
     ],
+    [
+        'pattern' => '/container-di-test',
+        'callback' => 'IntecPhp\Controller\ContainerDIControllerExample:testDI'
+    ]
 ];

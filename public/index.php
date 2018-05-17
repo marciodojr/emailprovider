@@ -31,4 +31,6 @@ SimpleRouter::setErrorFallback(function($request, $err){
     HttpMiddleware::fatalError($request, $err);
 });
 
-SimpleRouter::match($_SERVER['REQUEST_URI']);
+require 'app/config/dependencies.php';
+
+SimpleRouter::match($_SERVER['REQUEST_URI'], $container);

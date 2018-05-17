@@ -1,18 +1,25 @@
 module.exports = function (grunt) {
     grunt.initConfig({
-        clean: {
-            build: ['public/css/*.min.css', 'public/img/', 'public/js/*.min.js'],
-            release: ['public/pjs/']
-        },
         browserify: {
             dist: {
                 files: [{
-                    expand: true,       // Enable dynamic expansion.
-                    cwd: 'assets/js/',  // Source Path
-                    src: ['*.js'],      // Actual pattern(s) to match.
+                    expand: true,        // Enable dynamic expansion.
+                    cwd: 'assets/js/',   // Source Path
+                    src: ['*.js'],       // Actual pattern(s) to match.
                     dest: 'public/pjs',  // Destination folder
-                    ext: '.js',         // Dest filepaths will have this extension.
-                }]
+                    ext: '.js',          // Dest filepaths will have this extension.
+                }],
+                options: {
+                    transform: [
+                        [
+                            'babelify',
+                            {presets: ["es2015"]}
+                        ]
+                    ],
+                    browserifyOptions: {
+                        debug: true
+                    }
+                }
             },
 			dev: {
                 files: [{
@@ -20,8 +27,14 @@ module.exports = function (grunt) {
                     cwd: 'assets/js/',  // Source Path
                     src: ['*.js'],      // Actual pattern(s) to match.
                     dest: 'public/js',  // Destination folder
-                    ext: '.min.js',         // Dest filepaths will have this extension.
-                }]
+                    ext: '.min.js',     // Dest filepaths will have this extension.
+                }],
+                options: {
+                    transform: [['babelify', { presets: "es2015" }]],
+                    browserifyOptions: {
+                        debug: true
+                    }
+                }
             }
         },
         uglify: {
@@ -44,6 +57,19 @@ module.exports = function (grunt) {
             dist: {
                 options: {
                     style: 'compressed',
+                    loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
+                },
+                files: [{
+                    expand: true,
+                    cwd: 'assets/sass',
+                    src: ['*.scss'],
+                    dest: 'public/css',
+                    ext: '.min.css'
+                }]
+            },
+            dev: {
+                options: {
+                    style: 'expanded',
                     loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
                 },
                 files: [{
@@ -78,7 +104,7 @@ module.exports = function (grunt) {
         watch: {
             sass: {
                 files: 'assets/sass/**',
-                tasks: ['newer:sass:dist']
+                tasks: ['newer:sass:dev']
             },
             browserify: {
                 files: 'assets/js/*',
@@ -92,12 +118,22 @@ module.exports = function (grunt) {
         php: {
             dist: {
                 options: {
-                    bin: '/usr/bin/php',
+                    bin: 'php',
                     hostname: 'localhost',
                     port: 3000,
                     base: 'public',
                     keepAlive: false,
                     open: false
+                }
+            },
+            test: {
+                options: {
+                    bin: 'php',
+                    hostname: 'localhost',
+                    port: 4000,
+                    base: 'public',
+                    keepAlive: true,
+                    open: true
                 }
             }
         },
@@ -126,17 +162,6 @@ module.exports = function (grunt) {
                     }
                 }
             }
-        },
-        newer: {
-          options: {
-            override: function(detail, include) {
-                if (detail.task === "sass") {
-                    include(true);
-                } else {
-                    include(false);
-                }
-            }
-          }
         }
     });
 
@@ -149,6 +174,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-newer');
-    grunt.registerTask('dev', ['clean:build', 'browserify:dev', 'copy', 'sass:dist', 'php:dist', 'browserSync:dist', 'watch']);
-    grunt.registerTask('build', ['clean:build', 'browserify:dist', 'uglify', 'copy', 'sass:dist', 'clean:release']);
+    grunt.registerTask('dev', ['browserify:dev', 'copy', 'sass:dev', 'php:dist', 'browserSync:dist', 'watch']);
+    grunt.registerTask('build', ['browserify:dist', 'uglify', 'copy', 'sass:dist']);
+    grunt.registerTask('test', ['build', 'php:test', 'watch']);
 };
