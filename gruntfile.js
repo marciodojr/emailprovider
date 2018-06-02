@@ -17,7 +17,7 @@ module.exports = function (grunt) {
                         ]
                     ],
                     browserifyOptions: {
-                        debug: true
+                        debug: false
                     }
                 }
             },
@@ -40,8 +40,7 @@ module.exports = function (grunt) {
         uglify: {
             options: {
                 banner: '/*! Grunt Uglify <%= grunt.template.today("yyyy-mm-dd") %> */ ',
-                sourceMap: true,
-				sourceMapIncludeSources: true
+                sourceMap: false
             },
             build: {
                 files: [{
@@ -56,8 +55,9 @@ module.exports = function (grunt) {
         sass: {
             dist: {
                 options: {
-                    style: 'compressed',
-                    loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
+                    outputStyle: 'compressed',
+                    sourceMap: false,
+                    noCache: true
                 },
                 files: [{
                     expand: true,
@@ -69,8 +69,9 @@ module.exports = function (grunt) {
             },
             dev: {
                 options: {
-                    style: 'expanded',
-                    loadPath: 'node_modules/bootstrap-sass/assets/stylesheets'
+                    outputStyle: 'expanded',
+                    sourceMap: false,
+                    update: true
                 },
                 files: [{
                     expand: true,
@@ -92,7 +93,6 @@ module.exports = function (grunt) {
                 expand: true,
                 flatten: true,
                 src: [
-                    'node_modules/bootstrap-sass/assets/fonts/bootstrap/*',
                     'node_modules/font-awesome/fonts/*',
                     'assets/fonts/*'
                 ],
@@ -103,7 +103,7 @@ module.exports = function (grunt) {
         // configure the "grunt watch" task
         watch: {
             sass: {
-                files: 'assets/sass/**',
+                files: 'assets/sass/*',
                 tasks: ['newer:sass:dev']
             },
             browserify: {
@@ -167,7 +167,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
-    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');

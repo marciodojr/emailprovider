@@ -1,27 +1,51 @@
 <?php
 
-$settings = require 'app/config/settings.php';
-
-use Pimple\Psr11\Container;
 use Pimple\Container as PimpleContainer;
-
-use IntecPhp\Model\ContainerDIModelExample;
-use IntecPhp\Controller\ContainerDIControllerExample;
 
 $dependencies = new PimpleContainer();
 $dependencies['settings'] = $settings;
 
-// ----------------------------------------- Exemplo de injeção de dependência
-$dependencies[ContainerDIModelExample::class] = function($c) {
-    $param = $c['settings']['di-test'];
-    return new ContainerDIModelExample($param);
+
+// ----------------------------------------- Middlewares 500, 403, 404
+
+use IntecPhp\Middleware\AuthenticationMiddleware;
+use IntecPhp\Middleware\HttpMiddleware;
+use IntecPhp\Model\Account;
+use IntecPhp\View\Layout;
+
+$dependencies[AuthenticationMiddleware::class] = function($c) {
+    $layout = new Layout();
+    $isLoggedIn = Account::isLoggedIn();
+    return new AuthenticationMiddleware($layout, $isLoggedIn);
 };
 
-$dependencies[ContainerDIControllerExample::class] = function($c) {
-    $cdie = $c[ContainerDIModelExample::class];
-    return new ContainerDIControllerExample($cdie);
+$dependencies[HttpMiddleware::class] = function($c) {
+    $layout = new Layout();
+    return new HttpMiddleware($layout, $c['settings']['display_errors']);
 };
-// ----------------------------------------- Exemplo de injeção de dependência
 
+// ----------------------------------------- /Middlewares 500, 403, 404
 
-$container = new Container($dependencies);
+// ----------------------------------------- Banco de Dados
+
+use IntecPhp\Service\DbHandler;
+
+$dependencies[PDO::class] = function($c) {
+    $db = $c['settings']['db'];
+
+    return new PDO('mysql:host='.$db['host'].';dbname='.$db['db_name'].';charset=' . $db['charset'],
+        $db['db_user'],
+        $db['db_pass'],
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_PERSISTENT => false,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]
+    );
+};
+
+$dependencies[DbHandler::class] = function ($c) {
+    $pdo = $c[PDO::class];
+    return new DbHandler($pdo);
+};
+// ----------------------------------------- /Banco de Dados

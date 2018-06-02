@@ -2,11 +2,21 @@ global.jQuery = $ = require('jquery');
 require('bootstrap-sass');
 require("jquery-easing");
 AjaxForm = require('./lib/AjaxForm');
-Masks = require('./lib/Masks');
 FormValidator = require('./lib/FormValidator');
 ZipFinder = require('./lib/ZipFinder');
 global.FormFiller = require('./lib/FormFiller');
 global.PrettyAlerts = require('./lib/PrettyAlerts');
+
+var cf = require("./lib/CurrencyFormatter");
+global.Vue = require("vue/dist/vue.common");
+Vue.filter('moneyFormatter', function (value) {
+    if (!value)
+        return '';
+    return cf.floatToCurrency(value);
+});
+
+VueTheMask = require('vue-the-mask');
+Vue.use(VueTheMask);
 
 (function($){
     "use strict"; // Start of use strict
@@ -44,7 +54,6 @@ global.PrettyAlerts = require('./lib/PrettyAlerts');
 
     PrettyAlerts.init();
     AjaxForm.init('.intec-ajax-form');
-    Masks.init();
     FormValidator.init('.intec-form-validator');
 
 })(jQuery);

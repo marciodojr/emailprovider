@@ -1,8 +1,7 @@
 @import "theme/variables.scss";
 @import "theme/mixins.scss";
 
-@import 'bootstrap';
-// @import "bootstrap/theme";
+@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 $fa-font-path: '../fonts/';
 @import '../../node_modules/font-awesome/scss/font-awesome.scss';

@@ -2,25 +2,33 @@
 
 namespace IntecPhp\Middleware;
 
-
 use Intec\Session\Session;
 use IntecPhp\View\Layout;
-use IntecPhp\Model\Account;
 
 class AuthenticationMiddleware
 {
 
-    public static function isAuthenticated($request)
-    {
+    private $layout;
+    private $isLoggedIn;
 
-        if(!Account::isLoggedIn()) {
-            http_response_code(403);
+    public function __construct(Layout $layout, bool $isLoggedIn)
+    {
+        $this->layout = $layout;
+        $this->isLoggedIn = $isLoggedIn;
+    }
+
+    public function isAuthenticated($request)
+    {
+        if(!$this->isLoggedIn) {
             if(!$request->isXmlHttpRequest()) {
-                $layout  = new Layout();
-                $layout
+                $this->layout
                     ->setLayout('layout-error')
                     ->render('http-error/403');
+            } else {
+                $rp = new ResponseHandler(403, 'Você não tem permissão para acessar este recurso');
+                $rp->printJson();
             }
         }
+        exit;
     }
 }

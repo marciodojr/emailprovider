@@ -1,10 +1,5 @@
 body {
     overflow-x: hidden;
-    // @include body-font;
-}
-
-.text-muted {
-    color: $gray-darker;
 }
 
 .text-muted-light {
@@ -724,4 +719,11 @@ body {
     right: 0;
     z-index: 10001;
     padding: 20px 10px;
+}
+
+.thumbnail {
+    &.disabled {
+        background-color: #eee;
+        cursor: not-allowed;
+    }
 }

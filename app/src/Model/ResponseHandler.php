@@ -40,6 +40,7 @@ class ResponseHandler
 
     public function printJson()
     {
+        header('Content-Type: application/json');
         echo $this->toJson();
         return $this;
     }

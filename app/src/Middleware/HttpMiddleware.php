@@ -2,53 +2,48 @@
 
 namespace IntecPhp\Middleware;
 
-
-use Intec\Session\Session;
 use IntecPhp\View\Layout;
 use IntecPhp\Model\Config;
+use IntecPhp\Model\ResponseHandler;
 
 class HttpMiddleware
 {
+    private $layout;
+    private $displayErrors;
 
-    public static function pageNotFound($request)
+    public function __construct(Layout $layout, bool $displayErrors)
+    {
+        $this->layout = $layout;
+        $this->displayErrors;
+    }
+
+    public function pageNotFound($request)
     {
         http_response_code(404);
-        if($request->isXmlHttpRequest()) {
-            echo json_encode([
-                'error' => [
-                    'code' => 404,
-                    'message' => 'Página não encontrada'
-                ]
-            ]);
+        if ($request->isXmlHttpRequest()) {
+            $rp = new ResponseHandler(404, 'Página não encontrada.');
+            $rp->printJson();
         } else {
-            $layout  = new Layout();
-            $layout
+            $this->layout
                 ->setLayout('layout-error')
                 ->render('http-error/404');
         }
+        exit;
     }
 
-    public static function fatalError($request, $err)
+    public function fatalError($request, $err)
     {
-
-        if(!Config::isProduction()){
-            if($request->isXmlHttpRequest()) {
-                die($err->getCode() .': '. $err->getMessage());
-            } else {
-                $layout  = new Layout();
-                $layout
-                    ->setLayout('layout-error')
-                    ->render('http-error/500');
+        if ($request->isXmlHttpRequest()) {
+            if($this->displayErrors) {
+                $err = [];
             }
+            $rp = new ResponseHandler(500, 'Ops! Houve um problema inesperado.', $err);
+            $rp->printJson();
         } else {
-            error_log($err->getCode() .': '. $err->getMessage());
-            if(!$request->isXmlHttpRequest()) {
-                $layout  = new Layout();
-                $layout
+            $this->layout
                     ->setLayout('layout-error')
-                    ->render('http-error/500');
-            }
+                    ->render('http-error/500', ['e' => $err, 'displayErrors' => $this->displayErrors]);
         }
-
+        exit;
     }
 }

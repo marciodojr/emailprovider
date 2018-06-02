@@ -9,12 +9,11 @@
             "email": "marciojr91@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "intec/simple-router": "dev-master",
         "intec/session": "dev-master",
-        "intec/tracker": "dev-master",
-        "txthinking/mailer": "dev-master"
+        "txthinking/mailer": "^2.0"
     },
     "autoload": {
         "psr-4": {"IntecPhp\\": "app/src"}

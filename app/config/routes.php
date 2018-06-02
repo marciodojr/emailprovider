@@ -7,38 +7,23 @@ use IntecPhp\Middleware\AuthenticationMiddleware;
 
 return [
     [
-        'pattern' => '(/|/index|/home)',
-        'callback' => function() {
+        'pattern' => '/',
+        'callback' => function () {
             $layout = new Layout();
             $layout->render('home/home');
         },
     ],
-    [
-        'pattern' => '/components',
-        'callback' => function() {
-            $layout = new Layout();
-            $layout->render('home/bootstrap');
-        },
-    ],
+
     [
         'pattern' => '/validator',
-        'callback' => function() {
+        'callback' => function () {
             $layout = new Layout();
             $layout->render('home/validator');
         },
     ],
     [
-        'pattern' => '/icons',
-        'callback' => function() {
-            $layout = new Layout();
-            $layout
-                ->addStylesheet('/css/icons.min.css')
-                ->render('home/icons');
-        }
-    ],
-    [
         'pattern' => '/ajax-form',
-        'callback' => function() {
+        'callback' => function () {
             $layout = new Layout();
             $layout
                 ->render('home/ajax-form');
@@ -46,87 +31,88 @@ return [
     ],
     [
         'pattern' => '/ajax-form-submit',
-        'callback' => function() {
+        'callback' => function () {
             http_response_code(404);
             echo json_encode([
                 'errorMessage' => 'O recurso solicitado não está mais disponível',
             ]);
         }
     ],
-	[
-        'pattern' => '/hello',
-        'callback' => function() {
-            $layout = new Layout();
+    // docs routes
+    [
+        'pattern' => '/docs',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
             $layout
-                ->addStylesheet('/css/hello.min.css')
-                ->addScript('/js/hello.min.js')
-                ->render('hello/index', Controller\HelloController::index());
+                ->addStylesheet('/css/docs.min.css')
+                ->render('docs/index');
+        }
+    ],
+    [
+        'pattern' => '/docs/bootstrap',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout->render('docs/bootstrap');
         },
     ],
     [
-        'pattern' => '/user-area',
+        'pattern' => '/docs/icons',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->addStylesheet('/css/icons.min.css')
+                ->render('docs/icons');
+        }
+    ],
+    [
+        'pattern' => '/docs/vue',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->addScript('/js/docs-vue.min.js')
+                ->render('docs/vue');
+        }
+    ],
+    [
+        'pattern' => '/docs/vue/loadData',
+        'callback' => function () {
+            $trips = [];
+            for ($i = 0; $i < 4; $i++) {
+                $trips[] = [
+                    'id' => $i,
+                    'imgSrc' => '/img/portfolio/escape-preview.png',
+                    'imgAlt' => 'Uma viagem ' . $i,
+                    'title' => 'Uma viagem feliz! ' . $i,
+                    'comment' => 'Este é o texto de comentário da imagem ...' . $i
+                ];
+            }
+
+            $rp = new Model\ResponseHandler(200, 'ok', $trips);
+
+            return $rp->printJson();
+        }
+    ],
+    [
+        'pattern' => '/docs/vue-masks-and-filters',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->addScript('/js/docs-filter-mask.min.js')
+                ->render('docs/vue-masks-and-filters');
+        }
+    ],
+    [
+        'pattern' => '/error-403',
         'middlewares' => [
-            function($request) {
-                AuthenticationMiddleware::isAuthenticated($request);
-            },
+            AuthenticationMiddleware::class .':isAuthenticated',
         ],
-        'callback' => function() {
-            die('Acesso liberado');
-        },
-    ],
-    [
-        'pattern' => '/facebook/pages',
-        'callback' => function() {
-            $layout = new Layout();
-            $layout
-                ->addScript('/js/facebookPages.min.js')
-                ->render('facebook/pages', Controller\FacebookController::page());
+        'callback' => function () {
         }
     ],
     [
-        'pattern' => '/facebook/requestPageAccessToken',
-        'callback' => function() {
-            Controller\FacebookController::requestPageAccessToken();
+        'pattern' => '/error-500',
+        'callback' => function ($request) {
+            throw new \Error('Simulação de um erro', 1);
         }
     ],
-    [
-        'pattern' => '/facebook/page',
-        'callback' => function() {
-            $layout = new Layout();
-            $layout
-                ->addScript('/js/facebookPages.min.js')
-                ->render('facebook/page', Controller\FacebookController::page());
-        }
-    ],
-    [
-        'pattern' => '/facebook/page/([a-zA-Z0-9]+)',
-        'callback' => function($request) {
-            Controller\FacebookController::getUserInfo($request);
-        }
-    ],
-    [
-        'pattern' => '/notify',
-        'callback' => function($request) {
-            Controller\EmailController::simpleEmail($request);
-        }
-    ],
-    [
-        'pattern' => '/vue-example',
-        'callback' => function($request) {
-            $layout = new Layout();
-            $layout
-                ->addScript('/js/vue-example.min.js')
-                ->render('vue/example');
-        }
-    ],
-    [
-        'pattern' => '/vue-example/data',
-        'callback' => function($request) {
-            Controller\VueController::getData();
-        }
-    ],
-    [
-        'pattern' => '/container-di-test',
-        'callback' => 'IntecPhp\Controller\ContainerDIControllerExample:testDI'
-    ]
 ];
