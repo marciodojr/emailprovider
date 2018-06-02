@@ -31,12 +31,24 @@ return [
 grunt dev
 ```
 
-## Teste
+## Test
 ```
 grunt test
 ```
 
-## Deploy
+## Build
+
+### Criar arquivo .env com os valores adequados. Ex:
+```sh
+# .docker/.env
+
+MYSQL_DATABASE=phpstart
+MYSQL_USER=root
+MYSQL_PASSWORD=root
+MYSQL_ROOT_PASSWORD=root
+```
+### Rodar os comandos de processamento dos *assets* e construção da imagem
 ```
 grunt build
+docker-compose build
 ```

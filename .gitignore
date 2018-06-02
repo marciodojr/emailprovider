@@ -10,6 +10,8 @@ node_modules/
 *.log
 /vendor/
 /composer.lock
+/package-lock.json
 /app/config/*.local.php
 error.log
 access.log
+*.env

@@ -13,7 +13,7 @@
     "require": {
         "intec/simple-router": "dev-master",
         "intec/session": "dev-master",
-        "txthinking/mailer": "^2.0"
+        "txthinking/mailer": "2.0.*"
     },
     "autoload": {
         "psr-4": {"IntecPhp\\": "app/src"}

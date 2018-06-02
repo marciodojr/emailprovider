@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     transform: [
                         [
                             'babelify',
-                            {presets: ["es2015"]}
+                            {presets: ["env"]}
                         ]
                     ],
                     browserifyOptions: {
@@ -165,7 +165,6 @@ module.exports = function (grunt) {
         }
     });
 
-    grunt.loadNpmTasks('grunt-contrib-clean');
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-browserify');
