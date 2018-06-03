@@ -13,13 +13,17 @@ services:
         links:
             - mysql
             - redis
+            - beanstalk
     mysql:
         env_file: .docker/.env
         image: mysql:5.7
         ports:
             - 13306:3306
     redis:
-        env_file: .docker/.env
         image: redis:4.0-alpine
         ports:
             - 16379:6379
+    beanstalk:
+        image: schickling/beanstalkd
+        ports:
+            - 21300:11300
