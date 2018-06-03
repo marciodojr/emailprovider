@@ -3,15 +3,13 @@
 
 namespace IntecPhp\Model;
 
-
 class ResponseHandler
 {
-
     private $code;
     private $message;
     private $data;
 
-    function __construct($code, $message = '', array $responseData = [])
+    public function __construct($code, $message = '', array $responseData = [])
     {
         $this->code = $code;
         $this->message = $message;
@@ -21,7 +19,6 @@ class ResponseHandler
 
     public function format()
     {
-
         http_response_code($this->code);
 
         $formattedResponse = [

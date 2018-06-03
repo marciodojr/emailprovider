@@ -56,6 +56,19 @@
                     <span class="icon-bowl icon-2x"></span>
                     <div class="caption">
                         <h4>
+                            Redis
+                        </h4>
+                        <p>
+                            <small>Para gestão de login.</small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail disabled">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
                             Npm
                         </h4>
                         <p>

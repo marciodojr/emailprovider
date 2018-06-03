@@ -37,7 +37,13 @@ grunt test
 ```
 
 ## Build
+```
+grunt build
+```
 
+
+
+## Experimental (Não utilizar)
 ### Criar arquivo .env com os valores adequados. Ex:
 ```sh
 # .docker/.env

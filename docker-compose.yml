@@ -7,13 +7,19 @@ services:
             dockerfile: .docker/Dockerfile
         image: phpstart-docker
         ports:
-            - 4000:80
-        # volumes:
-            # - .:/srv/vhosts/phpApp
+            - 3333:80
+        volumes:
+            - .:/srv/vhosts/phpApp
         links:
             - mysql
+            - redis
     mysql:
         env_file: .docker/.env
         image: mysql:5.7
         ports:
             - 13306:3306
+    redis:
+        env_file: .docker/.env
+        image: redis:4.0-alpine
+        ports:
+            - 16379:6379

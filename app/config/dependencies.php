@@ -5,35 +5,29 @@ use Pimple\Container as PimpleContainer;
 $dependencies = new PimpleContainer();
 $dependencies['settings'] = $settings;
 
+// ----------------------------------------- Redis
 
-// ----------------------------------------- Middlewares 500, 403, 404
+use Predis\Client as RedisClient;
 
-use IntecPhp\Middleware\AuthenticationMiddleware;
-use IntecPhp\Middleware\HttpMiddleware;
-use IntecPhp\Model\Account;
-use IntecPhp\View\Layout;
-
-$dependencies[AuthenticationMiddleware::class] = function($c) {
-    $layout = new Layout();
-    $isLoggedIn = Account::isLoggedIn();
-    return new AuthenticationMiddleware($layout, $isLoggedIn);
+$dependencies[RedisClient::class] = function ($c) {
+    $redisSettings = $c['settings']['redis'];
+    return new RedisClient([
+        'host' => $redisSettings['host'],
+        'port' => $redisSettings['port']
+    ]);
 };
 
-$dependencies[HttpMiddleware::class] = function($c) {
-    $layout = new Layout();
-    return new HttpMiddleware($layout, $c['settings']['display_errors']);
-};
-
-// ----------------------------------------- /Middlewares 500, 403, 404
+// ----------------------------------------- /Redis
 
 // ----------------------------------------- Banco de Dados
 
 use IntecPhp\Service\DbHandler;
 
-$dependencies[PDO::class] = function($c) {
+$dependencies[PDO::class] = function ($c) {
     $db = $c['settings']['db'];
 
-    return new PDO('mysql:host='.$db['host'].';dbname='.$db['db_name'].';charset=' . $db['charset'],
+    return new PDO(
+        'mysql:host='.$db['host'].';dbname='.$db['db_name'].';charset=' . $db['charset'],
         $db['db_user'],
         $db['db_pass'],
         [
@@ -49,3 +43,34 @@ $dependencies[DbHandler::class] = function ($c) {
     return new DbHandler($pdo);
 };
 // ----------------------------------------- /Banco de Dados
+
+// ----------------------------------------- Account
+
+use IntecPhp\Model\Account;
+
+$dependencies[Account::class] = function ($c) {
+    $session = $c['settings']['session'];
+    $redis = $c[RedisClient::class];
+    return new Account($redis, $session['cookie_name'], $session['cookie_expires']);
+};
+
+// ----------------------------------------- /Account
+
+// ----------------------------------------- Middlewares 500, 403, 404
+
+use IntecPhp\Middleware\AuthenticationMiddleware;
+use IntecPhp\Middleware\HttpMiddleware;
+use IntecPhp\View\Layout;
+
+$dependencies[AuthenticationMiddleware::class] = function ($c) {
+    $layout = new Layout();
+    $account = $c[Account::class];
+    return new AuthenticationMiddleware($layout, $account);
+};
+
+$dependencies[HttpMiddleware::class] = function ($c) {
+    $layout = new Layout();
+    return new HttpMiddleware($layout, $c['settings']['display_errors']);
+};
+
+// ----------------------------------------- /Middlewares 500, 403, 404

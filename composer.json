@@ -12,8 +12,9 @@
     "minimum-stability": "stable",
     "require": {
         "intec/simple-router": "dev-master",
-        "intec/session": "dev-master",
-        "txthinking/mailer": "2.0.*"
+        "txthinking/mailer": "2.0.*",
+        "predis/predis": "^1.1",
+        "pimple/pimple": "^3.2"
     },
     "autoload": {
         "psr-4": {"IntecPhp\\": "app/src"}

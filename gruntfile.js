@@ -13,7 +13,7 @@ module.exports = function (grunt) {
                     transform: [
                         [
                             'babelify',
-                            {presets: ["env"]}
+                            { presets: ["env"] }
                         ]
                     ],
                     browserifyOptions: {
@@ -21,7 +21,7 @@ module.exports = function (grunt) {
                     }
                 }
             },
-			dev: {
+            dev: {
                 files: [{
                     expand: true,       // Enable dynamic expansion.
                     cwd: 'assets/js/',  // Source Path
@@ -30,7 +30,12 @@ module.exports = function (grunt) {
                     ext: '.min.js',     // Dest filepaths will have this extension.
                 }],
                 options: {
-                    transform: [['babelify', { presets: "es2015" }]],
+                    transform: [
+                        [
+                            'babelify',
+                            { presets: ["env"] }
+                        ]
+                    ],
                     browserifyOptions: {
                         debug: true
                     }
@@ -110,17 +115,17 @@ module.exports = function (grunt) {
                 files: 'assets/js/*',
                 tasks: ['newer:browserify:dev']
             },
-			copy: {
-				files: 'assets/img/**',
-				tasks: ['newer:copy:images', 'newer:copy:fonts']
-			}
+            copy: {
+                files: 'assets/img/**',
+                tasks: ['newer:copy:images', 'newer:copy:fonts']
+            }
         },
         php: {
-            dist: {
+            dev: {
                 options: {
                     bin: 'php',
                     hostname: 'localhost',
-                    port: 3000,
+                    port: 2999,
                     base: 'public',
                     keepAlive: false,
                     open: false
@@ -138,29 +143,20 @@ module.exports = function (grunt) {
             }
         },
         browserSync: {
-            dist: {
-                bsFiles: {
-                    src: [
-                        'public/css/*',
-                        'public/fonts/*',
-                        'public/img/**',
-                        'public/js/**',
-                        'app/**/*.php'
-                    ]
-                },
-                options: {
-                    proxy: '<%= php.dist.options.hostname %>:<%= php.dist.options.port %>',
-                    watchTask: true,
-                    notify: true,
-                    open: true,
-                    logLevel: 'silent',
-                    ghostMode: {
-                        clicks: true,
-                        scroll: true,
-                        links: true,
-                        forms: true
-                    }
-                }
+            bsFiles: {
+                src: [
+                    'public/css/*',
+                    'public/fonts/*',
+                    'public/img/**',
+                    'public/js/**',
+                    'app/**/*.php'
+                ]
+            },
+            options: {
+                proxy: '<%= php.dev.options.hostname %>:<%= php.dev.options.port %>',
+                watchTask: true,
+                notify: true,
+                open: true,
             }
         }
     });
@@ -173,7 +169,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-newer');
-    grunt.registerTask('dev', ['browserify:dev', 'copy', 'sass:dev', 'php:dist', 'browserSync:dist', 'watch']);
+    grunt.registerTask('dev', ['browserify:dev', 'copy', 'sass:dev', 'php:dev', 'browserSync', 'watch']);
     grunt.registerTask('build', ['browserify:dist', 'uglify', 'copy', 'sass:dist']);
     grunt.registerTask('test', ['build', 'php:test', 'watch']);
 };
