@@ -14,7 +14,7 @@ class HttpMiddleware
     public function __construct(Layout $layout, bool $displayErrors)
     {
         $this->layout = $layout;
-        $this->displayErrors;
+        $this->displayErrors = $displayErrors;
     }
 
     public function pageNotFound($request)
@@ -34,9 +34,13 @@ class HttpMiddleware
     public function fatalError($request, $err)
     {
         if ($request->isXmlHttpRequest()) {
-            if($this->displayErrors) {
-                $err = [];
-            }
+            $err = $this->displayErrors ? [
+                'message' => $err->getMessage(),
+                'code' => $err->getCode(),
+                'file' => $err->getFile(),
+                'line' => $err->getLine()
+            ] : [];
+
             $rp = new ResponseHandler(500, 'Ops! Houve um problema inesperado.', $err);
             $rp->printJson();
         } else {

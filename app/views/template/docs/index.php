@@ -13,11 +13,11 @@
         <hr>
         <div class="row">
             <div class="col-md-3">
-                <div class="thumbnail disabled">
+                <div class="thumbnail">
                     <span class="icon-bowl icon-2x"></span>
                     <div class="caption">
                         <h4>
-                            Php
+                            <a href="/docs/php">Php</a>
                         </h4>
                         <p>
                             <small><code>>= v7.0.<br>Módulos: mbstring, dom, mysql, xml, curl</code></small>
@@ -26,11 +26,11 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="thumbnail disabled">
+                <div class="thumbnail">
                     <span class="icon-bowl icon-2x"></span>
                     <div class="caption">
                         <h4>
-                            Composer
+                             <a href="/docs/composer">Composer</a>
                         </h4>
                         <p>
                             <small><code>>= v1.6.</code></small>

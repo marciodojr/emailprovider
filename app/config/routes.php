@@ -49,6 +49,22 @@ return [
         }
     ],
     [
+        'pattern' => '/docs/php',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/php');
+        }
+    ],
+    [
+        'pattern' => '/docs/composer',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/composer');
+        }
+    ],
+    [
         'pattern' => '/docs/bootstrap',
         'callback' => function () {
             $layout = new Layout('layout-docs');
