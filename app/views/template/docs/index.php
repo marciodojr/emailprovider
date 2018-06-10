@@ -20,7 +20,9 @@
                             <a href="/docs/php">Php</a>
                         </h4>
                         <p>
-                            <small><code>>= v7.0.<br>Módulos: mbstring, dom, mysql, xml, curl</code></small>
+                            <small>
+                                <code>>= v7.0.<br>Módulos: mbstring, dom, mysql, xml, curl</code>
+                            </small>
                         </p>
                     </div>
                 </div>
@@ -30,10 +32,102 @@
                     <span class="icon-bowl icon-2x"></span>
                     <div class="caption">
                         <h4>
-                             <a href="/docs/composer">Composer</a>
+                            <a href="/docs/composer">Composer</a>
                         </h4>
                         <p>
-                            <small><code>>= v1.6.</code></small>
+                            <small>
+                                <code>>= v1.6.</code>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
+                            <a href="/docs/beanstalk">Beanstalk</a>
+                        </h4>
+                        <p>
+                            <small>
+                                <code> >= 1.10</code>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
+                            <a href="/docs/redis">Redis</a>
+                        </h4>
+                        <p>
+                            <small>
+                                <code> >= 4.0</code>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
+                            <a href="/docs/npm">Npm</a>
+                        </h4>
+                        <p>
+                            <small>
+                                <code> >= v5.6</code>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
+                            <a href="/docs/mysql">Mysql</a>
+                        </h4>
+                        <p>
+                            <small>
+                                <code> >= 5.6</code>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
+                            <a href="/docs/grunt">Grunt</a>
+                        </h4>
+                        <p>
+                            <small>
+                                <code> grunt-cli >= 1.2</code>
+                            </small>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="thumbnail">
+                    <span class="icon-bowl icon-2x"></span>
+                    <div class="caption">
+                        <h4>
+                            <a href="/docs/pm2">PM2</a>
+                        </h4>
+                        <p>
+                            <small>
+                                <code>latest stable</code>
+                            </small>
                         </p>
                     </div>
                 </div>
@@ -43,75 +137,10 @@
                     <span class="icon-bowl icon-2x"></span>
                     <div class="caption">
                         <h4>
-                            Beanstalk
+                            <a href="/docs/sass">Sass</a>
                         </h4>
                         <p>
-                            <small>O que é e como é usado.</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail disabled">
-                    <span class="icon-bowl icon-2x"></span>
-                    <div class="caption">
-                        <h4>
-                            Redis
-                        </h4>
-                        <p>
-                            <small>Para gestão de login.</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail disabled">
-                    <span class="icon-bowl icon-2x"></span>
-                    <div class="caption">
-                        <h4>
-                            Npm
-                        </h4>
-                        <p>
-                            <small><code> >= v5.6</code></small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail disabled">
-                    <span class="icon-bowl icon-2x"></span>
-                    <div class="caption">
-                        <h4>
-                            Mysql
-                        </h4>
-                        <p>
-                            <small><code> >= 5.6</code></small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail disabled">
-                    <span class="icon-bowl icon-2x"></span>
-                    <div class="caption">
-                        <h4>
-                            Grunt
-                        </h4>
-                        <p>
-                            <small><code> grunt-cli >= 1.2</code></small>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="thumbnail disabled">
-                    <span class="icon-bowl icon-2x"></span>
-                    <div class="caption">
-                        <h4>
-                            PM2
-                        </h4>
-                        <p>
-                            <small><code>latest stable</code></small>
+                            <small>O que é e exemplos de uso</small>
                         </p>
                     </div>
                 </div>
@@ -122,19 +151,7 @@
         <h3 class="section-heading">Frontend</h3>
         <hr>
         <div class="row">
-            <div class="col-md-3">
-                <div class="thumbnail disabled">
-                    <span class="icon-bowl icon-2x"></span>
-                    <div class="caption">
-                        <h4>
-                            Sass
-                        </h4>
-                        <p>
-                            <small>O que é e exemplos de uso</small>
-                        </p>
-                    </div>
-                </div>
-            </div>
+
             <div class="col-md-3">
                 <div class="thumbnail">
                     <span class="icon-bowl icon-2x"></span>

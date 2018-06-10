@@ -65,6 +65,54 @@ return [
         }
     ],
     [
+        'pattern' => '/docs/beanstalk',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/beanstalk');
+        }
+    ],
+    [
+        'pattern' => '/docs/redis',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/redis');
+        }
+    ],
+    [
+        'pattern' => '/docs/npm',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/npm');
+        }
+    ],
+    [
+        'pattern' => '/docs/mysql',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/mysql');
+        }
+    ],
+    [
+        'pattern' => '/docs/grunt',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/grunt');
+        }
+    ],
+    [
+        'pattern' => '/docs/pm2',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout
+                ->render('docs/pm2');
+        }
+    ],
+    [
         'pattern' => '/docs/bootstrap',
         'callback' => function () {
             $layout = new Layout('layout-docs');
