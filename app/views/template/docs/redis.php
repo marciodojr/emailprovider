@@ -15,8 +15,7 @@
         <hr>
         <p>Descrição: <small>Banco de dados em memória</small>.</p>
         <p>Instalação: <small><code>sudo apt install redis-server</code></small>.</p>
-        <p>Documentação: <small><a href="https://redis.io/documentation">https://redis.io/documentation</a></small></p>
-        <p>Obs.: O redis é utilizado através do pacote <a href="https://packagist.org/packages/predis/predis">predis/predis</a>.</p>
+        <p>Documentação: <small><a href="https://github.com/nrk/predis/tree/documentation/doc">https://github.com/nrk/predis/tree/documentation/doc</a></small></p>
         <p>Uso comum: Gestão de usuários logados, armazenamento de informações em sessão (substitui a sessão padrão do PHP).</p>
     </div>
 </section>

@@ -133,7 +133,7 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <div class="thumbnail disabled">
+                <div class="thumbnail">
                     <span class="icon-bowl icon-2x"></span>
                     <div class="caption">
                         <h4>

@@ -1,27 +1,22 @@
 <?php
 
-use Pimple\Container as PimpleContainer;
+use IntecPhp\Model\Account;
 
-$dependencies = new PimpleContainer();
-$dependencies['settings'] = $settings;
+use IntecPhp\Middleware\AuthenticationMiddleware;
+use IntecPhp\Middleware\HttpMiddleware;
 
-// ----------------------------------------- Redis
-
-use Predis\Client as RedisClient;
-
-$dependencies[RedisClient::class] = function ($c) {
-    $redisSettings = $c['settings']['redis'];
-    return new RedisClient([
-        'host' => $redisSettings['host'],
-        'port' => $redisSettings['port']
-    ]);
-};
-
-// ----------------------------------------- /Redis
-
-// ----------------------------------------- Banco de Dados
-
+use IntecPhp\Service\RedisSession;
 use IntecPhp\Service\DbHandler;
+
+use IntecPhp\View\Layout;
+
+
+$dependencies[Redis::class] = function ($c) {
+    $redisSettings = $c['settings']['redis'];
+    $redis = new Redis();
+    $redis->connect($redisSettings['host'], $redisSettings['port']);
+    return $redis;
+};
 
 $dependencies[PDO::class] = function ($c) {
     $db = $c['settings']['db'];
@@ -38,29 +33,31 @@ $dependencies[PDO::class] = function ($c) {
     );
 };
 
+// ----------------------------------------- Model
+
+$dependencies[Account::class] = function ($c) {
+    $redisSession = $c[RedisSession::class];
+    return new Account($redisSession);
+};
+
+// ----------------------------------------- /Model
+
+// ----------------------------------------- Service
+
 $dependencies[DbHandler::class] = function ($c) {
     $pdo = $c[PDO::class];
     return new DbHandler($pdo);
 };
-// ----------------------------------------- /Banco de Dados
 
-// ----------------------------------------- Account
-
-use IntecPhp\Model\Account;
-
-$dependencies[Account::class] = function ($c) {
+$dependencies[RedisSession::class] = function ($c) {
+    $redis = $c[Redis::class];
     $session = $c['settings']['session'];
-    $redis = $c[RedisClient::class];
-    return new Account($redis, $session['cookie_name'], $session['cookie_expires']);
+    return new RedisSession($redis, $session['cookie_name'], $session['cookie_expires']);
 };
 
-// ----------------------------------------- /Account
+// ----------------------------------------- /Service
 
-// ----------------------------------------- Middlewares 500, 403, 404
-
-use IntecPhp\Middleware\AuthenticationMiddleware;
-use IntecPhp\Middleware\HttpMiddleware;
-use IntecPhp\View\Layout;
+// ----------------------------------------- Middleware
 
 $dependencies[AuthenticationMiddleware::class] = function ($c) {
     $layout = new Layout();
@@ -73,4 +70,5 @@ $dependencies[HttpMiddleware::class] = function ($c) {
     return new HttpMiddleware($layout, $c['settings']['display_errors']);
 };
 
-// ----------------------------------------- /Middlewares 500, 403, 404
+
+// ----------------------------------------- /Middleware

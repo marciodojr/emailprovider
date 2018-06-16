@@ -2,67 +2,31 @@
 
 namespace IntecPhp\Model;
 
-use Predis\Client as RedisClient;
+use IntecPhp\Service\RedisSession;
 
-final class Account
+class Account
 {
-    private $redis;
-    private $cookieName;
-    private $timeout;
-    private $cookieValue;
+    const ID_KEY = 'ID_f67c2bcbfcfa30fccb36f72dca22a817';
 
-    public function __construct(RedisClient $redis, string $cookieName, int $timeout)
+    private $redisSession;
+
+    public function __construct(RedisSession $redisSession)
     {
-        $this->redis = $redis;
-        $this->cookieName = $cookieName;
-        $this->timeout = $timeout;
-        $this->cookieValue = null;
+        $this->redisSession = $redisSession;
     }
 
     public function login($id)
     {
-        $cookieValue = $this->generateCookieValue();
-        if ($this->setCookieValue($cookieValue)) {
-            $this->redis->set($cookieValue, $id);
-        }
+        $this->redisSession->set(self::ID_KEY, $id);
     }
 
     public function isLoggedIn()
     {
-        if ($cookieValue = $this->getCookieValue()) {
-            return $this->redis->get($cookieValue);
-        }
+        return $this->redisSession->get(self::ID_KEY);
     }
 
     public function logout()
     {
-        if ($cookieValue = $this->getCookieValue()) {
-            $this->removeCookie();
-            $this->redis->delete($cookieValue);
-        }
-    }
-
-    private function setCookieValue(string $cookieValue)
-    {
-        if (setcookie($this->cookieName, $cookieValue, time() + $this->timeout)) {
-            $this->cookieValue = $cookieValue;
-            return $cookieValue;
-        }
-    }
-
-    private function removeCookie()
-    {
-        $this->cookieValue = null;
-        return setcookie($this->cookieName, '', -1);
-    }
-
-    private function getCookieValue()
-    {
-        return $this->cookieValue = $this->cookieValue ?? filter_input(INPUT_COOKIE, $this->cookieName);
-    }
-
-    private function generateCookieValue()
-    {
-        return bin2hex(random_bytes(16));
+        $this->redisSession->unset(self::ID_KEY);
     }
 }

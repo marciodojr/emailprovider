@@ -13,7 +13,6 @@
     "require": {
         "intec/simple-router": "dev-master",
         "txthinking/mailer": "2.0.*",
-        "predis/predis": "^1.1",
         "pimple/pimple": "^3.2",
         "pda/pheanstalk": "^3.1"
     },

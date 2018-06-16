@@ -52,64 +52,63 @@ return [
         'pattern' => '/docs/php',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/php');
+            $layout->render('docs/php');
         }
     ],
     [
         'pattern' => '/docs/composer',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/composer');
+            $layout->render('docs/composer');
         }
     ],
     [
         'pattern' => '/docs/beanstalk',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/beanstalk');
+            $layout->render('docs/beanstalk');
         }
     ],
     [
         'pattern' => '/docs/redis',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/redis');
+            $layout->render('docs/redis');
         }
     ],
     [
         'pattern' => '/docs/npm',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/npm');
+            $layout->render('docs/npm');
         }
     ],
     [
         'pattern' => '/docs/mysql',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/mysql');
+            $layout->render('docs/mysql');
         }
     ],
     [
         'pattern' => '/docs/grunt',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/grunt');
+            $layout->render('docs/grunt');
         }
     ],
     [
         'pattern' => '/docs/pm2',
         'callback' => function () {
             $layout = new Layout('layout-docs');
-            $layout
-                ->render('docs/pm2');
+            $layout->render('docs/pm2');
+        }
+    ],
+    [
+        'pattern' => '/docs/sass',
+        'callback' => function () {
+            $layout = new Layout('layout-docs');
+            $layout->render('docs/sass');
         }
     ],
     [
