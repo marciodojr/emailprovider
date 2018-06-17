@@ -14,11 +14,6 @@ services:
             - mysql
             - redis
             - beanstalk
-    composer:
-        image: composer:1.6.5
-        volumes:
-            - .:/srv/vhosts/phpApp
-        working_dir: /srv/vhosts/phpApp
     mysql:
         env_file: .docker/.env
         image: mysql:5.7
@@ -32,3 +27,18 @@ services:
         image: schickling/beanstalkd
         ports:
             - 21300:11300
+    composer:
+        restart: 'no'
+        image: composer:1.6.5
+        volumes:
+            - .:/srv/vhosts/phpApp
+        working_dir: /srv/vhosts/phpApp
+        command: install --ignore-platform-reqs
+    node:
+        restart: 'no'
+        image: node:8
+        volumes:
+            - .:/srv/vhosts/phpApp
+        working_dir: /srv/vhosts/phpApp
+        command: npm install grunt-cli -g; npm install
+

@@ -9,8 +9,8 @@ node_modules/
 /public/pjs/
 *.log
 /vendor/
-/composer.lock
-/package-lock.json
+composer.lock
+package-lock.json
 /app/config/*.local.php
 error.log
 access.log
