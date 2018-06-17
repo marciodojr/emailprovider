@@ -120,28 +120,6 @@ module.exports = function (grunt) {
                 tasks: ['newer:copy:images', 'newer:copy:fonts']
             }
         },
-        php: {
-            dev: {
-                options: {
-                    bin: 'php',
-                    hostname: 'localhost',
-                    port: 2999,
-                    base: 'public',
-                    keepAlive: false,
-                    open: false
-                }
-            },
-            test: {
-                options: {
-                    bin: 'php',
-                    hostname: 'localhost',
-                    port: 4000,
-                    base: 'public',
-                    keepAlive: true,
-                    open: true
-                }
-            }
-        },
         browserSync: {
             bsFiles: {
                 src: [
@@ -153,7 +131,7 @@ module.exports = function (grunt) {
                 ]
             },
             options: {
-                proxy: '<%= php.dev.options.hostname %>:<%= php.dev.options.port %>',
+                proxy: 'localhost:3000',
                 watchTask: true,
                 notify: true,
                 open: true,
@@ -166,10 +144,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-php');
     grunt.loadNpmTasks('grunt-browser-sync');
     grunt.loadNpmTasks('grunt-newer');
-    grunt.registerTask('dev', ['browserify:dev', 'copy', 'sass:dev', 'php:dev', 'browserSync', 'watch']);
+    grunt.registerTask('dev', ['browserify:dev', 'copy', 'sass:dev', 'browserSync', 'watch']);
     grunt.registerTask('build', ['browserify:dist', 'uglify', 'copy', 'sass:dist']);
-    grunt.registerTask('test', ['build', 'php:test', 'watch']);
+    grunt.registerTask('test', ['build']);
 };
