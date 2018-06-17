@@ -1,7 +1,7 @@
 /assets/
 .babelrc
-composer.json
 composer.lock
+vendor
 docker-compose.yml
 .editorconfig
 /.git/
