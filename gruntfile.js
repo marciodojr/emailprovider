@@ -127,14 +127,15 @@ module.exports = function (grunt) {
                     'public/fonts/*',
                     'public/img/**',
                     'public/js/**',
+                    'public/index.php',
                     'app/**/*.php'
                 ]
             },
             options: {
-                proxy: 'localhost:3000',
+                proxy: 'app',
                 watchTask: true,
                 notify: true,
-                open: true,
+                open: false,
             }
         }
     });

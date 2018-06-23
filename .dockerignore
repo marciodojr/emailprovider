@@ -13,4 +13,8 @@ README.md
 /nbproject/
 .sass-cache/
 /public/pjs/
+/public/css/
+/public/js/
+/public/img/
+/public/fonts/
 *.log

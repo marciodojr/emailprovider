@@ -7,7 +7,7 @@ services:
             dockerfile: .docker/Dockerfile
         image: phpstart-docker
         ports:
-            - 3000:80
+            - 2999:80
         volumes:
             - .:/srv/vhosts/phpApp
         links:
@@ -41,4 +41,8 @@ services:
             - .:/srv/vhosts/phpApp
         working_dir: /srv/vhosts/phpApp
         command: /bin/bash -c "npm install grunt-cli -g && npm install"
+        ports:
+            - 3000:3000
+            - 3001:3001
+
 
