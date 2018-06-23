@@ -46,5 +46,6 @@ global.PrettyAlerts = require('./lib/PrettyAlerts');
     AjaxForm.init('.intec-ajax-form');
     Masks.init();
     FormValidator.init('.intec-form-validator');
+    ZipFinder.init();
 
 })(jQuery);
