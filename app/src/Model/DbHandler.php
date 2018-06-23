@@ -65,19 +65,7 @@ class DbHandler
         return $this->conn->commit();
     }
 
-    public function query($sql)
-    {
-        try {
-            return $this->conn->query($sql);
-        } catch(PDOException $e) {
-            if($this->conn->inTransaction()) {
-                $this->conn->rollBack();
-            }
-            error_log($e->getMessage());
-        }
-    }
-
-    public function prepare($queryString, array $params)
+    public function query($queryString, array $params)
     {
         try {
             $sth = $this->conn->prepare($queryString);
@@ -89,6 +77,11 @@ class DbHandler
             }
             error_log($e->getMessage());
         }
+    }
+    
+    public function lastInsertId()
+    {
+        return $this->conn->lastInsertId();
     }
 
     private function __clone()
