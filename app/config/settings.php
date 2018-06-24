@@ -5,14 +5,14 @@
 return [
     'display_errors' => true,
     'db' => [
-        'host' => 'localhost',
+        'host' => 'mysql',
         'db_name' => 'phpstart',
-        'db_user' => 'root',
-        'db_pass' => 'root',
+        'db_user' => 'phpstart_admin',
+        'db_pass' => 'admin',
         'charset' => 'utf8mb4'
     ],
     'redis' => [
-        'host' => 'localhost',
+        'host' => 'redis',
         'port' => 6379
     ],
     'session' => [

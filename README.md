@@ -1,27 +1,11 @@
 # Configuração mínima para novos projetos em PHP
 
-## Criar arquivo de settings local
-```php
-<?php
+## Instalar o Docker e Docker Compose
 
-// app/config/settings.local.php
+- Docker (CE): https://docs.docker.com/install/linux/docker-ce/ubuntu/
+- Docker Compose: https://docs.docker.com/compose/install/
 
-return [
-    'display_errors' => true,
-    'db' => [
-        'host' => 'localhost',
-        'db_name' => 'phpstart',
-        'db_user' => 'root',
-        'db_pass' => 'root',
-    ],
-];
-```
-
-## Gerar o conjunto de favicons em http://realfavicongenerator.net/
-
-## Com Docker
-
-
+## Execução com o docker
 
 - Criar arquivo .env com os valores adequados. Ex:
 ```sh
@@ -45,8 +29,7 @@ MYSQL_ROOT_PASSWORD=root
 - Fazer a build do projeto (somente produção, experimental):
     - `docker-compose run node npm run build`
 
-
-## Sem Docker
+## Execução sem o docker (descontinuado)
 
 - Dependências:
 ```
@@ -60,3 +43,5 @@ npm install
     - `grunt test`
 - Fazer a build do projeto (somente produção):
     - `grunt build`
+
+**Importante**: Para evitar problemas de caching em navegadores, durante o desenvolvimento, recomenda-se desativar o cache na janela de debug (rede) do navegador.
