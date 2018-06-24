@@ -17,4 +17,5 @@ README.md
 /public/js/
 /public/img/
 /public/fonts/
+/.docker/
 *.log

@@ -1,12 +1,1 @@
-@import "theme/variables.scss";
-@import "theme/mixins.scss";
-
-@import "../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
-$fa-font-path: '../fonts/';
-@import '../../node_modules/font-awesome/scss/font-awesome.scss';
-
-$intecEntypoPath: '../fonts/';
-@import 'intec-entypo/entypo.scss';
-
-@import 'theme/theme.scss';
+@import 'theme/main.scss';
