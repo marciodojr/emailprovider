@@ -1,14 +1,14 @@
-<ol class="breadcrumb">
-    <li>
-        <a href="/">Home</a>
-    </li>
-    <li>
-        <a href="/docs">Docs</a>
-    </li>
-    <li>
-        Bootstrap
-    </li>
-</ol>
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="/">Home</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="/docs">Docs</a>
+        </li>
+        <li class="breadcrumb-item active">Bootstrap</li>
+    </ol>
+</nav>
 <section>
     <div class="container">
         <?php

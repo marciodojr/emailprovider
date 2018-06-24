@@ -8,16 +8,11 @@ use IntecPhp\Middleware\AuthenticationMiddleware;
 return [
     [
         'pattern' => '/',
-        'callback' => function () {
-            $layout = new Layout();
-            $layout->render('home/home');
-        },
-    ],
-    [
-        'pattern' => '/home2',
         'callback' => function() {
             $layout = new Layout();
-            $layout->render('home/home2');
+            $layout
+                ->addStylesheet('css/home.min.css')
+                ->render('home/index');
         }
     ],
     [

@@ -10,11 +10,11 @@
             <link href="<?php echo $href; ?>" rel="stylesheet" type="text/css">
         <?php endforeach; ?>
 
-        <link href="https://fonts.googleapis.com/css?family=Oxygen+Mono|Raleway" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono|Raleway:500" rel="stylesheet">
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-expand-sm navbar navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-sm navbar navbar-dark bg-dark position-fixed fixed-top">
                 <a class="navbar-brand" href="#">PhpStart</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -34,11 +34,11 @@
                 </div>
             </nav>
         </header>
-        <main class="mt-5">
+        <main>
             <?php require_once 'app/views/template/' . $page . '.php'; ?>
         </main>
 
-        <footer class="bg-secondary pt-3 pb-5">
+        <footer class="bg-dark border-top border-white pt-3 pb-5">
             <div class="container">
                 <p class="text-white small">© 2018 - Incluir Tecnologia LTDA ME.</p>
             </div>

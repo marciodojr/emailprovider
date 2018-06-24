@@ -1,4 +1,10 @@
-<section>
+<section class="welcome-section d-flex align-items-center">
+    <div class="container text-center text-white">
+        <h1>Bem-vindo ao PHPSTART</h1>
+        <p>Consulte a <a class="badge badge-light" href="/docs">DOCUMENTAÇÃO</a></p>
+    </div>
+</section>
+<section class="pt-3 pb-3">
     <div class="container">
         <h2 class="text-center">Serviços</h2>
         <hr>
@@ -25,6 +31,17 @@
                 </p>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="pt-3 pb-3">
+    <div class="container">
+        <h2 class="text-center">Depoimentos</h2>
+        <hr>
+        <blockquote class="blockquote text-center text-muted font-italic">
+            <p class="mb-0 small">“Let us return for a moment to Lady Lovelace’s objection, which stated that the machine can only do what we tell it to do. One could say that a man can "inject" an idea into the machine, and that it will respond to a certain extent and then drop into quiescence, like a piano string struck by a hammer. Another simile would be an atomic pile of less than critical size: an injected idea is to correspond to a neutron entering the pile from without. Each such neutron will cause a certain disturbance which eventually dies away. If, however, the size of the pile is sufficiently increased, the disturbance caused by such an incoming neutron will very likely go on and on increasing until the whole pile is destroyed. Is there a corresponding phenomenon for minds, and is there one for machines? There does seem to be one for the human mind. The majority of them seem to be "sub critical," i.e. to correspond in this analogy to piles of sub-critical size. An idea presented to such a mind will on average give rise to less than one idea in reply. A smallish proportion are supercritical. An idea presented to such a mind may give rise to a whole "theory" consisting of secondary, tertiary and more remote ideas. Animals’ minds seem to be very definitely sub-critical. Adhering to this analogy we ask, "Can a machine be made to be super-critical?”</p>
+            <footer class="blockquote-footer">Alan Turing, <cite title="Source Title">Computing machinery and intelligence</cite></footer>
+        </blockquote>
     </div>
 </section>
 <section class="bg-dark text-white pt-3 pb-3">

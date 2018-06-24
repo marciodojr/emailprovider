@@ -232,7 +232,7 @@ $transition-collapse:         height .35s ease !default;
 
 // stylelint-disable value-keyword-case
 $font-family-sans-serif:      'Raleway', sans-serif;
-$font-family-monospace:       'Oxygen Mono', monospace;
+$font-family-monospace:       'Ubuntu Mono', monospace;
 $font-family-base:            $font-family-sans-serif;
 // stylelint-enable value-keyword-case
 
@@ -875,7 +875,7 @@ $breadcrumb-margin-bottom:          1rem !default;
 $breadcrumb-bg:                     $gray-200 !default;
 $breadcrumb-divider-color:          $gray-600 !default;
 $breadcrumb-active-color:           $gray-600 !default;
-$breadcrumb-divider:                quote("/") !default;
+$breadcrumb-divider:                quote("→") !default;
 
 $breadcrumb-border-radius:          $border-radius !default;
 
