@@ -12,7 +12,7 @@
 # .docker/.env
 
 MYSQL_DATABASE=phpstart
-MYSQL_USER=root
+MYSQL_USER=phpstartadmin
 MYSQL_PASSWORD=root
 MYSQL_ROOT_PASSWORD=root
 ```
