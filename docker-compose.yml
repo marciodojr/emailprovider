@@ -1,0 +1,61 @@
+version: '3.1'
+services:
+    mysql:
+        image: mysql:5.7
+        container_name: phpstart-mysql
+        env_file: .docker/.env
+        ports:
+            - 13306:3306
+
+    redis:
+        image: redis:4.0-alpine
+        container_name: phpstart-redis
+        ports:
+            - 16379:6379
+
+    beanstalk:
+        image: schickling/beanstalkd
+        container_name: phpstart-beanstalk
+        ports:
+            - 21300:11300
+
+    composer:
+        image: composer:1.6.5
+        container_name: phpstart-composer
+        volumes:
+            - .:/srv/vhosts/phpApp
+        working_dir: /srv/vhosts/phpApp
+        command: install --ignore-platform-reqs
+
+    node:
+        image: node:8
+        container_name: phpstart-node
+        volumes:
+            - .:/srv/vhosts/phpApp
+        working_dir: /srv/vhosts/phpApp
+        command: /bin/bash -c "npm install grunt-cli -g && npm install"
+        ports:
+            - 3000:3000
+            - 3001:3001
+
+    webserver:
+        image: nginx:alpine
+        container_name: phpstart-webserver
+        working_dir: /srv/vhosts/phpApp
+        volumes:
+            - .:/srv/vhosts/phpApp
+            - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+        ports:
+            - 2999:80
+
+    php-fpm:
+        build:
+            context: .
+            dockerfile: .docker/php-fpm/Dockerfile
+        container_name: phpstart-php-fpm
+        working_dir: /srv/vhosts/phpApp
+        volumes:
+            - .:/srv/vhosts/phpApp
+            - ./.docker/php-fpm/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+
+

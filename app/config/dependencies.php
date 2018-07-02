@@ -1,27 +1,74 @@
 <?php
 
-$settings = require 'app/config/settings.php';
+use IntecPhp\Model\Account;
 
-use Pimple\Psr11\Container;
-use Pimple\Container as PimpleContainer;
+use IntecPhp\Middleware\AuthenticationMiddleware;
+use IntecPhp\Middleware\HttpMiddleware;
 
-use IntecPhp\Model\ContainerDIModelExample;
-use IntecPhp\Controller\ContainerDIControllerExample;
+use IntecPhp\Service\RedisSession;
+use IntecPhp\Service\DbHandler;
 
-$dependencies = new PimpleContainer();
-$dependencies['settings'] = $settings;
+use IntecPhp\View\Layout;
 
-// ----------------------------------------- Exemplo de injeção de dependência
-$dependencies[ContainerDIModelExample::class] = function($c) {
-    $param = $c['settings']['di-test'];
-    return new ContainerDIModelExample($param);
+
+$dependencies[Redis::class] = function ($c) {
+    $redisSettings = $c['settings']['redis'];
+    $redis = new Redis();
+    $redis->connect($redisSettings['host'], $redisSettings['port']);
+    return $redis;
 };
 
-$dependencies[ContainerDIControllerExample::class] = function($c) {
-    $cdie = $c[ContainerDIModelExample::class];
-    return new ContainerDIControllerExample($cdie);
+$dependencies[PDO::class] = function ($c) {
+    $db = $c['settings']['db'];
+
+    return new PDO(
+        'mysql:host='.$db['host'].';dbname='.$db['db_name'].';charset=' . $db['charset'],
+        $db['db_user'],
+        $db['db_pass'],
+        [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_PERSISTENT => false,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+        ]
+    );
 };
-// ----------------------------------------- Exemplo de injeção de dependência
+
+// ----------------------------------------- Model
+
+$dependencies[Account::class] = function ($c) {
+    $redisSession = $c[RedisSession::class];
+    return new Account($redisSession);
+};
+
+// ----------------------------------------- /Model
+
+// ----------------------------------------- Service
+
+$dependencies[DbHandler::class] = function ($c) {
+    $pdo = $c[PDO::class];
+    return new DbHandler($pdo);
+};
+
+$dependencies[RedisSession::class] = function ($c) {
+    $redis = $c[Redis::class];
+    $session = $c['settings']['session'];
+    return new RedisSession($redis, $session['cookie_name'], $session['cookie_expires']);
+};
+
+// ----------------------------------------- /Service
+
+// ----------------------------------------- Middleware
+
+$dependencies[AuthenticationMiddleware::class] = function ($c) {
+    $layout = new Layout();
+    $account = $c[Account::class];
+    return new AuthenticationMiddleware($layout, $account);
+};
+
+$dependencies[HttpMiddleware::class] = function ($c) {
+    $layout = new Layout();
+    return new HttpMiddleware($layout, $c['settings']['display_errors']);
+};
 
 
-$container = new Container($dependencies);
+// ----------------------------------------- /Middleware

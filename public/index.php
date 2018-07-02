@@ -2,35 +2,37 @@
 
 //Everything is relative to the application root now.
 chdir(dirname(__DIR__));
+
+$settings = require 'app/config/settings.php';
+
+if(file_exists('app/config/settings.local.php')) {
+    $settings = array_replace_recursive($settings, require 'app/config/settings.local.php');
+}
+
+if($settings['display_errors']) {
+    error_reporting(E_ALL);
+    ini_set("display_errors", 1);
+};
+
 if (!file_exists('./vendor/autoload.php')) {
     echo 'Please run `composer install` first!';
 }
 
-$localConfigFile = './app/config/config.local.php';
-
-if (file_exists($localConfigFile)) {
-    require_once $localConfigFile;
-}
-
 include './vendor/autoload.php';
 
-use IntecPhp\Model\Config;
 use Intec\Router\SimpleRouter;
-use Intec\Tracker\Middleware\TrackerMiddleware;
 use IntecPhp\Middleware\HttpMiddleware;
-
-Config::init();
+use Pimple\Psr11\Container;
+use Pimple\Container as PimpleContainer;
 
 SimpleRouter::setRoutes(require 'app/config/routes.php');
 
-SimpleRouter::setNotFoundFallback(function($request){
-    HttpMiddleware::pageNotFound($request);
-});
+SimpleRouter::setNotFoundFallback(HttpMiddleware::class . ':pageNotFound');
+SimpleRouter::setErrorFallback(HttpMiddleware::class . ':fatalError');
 
-SimpleRouter::setErrorFallback(function($request, $err){
-    HttpMiddleware::fatalError($request, $err);
-});
+$dependencies = new PimpleContainer();
+$dependencies['settings'] = $settings;
 
 require 'app/config/dependencies.php';
 
-SimpleRouter::match($_SERVER['REQUEST_URI'], $container);
+SimpleRouter::match($_SERVER['REQUEST_URI'], new Container($dependencies));

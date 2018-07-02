@@ -1,35 +1,32 @@
 <?php
 
-
 namespace IntecPhp\Model;
 
-
-use Intec\Session\Session;
+use IntecPhp\Service\RedisSession;
 
 class Account
 {
+    const ID_KEY = 'ID_f67c2bcbfcfa30fccb36f72dca22a817';
 
-    public static function login($id)
+    private $redisSession;
+
+    public function __construct(RedisSession $redisSession)
     {
-        $session = Session::getInstance();
-        $session->set('id', $id);
+        $this->redisSession = $redisSession;
     }
 
-	public static function getCurrentUserId() {
-		$session = Session::getInstance();
-		return $session->get('id');
-	}
-
-    public static function isLoggedIn()
+    public function login($id)
     {
-        $session = Session::getInstance();
-        return $session->exists('id');
+        $this->redisSession->set(self::ID_KEY, $id);
     }
 
-    public static function logout()
+    public function isLoggedIn()
     {
-        $session = Session::getInstance();
-        $session->unset('id');
+        return $this->redisSession->get(self::ID_KEY);
     }
 
+    public function logout()
+    {
+        $this->redisSession->unset(self::ID_KEY);
+    }
 }
