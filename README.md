@@ -15,7 +15,7 @@
 
 MYSQL_DATABASE=phpstart
 MYSQL_USER=phpstartadmin
-MYSQL_PASSWORD=root
+MYSQL_PASSWORD=admin
 MYSQL_ROOT_PASSWORD=root
 ```
 
