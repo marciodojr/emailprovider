@@ -160,7 +160,7 @@
                             <a href="/docs/icons">Ícones</a>
                         </h4>
                         <p>
-                            <small>Ícones específicos do PhpStart. Obs.: também estão disponíveis os ícones do Fontawesome v4.7</small>
+                            <small>Font Awesome v5</small>
                         </p>
                     </div>
                 </div>

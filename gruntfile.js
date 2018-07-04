@@ -98,7 +98,7 @@ module.exports = function(grunt) {
             fonts: {
                 expand: true,
                 flatten: true,
-                src: ["node_modules/font-awesome/fonts/*", "assets/fonts/*"],
+                src: ["node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/*", "assets/fonts/*"],
                 dest: "public/fonts/",
                 filter: "isFile"
             }
@@ -118,6 +118,28 @@ module.exports = function(grunt) {
                 tasks: ["newer:copy:images", "newer:copy:fonts"]
             }
         },
+        php: {
+            dev: {
+                options: {
+                    bin: 'php',
+                    hostname: 'localhost',
+                    port: 2999,
+                    base: 'public',
+                    keepAlive: false,
+                    open: false
+                }
+            },
+            test: {
+                options: {
+                    bin: 'php',
+                    hostname: 'localhost',
+                    port: 4000,
+                    base: 'public',
+                    keepAlive: true,
+                    open: true
+                }
+            }
+        },
         browserSync: {
             dev: {
                 bsFiles: {
@@ -131,7 +153,7 @@ module.exports = function(grunt) {
                     ]
                 },
                 options: {
-                    proxy: "localhost:2999",
+                    proxy: '<%= php.dev.options.hostname %>:<%= php.dev.options.port %>',
                     watchTask: true,
                     notify: true,
                     open: true
@@ -161,6 +183,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-copy");
     grunt.loadNpmTasks("grunt-sass");
     grunt.loadNpmTasks("grunt-browserify");
+    grunt.loadNpmTasks("grunt-php");
     grunt.loadNpmTasks("grunt-contrib-watch");
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-browser-sync");
@@ -169,6 +192,7 @@ module.exports = function(grunt) {
         "browserify:dev",
         "copy",
         "sass:dev",
+        "php:dev",
         "browserSync:dev",
         "watch"
     ]);
@@ -185,5 +209,7 @@ module.exports = function(grunt) {
         "copy",
         "sass:dist"
     ]);
-    grunt.registerTask("test", ["build"]);
+
+    grunt.registerTask("test", ["build", "php:dist"]);
+    grunt.registerTask("test-docker", ["build"]);
 };
