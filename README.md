@@ -1,4 +1,5 @@
-# Configuração mínima para novos projetos em PHP
+
+**Aviso**: Readme obsoleto!
 
 ## Instalar o Docker e Docker Compose
 
