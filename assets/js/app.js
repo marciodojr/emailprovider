@@ -8,6 +8,7 @@ global.FormFiller = require('./lib/FormFiller');
 global.PrettyAlerts = require('./lib/PrettyAlerts');
 
 global.Vue = require("vue/dist/vue.common");
+require('vue-resource');
 VueTheMask = require('vue-the-mask');
 Vue.use(VueTheMask);
 require('./lib/VueFilters');

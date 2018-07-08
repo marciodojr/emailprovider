@@ -12,7 +12,6 @@
 - Criar arquivo .env com os valores adequados. Ex:
 ```sh
 # .docker/.env
-
 MYSQL_DATABASE=phpstart
 MYSQL_USER=phpstartadmin
 MYSQL_PASSWORD=admin
@@ -35,7 +34,7 @@ Acesso de linha de comando para mysql, beanstalk e redis
 
 **IMPORTANTE**: Ao utilizar esse método, remova as pastas `vendor` e `node_modules`, `public/{img,css,js,pjs,fonts}` e os arquivos `composer.lock` e `package-lock.json` se existirem.
 
-Crie um o arquivo settings.local.php em app/config e crie também o usuário e banco de dados.
+Crie um o arquivo settings.local.php em config e crie também o usuário e banco de dados.
 ```php
 <?php
 
@@ -78,3 +77,38 @@ npm install
     - `grunt build`
 
 **Importante**: Para evitar problemas de caching em navegadores, durante o desenvolvimento, recomenda-se desativar o cache na janela de debug (rede) do navegador.
+
+Acessar o container em execução: `docker exec -it emailprovider-php-fpm /bin/sh`
+
+Banco de dados
+```sql
+CREATE TABLE `virtual_aliases` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `domain_id` int(11) NOT NULL,
+  `source` varchar(100) NOT NULL,
+  `destination` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `domain_id` (`domain_id`),
+  CONSTRAINT `virtual_aliases_ibfk_1` FOREIGN KEY (`domain_id`) REFERENCES `virtual_domains` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `virtual_domains` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `virtual_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `domain_id` int(11) NOT NULL,
+  `password` varchar(106) NOT NULL,
+  `email` varchar(120) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`),
+  KEY `domain_id` (`domain_id`),
+  CONSTRAINT `virtual_users_ibfk_1` FOREIGN KEY (`domain_id`) REFERENCES `virtual_domains` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+```
+
+php vendor/bin/doctrine orm:convert-mapping --force --from-database annotation ./src/Entity/

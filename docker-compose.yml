@@ -2,26 +2,26 @@ version: '3.1'
 services:
     mysql:
         image: mysql:5.7
-        container_name: phpstart-mysql
+        container_name: emailprovider-mysql
         env_file: .docker/.env
         ports:
             - 13306:3306
 
     redis:
         image: redis:4.0-alpine
-        container_name: phpstart-redis
+        container_name: emailprovider-redis
         ports:
             - 16379:6379
 
     beanstalk:
         image: schickling/beanstalkd
-        container_name: phpstart-beanstalk
+        container_name: emailprovider-beanstalk
         ports:
             - 21300:11300
 
     composer:
         image: composer:1.6.5
-        container_name: phpstart-composer
+        container_name: emailprovider-composer
         volumes:
             - .:/srv/vhosts/phpApp
         working_dir: /srv/vhosts/phpApp
@@ -29,7 +29,7 @@ services:
 
     node:
         image: node:8
-        container_name: phpstart-node
+        container_name: emailprovider-node
         volumes:
             - .:/srv/vhosts/phpApp
         working_dir: /srv/vhosts/phpApp
@@ -40,7 +40,7 @@ services:
 
     webserver:
         image: nginx:alpine
-        container_name: phpstart-webserver
+        container_name: emailprovider-webserver
         working_dir: /srv/vhosts/phpApp
         volumes:
             - .:/srv/vhosts/phpApp
@@ -52,7 +52,7 @@ services:
         build:
             context: .
             dockerfile: .docker/php-fpm/Dockerfile
-        container_name: phpstart-php-fpm
+        container_name: emailprovider-php-fpm
         working_dir: /srv/vhosts/phpApp
         volumes:
             - .:/srv/vhosts/phpApp

@@ -11,7 +11,8 @@ node_modules/
 /vendor/
 composer.lock
 package-lock.json
-/app/config/*.local.php
+*.local.php
 error.log
 access.log
 *.env
+/cache

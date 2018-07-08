@@ -3,10 +3,10 @@
 //Everything is relative to the application root now.
 chdir(dirname(__DIR__));
 
-$settings = require 'app/config/settings.php';
+$settings = require 'config/settings.php';
 
-if(file_exists('app/config/settings.local.php')) {
-    $settings = array_replace_recursive($settings, require 'app/config/settings.local.php');
+if(file_exists('config/settings.local.php')) {
+    $settings = array_replace_recursive($settings, require 'config/settings.local.php');
 }
 
 if($settings['display_errors']) {
@@ -21,11 +21,11 @@ if (!file_exists('./vendor/autoload.php')) {
 include './vendor/autoload.php';
 
 use Intec\Router\SimpleRouter;
-use IntecPhp\Middleware\HttpMiddleware;
+use Mdojr\EmailProvider\Middleware\HttpMiddleware;
 use Pimple\Psr11\Container;
 use Pimple\Container as PimpleContainer;
 
-SimpleRouter::setRoutes(require 'app/config/routes.php');
+SimpleRouter::setRoutes(require 'config/routes.php');
 
 SimpleRouter::setNotFoundFallback(HttpMiddleware::class . ':pageNotFound');
 SimpleRouter::setErrorFallback(HttpMiddleware::class . ':fatalError');
@@ -33,6 +33,6 @@ SimpleRouter::setErrorFallback(HttpMiddleware::class . ':fatalError');
 $dependencies = new PimpleContainer();
 $dependencies['settings'] = $settings;
 
-require 'app/config/dependencies.php';
+require 'config/dependencies.php';
 
 SimpleRouter::match($_SERVER['REQUEST_URI'], new Container($dependencies));
