@@ -37,10 +37,11 @@ class LoginController
                 throw new Exception('Usuário ou senha incorreta');
             }
 
-            $this->account->login($id);
+            $token = $this->account->login($id);
 
             $rp = new ResponseHandler(200, 'Autenticado com sucesso', [
-                'success' => 'Autenticado com sucesso'
+                'success' => 'Autenticado com sucesso',
+                'token' => $token
             ]);
 
         } catch (Exception $e) {

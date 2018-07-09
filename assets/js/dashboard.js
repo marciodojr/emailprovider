@@ -182,7 +182,10 @@ const dashboardApp = new Vue({
             this.domainName = "";
         },
         logout() {
-            $.get('/user/logout').then(r => window.location.href = '/');
+            $.get('/user/logout').then(r => {
+                Cookies.remove(USER_TOKEN);
+                window.location.href = '/'
+            });
         }
     },
     computed: {

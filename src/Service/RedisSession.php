@@ -42,6 +42,7 @@ final class RedisSession
             $this->redis->hSet($cookieValue, $key, $value);
             $this->redis->setTimeout($cookieValue, $this->expirationTime());
         }
+        return $cookieValue;
     }
 
     public function unset(string $key)

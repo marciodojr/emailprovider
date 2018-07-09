@@ -17,8 +17,7 @@ class Account
 
     public function login($id)
     {
-        $_SESSION['aaaa'] = $id;
-        $this->redisSession->set(self::ID_KEY, $id);
+        return $this->redisSession->set(self::ID_KEY, $id);
     }
 
     public function isLoggedIn()
