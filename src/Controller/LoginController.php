@@ -5,7 +5,7 @@ namespace Mdojr\EmailProvider\Controller;
 use Exception;
 use Mdojr\EmailProvider\Service\Auth;
 use Mdojr\EmailProvider\Model\ResponseHandler;
-use Mdojr\EmailProvider\Model\Account;
+use Mdojr\EmailProvider\Service\Account;
 
 class LoginController
 {
@@ -37,7 +37,9 @@ class LoginController
                 throw new Exception('Usuário ou senha incorreta');
             }
 
-            $token = $this->account->login($id);
+            $token = $this->account->login([
+                'id' => $id
+            ]);
 
             $rp = new ResponseHandler(200, 'Autenticado com sucesso', [
                 'success' => 'Autenticado com sucesso',

@@ -4,14 +4,6 @@
 
 return [
     'display_errors' => true,
-    'redis' => [
-        'host' => 'localhost',
-        'port' => 6379
-    ],
-    'session' => [
-        'cookie_name' => 'app_ssid',
-        'cookie_expires' => 1800 // 30 min
-    ],
     'doctrine' => [
         'meta' => [
             'entity_path' => [
@@ -30,5 +22,13 @@ return [
             'password' => 'root',
             'charset' => 'utf8',
         ]
-    ]
+    ],
+    'jwt' => [
+        'app_secret' => 'very_secret',
+        'token_expires' => 1800 // 30 min
+    ],
+    'session' => [
+        'cookie_name' => 'app_ssid',
+        'cookie_expires' => 1800 // 30 min
+    ],
 ];

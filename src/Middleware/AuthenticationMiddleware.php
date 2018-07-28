@@ -3,7 +3,8 @@
 namespace Mdojr\EmailProvider\Middleware;
 
 use Mdojr\EmailProvider\View\Layout;
-use Mdojr\EmailProvider\Model\Account;
+use Mdojr\EmailProvider\Service\Account;
+use Mdojr\EmailProvider\Model\ResponseHandler;
 
 class AuthenticationMiddleware
 {

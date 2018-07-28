@@ -1,10 +1,6 @@
 <?php
 
 
-// Model
-
-use Mdojr\EmailProvider\Model\Account;
-
 // Controller
 
 use Mdojr\EmailProvider\Controller\DashboardController;
@@ -20,8 +16,10 @@ use Mdojr\EmailProvider\Middleware\HttpMiddleware;
 
 // Service
 
-use Mdojr\EmailProvider\Service\RedisSession;
 use Mdojr\EmailProvider\Service\Auth;
+use Mdojr\EmailProvider\Service\JwtWrapper;
+use Mdojr\EmailProvider\Service\Cookie;
+use Mdojr\EmailProvider\Service\Account;
 
 // Service\Database
 
@@ -48,19 +46,7 @@ $dependencies[EntityManager::class] = function ($c) {
     return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
 };
 
-$dependencies[Redis::class] = function ($c) {
-    $redisSettings = $c['settings']['redis'];
-    $redis = new Redis();
-    $redis->connect($redisSettings['host'], $redisSettings['port']);
-    return $redis;
-};
-
 // Model
-
-$dependencies[Account::class] = function ($c) {
-    $redisSession = $c[RedisSession::class];
-    return new Account($redisSession);
-};
 
 // Controller
 $dependencies[DomainController::class] = function ($c) {
@@ -83,14 +69,24 @@ $dependencies[LoginController::class] = function ($c) {
 
 // Service
 
-$dependencies[RedisSession::class] = function ($c) {
-    $redis = $c[Redis::class];
-    $session = $c['settings']['session'];
-    return new RedisSession($redis, $session['cookie_name'], $session['cookie_expires']);
-};
 $dependencies[Auth::class] = function ($c) {
     $admin = $c[Admin::class];
     return new Auth($admin);
+};
+
+$dependencies[Cookie::class] = function ($c) {
+    $cookieSettings = $c['settings']['session'];
+    return new Cookie($cookieSettings['cookie_name'], $cookieSettings['cookie_expires']);
+};
+$dependencies[JwtWrapper::class] = function ($c) {
+    $jwtSettings = $c['settings']['jwt'];
+    return new JwtWrapper($jwtSettings['app_secret'], $jwtSettings['token_expires']);
+};
+
+$dependencies[Account::class] = function ($c) {
+    $jwt = $c[JwtWrapper::class];
+    $sessionCookie = $c[Cookie::class];
+    return new Account($jwt, $sessionCookie);
 };
 
 // Service/Database
