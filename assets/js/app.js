@@ -14,7 +14,6 @@ Vue.use(VueTheMask);
 require('./lib/VueFilters');
 
 global.Cookies = require('js-cookie');
-global.USER_TOKEN = 'app_ssid';
 
 (function($){
 

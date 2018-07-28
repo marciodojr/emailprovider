@@ -20,7 +20,10 @@ class Account
     public function login(array $info)
     {
         $token = $this->jwt->encode($info);
-        return $this->sessionCookie->set($token);
+        return [
+            'name' => $this->sessionCookie->getName(),
+            'value' => $this->sessionCookie->set($token)
+        ];
     }
 
     public function isLoggedIn()

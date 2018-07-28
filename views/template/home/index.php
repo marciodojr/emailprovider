@@ -16,10 +16,13 @@
 
         <div class="input-group input-group-lg mt-5">
             <input type="text" class="form-control" v-model="username"
+                v-on:keyup.enter="doLogin()"
                 placeholder="Usuário">
         </div>
         <div class="input-group input-group-lg mt-2">
-            <input type="password" class="form-control" v-model="password" placeholder="Senha">
+            <input type="password" class="form-control" v-model="password"
+            v-on:keyup.enter="doLogin()"
+            placeholder="Senha">
         </div>
 
         <button type="button" class="btn btn-primary btn-lg btn-block mt-3"

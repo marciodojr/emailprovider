@@ -17,7 +17,7 @@ const LoginApp = new Vue({
             }, null, 'json').then(r => {
                 var d = r.data;
                 this.success = d.success;
-                Cookies.set(USER_TOKEN, d.token, {path: '/'});
+                Cookies.set(d.token.name, d.token.value, {path: '/'});
                 window.location.href = '/dashboard';
             }, err => {
                 console.log(err);

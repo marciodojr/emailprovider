@@ -33,4 +33,9 @@ final class Cookie
     {
         return $this->cookieValue = $this->cookieValue ?? filter_input(INPUT_COOKIE, $this->cookieName);
     }
+
+    public function getName()
+    {
+        return $this->cookieName;
+    }
 }
