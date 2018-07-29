@@ -98,7 +98,7 @@ module.exports = function(grunt) {
             fonts: {
                 expand: true,
                 flatten: true,
-                src: ["node_modules/@fortawesome/fontawesome-free-webfonts/webfonts/*", "assets/fonts/*"],
+                src: ["node_modules/@fortawesome/fontawesome-free/webfonts/*", "assets/fonts/*"],
                 dest: "public/fonts/",
                 filter: "isFile"
             }
@@ -125,43 +125,12 @@ module.exports = function(grunt) {
                     hostname: 'localhost',
                     port: 2999,
                     base: 'public',
-                    keepAlive: false,
+                    keepalive: false,
                     open: false
-                }
-            },
-            test: {
-                options: {
-                    bin: 'php',
-                    hostname: 'localhost',
-                    port: 4000,
-                    base: 'public',
-                    keepAlive: true,
-                    open: true
                 }
             }
         },
         browserSync: {
-            dev: {
-                bsFiles: {
-                    src: [
-                        "public/css/*",
-                        "public/fonts/*",
-                        "public/img/**",
-                        "public/js/**",
-                        "public/index.php",
-                        "config/**/*.php",
-                        "src/**/*.php",
-                        "views/**/*.php",
-                        "!cache"
-                    ]
-                },
-                options: {
-                    proxy: '<%= php.dev.options.hostname %>:<%= php.dev.options.port %>',
-                    watchTask: true,
-                    notify: true,
-                    open: true
-                }
-            },
             docker: {
                 bsFiles: {
                     src: [
@@ -170,14 +139,11 @@ module.exports = function(grunt) {
                         "public/img/**",
                         "public/js/**",
                         "public/index.php",
-                        "config/**/*.php",
-                        "src/**/*.php",
-                        "views/**/*.php",
-                        "!cache"
+                        "app/**/*.php"
                     ]
                 },
                 options: {
-                    proxy: "webserver",
+                    proxy: process.env.SERVERNAME,
                     watchTask: true,
                     notify: true,
                     open: false
@@ -194,14 +160,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-browser-sync");
     grunt.loadNpmTasks("grunt-newer");
-    grunt.registerTask("dev", [
-        "browserify:dev",
-        "copy",
-        "sass:dev",
-        "php:dev",
-        "browserSync:dev",
-        "watch"
-    ]);
+
     grunt.registerTask("dev-docker", [
         "browserify:dev",
         "copy",
@@ -215,7 +174,4 @@ module.exports = function(grunt) {
         "copy",
         "sass:dist"
     ]);
-
-    grunt.registerTask("test", ["build", "php:dist"]);
-    grunt.registerTask("test-docker", ["build"]);
 };

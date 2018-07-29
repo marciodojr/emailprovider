@@ -15,20 +15,20 @@ return [
         ],
         'connection' => [
             'driver' => 'pdo_mysql',
-            'host' => 'localhost',
+            'host' => getenv('DB_HOST'),
             'port' => 3306,
-            'dbname' => 'servermail',
-            'user' => 'root',
-            'password' => 'root',
-            'charset' => 'utf8',
+            'dbname' => getenv('DB_NAME'),
+            'user' => getenv('DB_USER'),
+            'password' =>  getenv('DB_PASS'),
+            'charset' => 'utf8mb4',
         ]
     ],
     'jwt' => [
-        'app_secret' => 'very_secret',
+        'app_secret' => getenv('APP_SECRET'),
         'token_expires' => 1800 // 30 min
     ],
     'session' => [
-        'cookie_name' => 'app_ssid',
+        'cookie_name' => getenv('APP_COOKIE_NAME'),
         'cookie_expires' => 1800 // 30 min
     ],
 ];

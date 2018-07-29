@@ -2,10 +2,10 @@
 
 // Font Awesome 5
 $fa-font-path:  '../fonts';
-@import "../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fontawesome";
-@import "../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-brands";
-@import "../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-regular";
-@import "../../../node_modules/@fortawesome/fontawesome-free-webfonts/scss/fa-solid";
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/fontawesome";
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/brands";
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/regular";
+@import "../../../node_modules/@fortawesome/fontawesome-free/scss/solid";
 
 
 @import "../../../node_modules/bootstrap/scss/functions";
