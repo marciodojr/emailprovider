@@ -118,18 +118,6 @@ module.exports = function(grunt) {
                 tasks: ["newer:copy:images", "newer:copy:fonts"]
             }
         },
-        php: {
-            dev: {
-                options: {
-                    bin: 'php',
-                    hostname: 'localhost',
-                    port: 2999,
-                    base: 'public',
-                    keepalive: false,
-                    open: false
-                }
-            }
-        },
         browserSync: {
             docker: {
                 bsFiles: {
