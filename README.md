@@ -13,3 +13,8 @@ docker-compose up
 ## Comandos úteis
 - Acessar um container em execução: `docker exec -it <container-name> sh`
 - Gerar entidades a partir do banco de dados: `php vendor/bin/doctrine orm:convert-mapping --force --from-database annotation ./src/Entity/`
+
+## Imagem para produção
+```
+docker build -t emailprovider .
+```

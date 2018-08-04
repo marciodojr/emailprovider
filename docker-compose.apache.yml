@@ -15,19 +15,11 @@ services:
         ports:
             - 13306:3306
 
-    composer:
-        image: composer:1.6.5
-        container_name: emailprovider-composer
-        volumes:
-            - .:/srv/vhosts/phpApp
-        working_dir: /srv/vhosts/phpApp
-        command: install --ignore-platform-reqs
-
     node:
         image: node:10.6.0-alpine
         container_name: emailprovider-node
         environment:
-            - SERVERNAME=webserver
+            - SERVERNAME=php-apache
         volumes:
             - .:/srv/vhosts/phpApp
         working_dir: /srv/vhosts/phpApp
@@ -36,11 +28,10 @@ services:
             - 3000:3000
             - 3001:3001
         depends_on:
-            - composer
-            - webserver
+            - php-apache
 
-    php-fpm:
-        image: marciodojr/phpstart:2.0.0
+    php-apache:
+        image: marciodojr/phpstart-apache-docker-image:1.0.0
         container_name: emailprovider
         environment:
             - DEV_MODE=1
@@ -54,19 +45,11 @@ services:
         working_dir: /srv/vhosts/phpApp
         volumes:
             - .:/srv/vhosts/phpApp
-            - ./.docker/php/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
+            - ./.docker/php/php-ini-overrides.ini:/etc/php/7.2/apache2/conf.d/99-overrides.ini
             - ./cache:/srv/vhosts/phpApp/cache
-        depends_on:
-            - mysql
-
-    webserver:
-        image: nginx:1.14.0-alpine
-        container_name: emailprovider-webserver
-        working_dir: /srv/vhosts/phpApp
-        volumes:
-            - .:/srv/vhosts/phpApp
-            - ./.docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+            - ./.docker/apache/vhost.conf:/etc/apache2/sites-available/000-default.conf
         ports:
             - 2999:80
         depends_on:
-            - php-fpm
+            - mysql
+        command: /bin/sh -c "composer update && apache2-foreground"

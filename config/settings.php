@@ -3,24 +3,25 @@
 // as chaves iguais serão sobrescritas pelo array em settings.local.php
 
 return [
-    'display_errors' => true,
+    'display_errors' => getenv('DEV_MODE'),
     'doctrine' => [
         'meta' => [
             'entity_path' => [
                 __DIR__ . '/../src/Entity'
             ],
-            'auto_generate_proxies' => true,
+            'auto_generate_proxies' => getenv('DEV_MODE'),
             'proxy_dir' =>  __DIR__ . '/../cache/DoctrineORM/proxies',
-            'cache' => null,
+            'cache' => getenv('DEV_MODE') ? null : new \Doctrine\Common\Cache\ApcuCache(),
         ],
         'connection' => [
             'driver' => 'pdo_mysql',
             'host' => getenv('DB_HOST'),
-            'port' => 3306,
+            'port' => getenv('DB_PORT'),
             'dbname' => getenv('DB_NAME'),
             'user' => getenv('DB_USER'),
             'password' =>  getenv('DB_PASS'),
             'charset' => 'utf8mb4',
+            'platform' => new \Doctrine\DBAL\Platforms\MySQL57Platform()
         ]
     ],
     'jwt' => [
