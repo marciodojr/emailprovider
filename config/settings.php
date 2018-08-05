@@ -22,7 +22,14 @@ return [
             'password' =>  getenv('DB_PASS'),
             'charset' => 'utf8mb4',
             'platform' => new \Doctrine\DBAL\Platforms\MySQL57Platform()
-        ]
+        ],
+        'migrations' => [
+            'name' => 'emailprovider_migrations',
+            'namespace' => 'Mdojr\EmailProvider\Migrations',
+            'table_name' => 'doctrine_migration_versions',
+            'column_name' => 'version',
+            'migration_directory' => 'src/Migrations'
+        ],
     ],
     'jwt' => [
         'app_secret' => getenv('APP_SECRET'),

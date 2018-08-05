@@ -15,14 +15,6 @@ services:
         ports:
             - 13306:3306
 
-    composer:
-        image: composer:1.6.5
-        container_name: emailprovider-composer
-        volumes:
-            - .:/srv/vhosts/phpApp
-        working_dir: /srv/vhosts/phpApp
-        command: install --ignore-platform-reqs
-
     node:
         image: node:10.6.0-alpine
         container_name: emailprovider-node
@@ -36,7 +28,6 @@ services:
             - 3000:3000
             - 3001:3001
         depends_on:
-            - composer
             - webserver
 
     php-fpm:
@@ -56,6 +47,7 @@ services:
             - .:/srv/vhosts/phpApp
             - ./.docker/php/php-ini-overrides.ini:/etc/php/7.2/fpm/conf.d/99-overrides.ini
             - ./cache:/srv/vhosts/phpApp/cache
+        command: /bin/sh -c "composer update && php-fpm"
         depends_on:
             - mysql
 

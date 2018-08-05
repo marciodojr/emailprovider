@@ -26,14 +26,14 @@ class Account
         ];
     }
 
-    public function isLoggedIn()
+    public function isLoggedIn($key = 'id')
     {
         try {
             $token = $this->sessionCookie->get();
             if (!$token) {
                 throw new Exception('Usuário não logado');
             }
-            return $this->jwt->decode($token);
+            return $this->jwt->decode($token)->data->$key;
         } catch (Exception $e) {
         }
 

@@ -2,8 +2,11 @@
 
 require 'vendor/autoload.php';
 
-use Doctrine\ORM\Tools\Console\ConsoleRunner;
-
+use Symfony\Component\Console\Helper\HelperSet;
+use Doctrine\DBAL\Tools\Console\Helper\ConnectionHelper;
+use Doctrine\ORM\Tools\Console\Helper\EntityManagerHelper;
+use Doctrine\DBAL\Migrations\Configuration\Configuration;
+use Doctrine\DBAL\Migrations\Tools\Console\Helper\ConfigurationHelper;
 
 $settings = require 'config/settings.php';
 
@@ -23,4 +26,19 @@ $config = \Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
 
 $em = \Doctrine\ORM\EntityManager::create($doctrineSettings['connection'], $config);
 
-return ConsoleRunner::createHelperSet($em);
+// Migrations Configuration
+$connection = $em->getConnection();
+
+$migrations = $doctrineSettings['migrations'];
+$configuration = new Configuration($connection);
+$configuration->setName($migrations['name']);
+$configuration->setMigrationsNamespace($migrations['namespace']);
+$configuration->setMigrationsTableName($migrations['table_name']);
+$configuration->setMigrationsColumnName($migrations['column_name']);
+$configuration->setMigrationsDirectory($migrations['migration_directory']);
+
+return new HelperSet([
+    'em' => new EntityManagerHelper($em),
+    'db' => new ConnectionHelper($connection),
+    new ConfigurationHelper($connection, $configuration)
+]);
