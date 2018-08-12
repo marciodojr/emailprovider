@@ -10,6 +10,7 @@ return [
             $layout
                 ->addScript('/js/login.min.js')
                 ->render('home/index');
+
         }
     ],
     [

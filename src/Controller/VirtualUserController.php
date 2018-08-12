@@ -3,7 +3,6 @@
 namespace Mdojr\EmailProvider\Controller;
 
 use Mdojr\EmailProvider\Service\Database\VirtualUser;
-use Mdojr\EmailProvider\Model\ResponseHandler;
 use Exception;
 
 class VirtualUserController
@@ -15,42 +14,36 @@ class VirtualUserController
         $this->vuser = $vuser;
     }
 
-    public function listAll()
+    public function listAll($request, $response)
     {
         try {
             $vusersData = $this->vuser->fetchAll();
-            $rp = new ResponseHandler(200, 'ok', $vusersData);
+            return $response->json(200, 'ok', $vusersData);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
-    public function create($request)
+    public function create($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
 
         try {
             $vusersData = $this->vuser->create($params['email'], $params['password'], $params['domain']);
-            $rp = new ResponseHandler(200, 'ok', $vusersData);
+            return $response->json(200, 'ok', $vusersData);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
-    public function delete($request)
+    public function delete($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
         try {
             $this->vuser->delete($params['id']);
-            $rp = new ResponseHandler(200);
+            return $response->json();
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 }

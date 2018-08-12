@@ -3,7 +3,6 @@
 namespace Mdojr\EmailProvider\Controller;
 
 use Mdojr\EmailProvider\Service\Database\VirtualAlias;
-use Mdojr\EmailProvider\Model\ResponseHandler;
 use Exception;
 
 class VirtualAliasController
@@ -15,42 +14,36 @@ class VirtualAliasController
         $this->valias = $valias;
     }
 
-    public function listAll()
+    public function listAll($request, $response)
     {
         try {
             $valiasesData = $this->valias->fetchAll();
-            $rp = new ResponseHandler(200, 'ok', $valiasesData);
+            return $response->json(200, 'ok', $valiasesData);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
-    public function create($request)
+    public function create($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
 
         try {
             $alias = $this->valias->create($params['sourceId'], $params['destination']);
-            $rp = new ResponseHandler(200, 'ok', $alias);
+            return $response->json(200, 'ok', $alias);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
-    public function delete($request)
+    public function delete($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
         try {
             $this->valias->delete($params['id']);
-            $rp = new ResponseHandler(200);
+            return $response->json();
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 }

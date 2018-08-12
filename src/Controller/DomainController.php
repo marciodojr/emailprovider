@@ -3,7 +3,6 @@
 namespace Mdojr\EmailProvider\Controller;
 
 use Mdojr\EmailProvider\Service\Database\VirtualDomain;
-use Mdojr\EmailProvider\Model\ResponseHandler;
 use Exception;
 
 class DomainController
@@ -15,56 +14,50 @@ class DomainController
         $this->vdomain = $vdomain;
     }
 
-    public function listAll()
+    public function listAll($request, $response)
     {
         try {
             $vdomainData = $this->vdomain->fetchAll();
-            $rp = new ResponseHandler(200, 'ok', $vdomainData);
+            return $response->json(200, 'ok', $vdomainData);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
-    public function create($request)
+    public function create($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
 
         try {
             $domain = $this->vdomain->create($params['name']);
-            $rp = new ResponseHandler(200, 'ok', $domain);
+            return $response->json(200, 'ok', $domain);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
-    public function update($request)
+    public function update($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
 
         try {
             $domain = $this->vdomain->update($params['id'], $params['name']);
-            $rp = new ResponseHandler(200, 'ok', $domain);
+            return $response->json(200, 'ok', $domain);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
 
         $rp->printJson();
     }
 
-    public function delete($request)
+    public function delete($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
         try {
             $this->vdomain->delete($params['id']);
-            $rp = new ResponseHandler(200);
+            return $response->json(200);
         } catch(Exception $ex) {
-            $rp = new ResponseHandler(400, $ex->getMessage());
+            return $response->json(400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 }

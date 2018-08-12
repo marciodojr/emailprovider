@@ -4,7 +4,6 @@ namespace Mdojr\EmailProvider\Middleware;
 
 use Mdojr\EmailProvider\View\Layout;
 use Mdojr\EmailProvider\Model\Config;
-use Mdojr\EmailProvider\Model\ResponseHandler;
 
 class HttpMiddleware
 {
@@ -17,37 +16,37 @@ class HttpMiddleware
         $this->displayErrors = $displayErrors;
     }
 
-    public function pageNotFound($request)
+    public function pageNotFound($request, $response)
     {
-        http_response_code(404);
-        if ($request->isXmlHttpRequest()) {
-            $rp = new ResponseHandler(404, 'Página não encontrada.');
-            $rp->printJson();
+        if ($this->acceptJson($request->getHeaderLine('accept'))) {
+            return $response->json(404, 'Página não encontrada.');
         } else {
             $this->layout
                 ->setLayout('layout-error')
                 ->render('http-error/404');
         }
-        exit;
     }
 
-    public function fatalError($request, $err)
+    public function fatalError($request, $response, $next, $err)
     {
-        if ($request->isXmlHttpRequest()) {
+        if ($this->acceptJson($request->getHeaderLine('accept'))) {
+
             $err = $this->displayErrors ? [
                 'message' => $err->getMessage(),
                 'code' => $err->getCode(),
                 'file' => $err->getFile(),
                 'line' => $err->getLine()
             ] : [];
-
-            $rp = new ResponseHandler(500, 'Ops! Houve um problema inesperado.', $err);
-            $rp->printJson();
+            return $response->json(500, 'Erro inesperado', $err);
         } else {
             $this->layout
                     ->setLayout('layout-error')
                     ->render('http-error/500', ['e' => $err, 'displayErrors' => $this->displayErrors]);
         }
-        exit;
+    }
+
+    private function acceptJson($acceptHeaderLine)
+    {
+        return false !== strpos($acceptHeaderLine, 'application/json');
     }
 }

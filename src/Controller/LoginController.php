@@ -4,7 +4,6 @@ namespace Mdojr\EmailProvider\Controller;
 
 use Exception;
 use Mdojr\EmailProvider\Service\Auth;
-use Mdojr\EmailProvider\Model\ResponseHandler;
 use Mdojr\EmailProvider\Service\Account;
 
 class LoginController
@@ -19,9 +18,9 @@ class LoginController
         $this->account = $account;
     }
 
-    public function login($request)
+    public function login($request, $response)
     {
-        $params = $request->getPostParams();
+        $params = $request->getParams();
 
         try {
             if (empty($params['username'])) {
@@ -41,29 +40,25 @@ class LoginController
                 'id' => $id
             ]);
 
-            $rp = new ResponseHandler(200, 'Autenticado com sucesso', [
+            return $response->json(200, 'Autenticado com sucesso', [
                 'success' => 'Autenticado com sucesso',
                 'token' => $token
             ]);
 
         } catch (Exception $e) {
-            $rp = new ResponseHandler(400, $e->getMessage(), [
+            return $response->json(400, $e->getMessage(), [
                 'error' => 'Usuário ou senha incorreta'
             ]);
         }
-
-        $rp->printJson();
     }
 
-    public function logout()
+    public function logout($request, $response)
     {
         try {
             $this->account->logout();
-            $rp = new ResponseHandler(200);
+            return $response->json(200);
         } catch(Exception $e) {
-            $rp = new ResponseHandler(400);
+            return $response->json(400, $e->getMessage());
         }
-
-        $rp->printJson();
     }
 }
