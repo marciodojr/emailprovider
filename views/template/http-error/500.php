@@ -6,13 +6,8 @@
                 <p>O servidor teve um problema inesperado.</p>
                 <br>
                 <code>
-                    <small>
-                        <?php
-                            if ($displayErrors) {
-                                echo sprintf('%s em %s, linha %s, código: %s',$e->getMessage(),$e->getFile(),$e->getLine(),$e->getCode());
-                            }
-                        ?>
-                    </small>
+                    <small> <?php echo $message; ?> </small>
+                    <small> <?php print_r($trace); ?> </small>
                 </code>
             </div>
         </div>

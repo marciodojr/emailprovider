@@ -127,7 +127,9 @@ module.exports = function(grunt) {
                         "public/img/**",
                         "public/js/**",
                         "public/index.php",
-                        "app/**/*.php"
+                        "config/**/*.php",
+                        "src/**/*.php",
+                        "views/**/*.php"
                     ]
                 },
                 options: {

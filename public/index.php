@@ -10,7 +10,8 @@ if (!file_exists('./vendor/autoload.php')) {
 include './vendor/autoload.php';
 
 use Intec\Router\SimpleRouter;
-use Mdojr\EmailProvider\Middleware\HttpMiddleware;
+use Mdojr\EmailProvider\Middleware\PageNotFound;
+use Mdojr\EmailProvider\Middleware\InternalServerError;
 use Pimple\Psr11\Container;
 use Pimple\Container as PimpleContainer;
 
@@ -27,8 +28,8 @@ if($settings['display_errors']) {
 
 SimpleRouter::setRoutes(require 'config/routes.php');
 
-SimpleRouter::setNotFoundFallback(HttpMiddleware::class . ':pageNotFound');
-SimpleRouter::setErrorFallback(HttpMiddleware::class . ':fatalError');
+SimpleRouter::setNotFoundFallback(PageNotFound::class);
+SimpleRouter::setErrorFallback(InternalServerError::class);
 
 $dependencies = new PimpleContainer();
 $dependencies['settings'] = $settings;

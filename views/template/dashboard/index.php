@@ -150,7 +150,7 @@
                     <div class="input-group mb-3">
                         <input type="text" class="form-control" placeholder="fulano" v-model="emailName">
                         <div class="input-group-append">
-                            <span class="input-group-text"><i class="fas fa-at"></i>{{domain ? virtualDomains[domain].name: '...'}}</span>
+                            <span class="input-group-text"><i class="fas fa-at"></i>{{domain !== "" ? virtualDomains[domain].name: '...'}}</span>
                         </div>
                     </div>
                     <div class="form-group">

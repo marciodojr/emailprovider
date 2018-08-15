@@ -11,8 +11,9 @@ use Mdojr\EmailProvider\Controller\LoginController;
 
 // Middleware
 
-use Mdojr\EmailProvider\Middleware\AuthenticationMiddleware;
-use Mdojr\EmailProvider\Middleware\HttpMiddleware;
+use Mdojr\EmailProvider\Middleware\Auth as AuthMiddleware;
+use Mdojr\EmailProvider\Middleware\PageNotFound;
+use Mdojr\EmailProvider\Middleware\InternalServerError;
 
 // Service
 
@@ -110,13 +111,19 @@ $dependencies[Admin::class] = function ($c) {
 
 // Middleware
 
-$dependencies[AuthenticationMiddleware::class] = function ($c) {
-    $layout = new Layout();
+$dependencies[AuthMiddleware::class] = function ($c) {
+    $layout = new Layout('layout-error');
     $account = $c[Account::class];
-    return new AuthenticationMiddleware($layout, $account);
+    return new AuthMiddleware($layout, $account);
 };
 
-$dependencies[HttpMiddleware::class] = function ($c) {
-    $layout = new Layout();
-    return new HttpMiddleware($layout, $c['settings']['display_errors']);
+$dependencies[InternalServerError::class] = function ($c) {
+    $layout = new Layout('layout-error');
+    $showErrors = $c['settings']['display_errors'];
+    return new InternalServerError($layout, $showErrors);
+};
+
+$dependencies[PageNotFound::class] = function ($c) {
+    $layout = new Layout('layout-error');
+    return new PageNotFound($layout);
 };

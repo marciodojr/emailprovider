@@ -10,11 +10,13 @@ class Account
 {
     private $jwt;
     private $sessionCookie;
+    private $accountData;
 
     public function __construct(JwtWrapper $jwt, Cookie $sessionCookie)
     {
         $this->jwt = $jwt;
         $this->sessionCookie = $sessionCookie;
+        $this->accountData = null;
     }
 
     public function login(array $info)
@@ -22,26 +24,26 @@ class Account
         $token = $this->jwt->encode($info);
         return [
             'name' => $this->sessionCookie->getName(),
-            'value' => $this->sessionCookie->set($token)
+            'value' => $token
         ];
     }
 
-    public function isLoggedIn($key = 'id')
+    public function get(string $key)
     {
         try {
             $token = $this->sessionCookie->get();
             if (!$token) {
                 throw new Exception('Usuário não logado');
             }
-            return $this->jwt->decode($token)->data->$key;
+
+            if(is_null($this->accountData)) {
+                $data = $this->jwt->decode($token)->data;
+                $this->accountData = $data;
+            }
+
+            return property_exists($this->accountData, $key) ? $this->accountData->$key : false;
         } catch (Exception $e) {
+            return false;
         }
-
-        return false;
-    }
-
-    public function logout()
-    {
-        $this->sessionCookie->remove();
     }
 }
