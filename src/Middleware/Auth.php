@@ -25,7 +25,9 @@ class Auth implements MiddlewareInterface
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        if (!$this->account->get('id')) {
+        $token = $request->getHeader('x-token');
+
+        if (empty($token) || !$this->account->get($token[0])) {
             $resp = $handler->getResponse();
             if ($this->acceptJson($request->getHeaderLine('accept'))) {
                 return $resp->json(403, 'Você não possui permissão para acessar este recurso');

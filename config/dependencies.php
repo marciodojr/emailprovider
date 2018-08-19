@@ -19,7 +19,6 @@ use Mdojr\EmailProvider\Middleware\InternalServerError;
 
 use Mdojr\EmailProvider\Service\Auth;
 use Mdojr\EmailProvider\Service\JwtWrapper;
-use Mdojr\EmailProvider\Service\Cookie;
 use Mdojr\EmailProvider\Service\Account;
 
 // Service\Database
@@ -75,10 +74,6 @@ $dependencies[Auth::class] = function ($c) {
     return new Auth($admin);
 };
 
-$dependencies[Cookie::class] = function ($c) {
-    $cookieSettings = $c['settings']['session'];
-    return new Cookie($cookieSettings['cookie_name'], $cookieSettings['cookie_expires']);
-};
 $dependencies[JwtWrapper::class] = function ($c) {
     $jwtSettings = $c['settings']['jwt'];
     return new JwtWrapper($jwtSettings['app_secret'], $jwtSettings['token_expires']);
@@ -86,8 +81,7 @@ $dependencies[JwtWrapper::class] = function ($c) {
 
 $dependencies[Account::class] = function ($c) {
     $jwt = $c[JwtWrapper::class];
-    $sessionCookie = $c[Cookie::class];
-    return new Account($jwt, $sessionCookie);
+    return new Account($jwt);
 };
 
 // Service/Database
