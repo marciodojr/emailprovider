@@ -34,9 +34,5 @@ return [
     'jwt' => [
         'app_secret' => getenv('APP_SECRET'),
         'token_expires' => 1800 // 30 min
-    ],
-    'session' => [
-        'cookie_name' => getenv('APP_COOKIE_NAME'),
-        'cookie_expires' => 1800 // 30 min
-    ],
+    ]
 ];

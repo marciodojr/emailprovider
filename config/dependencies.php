@@ -1,6 +1,21 @@
 <?php
 
 
+
+// Base
+
+$dependencies[EntityManager::class] = function ($c) {
+    $doctrine = $c['settings']['doctrine'];
+    $config = Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
+        $doctrine['meta']['entity_path'],
+        $doctrine['meta']['auto_generate_proxies'],
+        $doctrine['meta']['proxy_dir'],
+        $doctrine['meta']['cache'],
+        false
+    );
+    return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
+};
+
 // Controller
 
 use Mdojr\EmailProvider\Controller\DashboardController;
@@ -19,7 +34,6 @@ use Mdojr\EmailProvider\Middleware\InternalServerError;
 
 use Mdojr\EmailProvider\Service\Auth;
 use Mdojr\EmailProvider\Service\JwtWrapper;
-use Mdojr\EmailProvider\Service\Cookie;
 use Mdojr\EmailProvider\Service\Account;
 
 // Service\Database
@@ -28,24 +42,6 @@ use Mdojr\EmailProvider\Service\Database\VirtualUser;
 use Mdojr\EmailProvider\Service\Database\VirtualDomain;
 use Mdojr\EmailProvider\Service\Database\VirtualAlias;
 use Mdojr\EmailProvider\Service\Database\Admin;
-
-// View
-
-use Mdojr\EmailProvider\View\Layout;
-
-// Base
-
-$dependencies[EntityManager::class] = function ($c) {
-    $doctrine = $c['settings']['doctrine'];
-    $config = Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
-        $doctrine['meta']['entity_path'],
-        $doctrine['meta']['auto_generate_proxies'],
-        $doctrine['meta']['proxy_dir'],
-        $doctrine['meta']['cache'],
-        false
-    );
-    return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
-};
 
 // Model
 
@@ -75,10 +71,6 @@ $dependencies[Auth::class] = function ($c) {
     return new Auth($admin);
 };
 
-$dependencies[Cookie::class] = function ($c) {
-    $cookieSettings = $c['settings']['session'];
-    return new Cookie($cookieSettings['cookie_name'], $cookieSettings['cookie_expires']);
-};
 $dependencies[JwtWrapper::class] = function ($c) {
     $jwtSettings = $c['settings']['jwt'];
     return new JwtWrapper($jwtSettings['app_secret'], $jwtSettings['token_expires']);
@@ -86,8 +78,7 @@ $dependencies[JwtWrapper::class] = function ($c) {
 
 $dependencies[Account::class] = function ($c) {
     $jwt = $c[JwtWrapper::class];
-    $sessionCookie = $c[Cookie::class];
-    return new Account($jwt, $sessionCookie);
+    return new Account($jwt);
 };
 
 // Service/Database
@@ -112,18 +103,15 @@ $dependencies[Admin::class] = function ($c) {
 // Middleware
 
 $dependencies[AuthMiddleware::class] = function ($c) {
-    $layout = new Layout('layout-error');
     $account = $c[Account::class];
-    return new AuthMiddleware($layout, $account);
+    return new AuthMiddleware($account);
 };
 
 $dependencies[InternalServerError::class] = function ($c) {
-    $layout = new Layout('layout-error');
     $showErrors = $c['settings']['display_errors'];
-    return new InternalServerError($layout, $showErrors);
+    return new InternalServerError($showErrors);
 };
 
 $dependencies[PageNotFound::class] = function ($c) {
-    $layout = new Layout('layout-error');
-    return new PageNotFound($layout);
+    return new PageNotFound;
 };

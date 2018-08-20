@@ -10,7 +10,6 @@ class LoginController
 {
     private $auth;
     private $account;
-    const DEFAULT_COST = 15;
 
     public function __construct(Account $account, Auth $auth)
     {
@@ -49,16 +48,6 @@ class LoginController
             return $response->json(400, $e->getMessage(), [
                 'error' => 'Usuário ou senha incorreta'
             ]);
-        }
-    }
-
-    public function logout($request, $response)
-    {
-        try {
-            $this->account->logout();
-            return $response->json(200);
-        } catch(Exception $e) {
-            return $response->json(400, $e->getMessage());
         }
     }
 }

@@ -12,6 +12,7 @@ include './vendor/autoload.php';
 use Intec\Router\SimpleRouter;
 use Mdojr\EmailProvider\Middleware\PageNotFound;
 use Mdojr\EmailProvider\Middleware\InternalServerError;
+use Mdojr\EmailProvider\Middleware\AllowOrigin;
 use Pimple\Psr11\Container;
 use Pimple\Container as PimpleContainer;
 
@@ -30,6 +31,9 @@ SimpleRouter::setRoutes(require 'config/routes.php');
 
 SimpleRouter::setNotFoundFallback(PageNotFound::class);
 SimpleRouter::setErrorFallback(InternalServerError::class);
+SimpleRouter::setDefaultMiddlewares([
+    AllowOrigin::class
+]);
 
 $dependencies = new PimpleContainer();
 $dependencies['settings'] = $settings;

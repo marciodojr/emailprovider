@@ -14,12 +14,10 @@ class InternalServerError implements MiddlewareInterface
 {
     use Helper\AcceptJson;
 
-    private $layout;
     private $showError;
 
-    public function __construct(Layout $layout, bool $showError)
+    public function __construct(bool $showError)
     {
-        $this->layout = $layout;
         $this->showError = $showError;
     }
 
@@ -36,16 +34,8 @@ class InternalServerError implements MiddlewareInterface
                 $errorTrace = $e->getTrace();
             }
 
-            if ($this->acceptJson($request->getHeaderLine('accept'))) {
-
-            } else {
-                $this->layout
-                    ->setLayout('layout-error')
-                    ->render('http-error/500', [
-                        'message' => $errorMessage,
-                        'trace' => $errorTrace
-                    ]);
-            }
+            $resp = $handler->getResponse();
+            return $resp->json(500, $errorMessage, $errorTrace);
         }
     }
 }

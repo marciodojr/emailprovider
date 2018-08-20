@@ -8,16 +8,21 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Mdojr\EmailProvider\View\Layout;
 
-class PageNotFound implements MiddlewareInterface
+class AllowOrigin implements MiddlewareInterface
 {
     use Helper\AcceptJson;
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
-        $response = $handler->handle($request);
-        if($response->getStatusCode() != 404) {
-            return $response;
+
+        if($request->getMethod() !== 'OPTIONS') {
+            $response = $handler->handle($request);
+        } else {
+            $response = $handler->getResponse();
         }
-        return $response->json(404, 'Página não encontrada');
+
+        return $response
+            ->withHeader('access-control-allow-origin', '*')
+            ->withHeader('access-control-allow-headers', 'x-token');
     }
 }
