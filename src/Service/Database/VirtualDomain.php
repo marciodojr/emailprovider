@@ -36,10 +36,13 @@ class VirtualDomain extends AbstractDbProvider
         return $domain->getArrayCopy();
     }
 
-    public function delete(int $id)
+    public function delete(array $ids)
     {
-        $domain = $this->em->find(VirtualDomains::class, $id);
-        $this->em->remove($domain);
+        foreach($ids as $id) {
+            $domain = $this->em->find(VirtualDomains::class, $id);
+            $this->em->remove($domain);
+        }
+
         $this->em->flush();
     }
 }

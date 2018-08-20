@@ -54,7 +54,7 @@ class DomainController
     {
         $params = $request->getParams();
         try {
-            $this->vdomain->delete($params['id']);
+            $this->vdomain->delete($params['domains']);
             return $response->json(200);
         } catch(Exception $ex) {
             return $response->json(400, $ex->getMessage());

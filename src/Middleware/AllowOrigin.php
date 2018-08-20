@@ -12,12 +12,6 @@ class AllowOrigin implements MiddlewareInterface
 {
     use Helper\AcceptJson;
 
-    private $layout;
-
-    public function __construct()
-    {
-    }
-
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
     {
 

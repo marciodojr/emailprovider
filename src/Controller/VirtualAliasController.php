@@ -40,7 +40,7 @@ class VirtualAliasController
     {
         $params = $request->getParams();
         try {
-            $this->valias->delete($params['id']);
+            $this->valias->delete($params['aliases']);
             return $response->json();
         } catch(Exception $ex) {
             return $response->json(400, $ex->getMessage());

@@ -40,7 +40,7 @@ class VirtualUserController
     {
         $params = $request->getParams();
         try {
-            $this->vuser->delete($params['id']);
+            $this->vuser->delete($params['emails']);
             return $response->json();
         } catch(Exception $ex) {
             return $response->json(400, $ex->getMessage());

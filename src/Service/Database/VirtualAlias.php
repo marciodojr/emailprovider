@@ -35,11 +35,12 @@ class VirtualAlias extends AbstractDbProvider
         return $alias->getArrayCopy();
     }
 
-    public function delete(int $id)
+    public function delete(array $ids)
     {
-        $alias = $this->em->find(VirtualAliases::class, $id);
-
-        $this->em->remove($alias);
+        foreach($ids  as $id) {
+            $alias = $this->em->find(VirtualAliases::class, $id);
+            $this->em->remove($alias);
+        }
         $this->em->flush();
     }
 }

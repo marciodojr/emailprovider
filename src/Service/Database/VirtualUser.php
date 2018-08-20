@@ -29,10 +29,12 @@ class VirtualUser extends AbstractDbProvider
         return $vuser->getArrayCopy();
     }
 
-    public function delete(int $id)
+    public function delete(array $ids)
     {
-        $domain = $this->em->find(VirtualUsers::class, $id);
-        $this->em->remove($domain);
+        foreach($ids as $id)  {
+            $domain = $this->em->find(VirtualUsers::class, $id);
+            $this->em->remove($domain);
+        }
         $this->em->flush();
     }
 }
