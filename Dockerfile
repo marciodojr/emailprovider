@@ -1,4 +1,5 @@
 FROM marciodojr/phpstart-apache-docker-image:1.0.0
+COPY . /srv/vhosts/phpApp
 WORKDIR /srv/vhosts/phpApp
 RUN composer install --no-ansi --no-dev --no-interaction --no-progress --no-scripts --optimize-autoloader \
 && php vendor/bin/doctrine orm:generate-proxies
