@@ -6,10 +6,12 @@ use Mdojr\EmailProvider\Middleware\Auth;
 
 return [
     [
+        'method' => 'post',
         'pattern' => '/user/login',
         'callback' => Controller\LoginController::class . ':login',
     ],
     [
+        'method' => 'get',
         'pattern' => '/virtual-users',
         'middlewares' => [
             Middleware\Auth::class,
@@ -17,20 +19,23 @@ return [
         'callback' => Controller\VirtualUserController::class . ':listAll',
     ],
     [
-        'pattern' => '/virtual-users/add',
+        'method' => 'post',
+        'pattern' => '/virtual-users',
         'middlewares' => [
             Middleware\Auth::class,
         ],
         'callback' => Controller\VirtualUserController::class . ':create',
     ],
     [
-        'pattern' => '/virtual-users/remove',
+        'method' => 'delete',
+        'pattern' => '/virtual-users',
         'middlewares' => [
             Middleware\Auth::class,
         ],
         'callback' => Controller\VirtualUserController::class . ':delete',
     ],
     [
+        'method' => 'get',
         'pattern' => '/virtual-domains',
         'middlewares' => [
             Middleware\Auth::class,
@@ -38,27 +43,31 @@ return [
         'callback' => Controller\DomainController::class . ':listAll',
     ],
     [
-        'pattern' => '/virtual-domains/add',
+        'method' => 'post',
+        'pattern' => '/virtual-domains',
         'middlewares' => [
             Middleware\Auth::class,
         ],
         'callback' => Controller\DomainController::class . ':create',
     ],
     [
-        'pattern' => '/virtual-domains/edit',
+        'method' => 'patch',
+        'pattern' => '/virtual-domains/([0-9]+)',
         'middlewares' => [
             Middleware\Auth::class,
         ],
         'callback' => Controller\DomainController::class . ':update',
     ],
     [
-        'pattern' => '/virtual-domains/remove',
+        'method' => 'delete',
+        'pattern' => '/virtual-domains',
         'middlewares' => [
             Middleware\Auth::class,
         ],
         'callback' => Controller\DomainController::class . ':delete',
     ],
     [
+        'method' => 'get',
         'pattern' => '/virtual-aliases',
         'middlewares' => [
             Middleware\Auth::class,
@@ -66,14 +75,16 @@ return [
         'callback' => Controller\VirtualAliasController::class . ':listAll',
     ],
     [
-        'pattern' => '/virtual-aliases/add',
+        'method' => 'post',
+        'pattern' => '/virtual-aliases',
         'middlewares' => [
             Middleware\Auth::class,
         ],
         'callback' => Controller\VirtualAliasController::class . ':create',
     ],
     [
-        'pattern' => '/virtual-aliases/remove',
+        'method' => 'delete',
+        'pattern' => '/virtual-aliases',
         'middlewares' => [
             Middleware\Auth::class,
         ],

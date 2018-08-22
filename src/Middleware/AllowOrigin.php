@@ -22,6 +22,7 @@ class AllowOrigin implements MiddlewareInterface
         }
 
         return $response
+            ->withHeader('access-control-allow-methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
             ->withHeader('access-control-allow-origin', '*')
             ->withHeader('access-control-allow-headers', 'x-token');
     }
