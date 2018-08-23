@@ -4,13 +4,9 @@ namespace Mdojr\EmailProvider\Middleware;
 
 use Mdojr\EmailProvider\Service\Account;
 
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
-
-class Auth implements MiddlewareInterface
+class Auth
 {
+    use \Mdojr\EmailProvider\Controller\Helper\JsonResponse;
 
     private $account;
 
@@ -19,15 +15,23 @@ class Auth implements MiddlewareInterface
         $this->account = $account;
     }
 
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process($request, $response, $next)
     {
-        $token = $request->getHeader('x-token');
+        $header = $request->getHeader('Authorization');
+        $token = $header ? $this->getToken($header[0]) : null;
+        if (!$token || !$this->account->get($token)) {
+            return $this->toJson($response, 403, 'Você não possui permissão para acessar este recurso');
+        }
+        $req = $request->withAttribute('token', $token);
+        return $next($req, $response);
+    }
 
-        if (empty($token) || !$this->account->get($token[0])) {
-            $resp = $handler->getResponse();
-            return $resp->json(403, 'Você não possui permissão para acessar este recurso');
+    private function getToken($header)
+    {
+        if(preg_match("/Bearer\s(\S+)/", $header, $matches)) {
+            return $matches[1];
         }
 
-        return $handler->handle($request);
+        return null;
     }
 }

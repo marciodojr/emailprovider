@@ -2,28 +2,14 @@
 
 namespace Mdojr\EmailProvider\Middleware;
 
-use Psr\Http\Server\MiddlewareInterface;
-use Psr\Http\Server\RequestHandlerInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Message\ResponseInterface;
-use Mdojr\EmailProvider\View\Layout;
-
-class AllowOrigin implements MiddlewareInterface
+class AllowOrigin
 {
-    use Helper\AcceptJson;
-
-    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler) : ResponseInterface
+    public function process($request, $response, $next)
     {
-
-        if($request->getMethod() !== 'OPTIONS') {
-            $response = $handler->handle($request);
-        } else {
-            $response = $handler->getResponse();
-        }
-
+        $response = $next($request, $response);
         return $response
-            ->withHeader('access-control-allow-methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE')
-            ->withHeader('access-control-allow-origin', '*')
-            ->withHeader('access-control-allow-headers', 'x-token');
+                ->withHeader('Access-Control-Allow-Origin', '*')
+                ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+                ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     }
 }

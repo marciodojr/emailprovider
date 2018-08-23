@@ -39,6 +39,6 @@ return [
     ],
     'jwt' => [
         'app_secret' => getenv('APP_SECRET'),
-        'token_expires' => 1800 // 30 min
+        'token_expires' => 18000 // 5h
     ]
 ];

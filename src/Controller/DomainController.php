@@ -20,9 +20,9 @@ class DomainController
     {
         try {
             $vdomainData = $this->vdomain->fetchAll();
-            $this->toJson($response, 200, 'ok', $vdomainData);
+            return $this->toJson($response, 200, 'ok', $vdomainData);
         } catch(Exception $ex) {
-            $this->toJson($response, 400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -32,9 +32,9 @@ class DomainController
 
         try {
             $domain = $this->vdomain->create($params['name']);
-            $this->toJson($response, 200, 'ok', $domain);
+            return $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
-            $this->toJson($response, 400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -43,13 +43,11 @@ class DomainController
         $params = $request->getParams();
 
         try {
-            $domain = $this->vdomain->update($urlParams[0], $params['name']);
-            $this->toJson($response, 200, 'ok', $domain);
+            $domain = $this->vdomain->update($urlParams['id'], $params['name']);
+            return $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
-            $this->toJson($response, 400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
-
-        $rp->printJson();
     }
 
     public function delete($request, $response)
@@ -57,7 +55,7 @@ class DomainController
         $params = $request->getParams();
         try {
             $this->vdomain->delete($params['domains']);
-            $this->toJson($response);
+            return $this->toJson($response);
         } catch(Exception $ex) {
             return $response->json(400, $ex->getMessage());
         }

@@ -20,7 +20,7 @@ class VirtualAliasController
     {
         try {
             $valiasesData = $this->valias->fetchAll();
-            $this->toJson($response, 200, 'ok', $valiasesData);
+            return $this->toJson($response, 200, 'ok', $valiasesData);
         } catch(Exception $ex) {
             return $this->toJson($response, 400, $ex->getMessage());
         }
@@ -32,7 +32,7 @@ class VirtualAliasController
 
         try {
             $alias = $this->valias->create($params['sourceId'], $params['destination']);
-            $this->toJson($response, 200, 'ok', $alias);
+            return $this->toJson($response, 200, 'ok', $alias);
         } catch(Exception $ex) {
             return $this->toJson($response, 400, $ex->getMessage());
         }
@@ -43,7 +43,7 @@ class VirtualAliasController
         $params = $request->getParams();
         try {
             $this->valias->delete($params['aliases']);
-            $this->toJson($response);
+            return $this->toJson($response);
         } catch(Exception $ex) {
             return $this->toJson($response, 400, $ex->getMessage());
         }

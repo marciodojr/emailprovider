@@ -11,8 +11,6 @@ use Mdojr\EmailProvider\Controller\LoginController;
 // Middleware
 
 use Mdojr\EmailProvider\Middleware\Auth as AuthMiddleware;
-use Mdojr\EmailProvider\Middleware\PageNotFound;
-use Mdojr\EmailProvider\Middleware\InternalServerError;
 
 // Service
 
