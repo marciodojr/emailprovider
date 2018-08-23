@@ -12,7 +12,6 @@ use Throwable;
 
 class InternalServerError implements MiddlewareInterface
 {
-    use Helper\AcceptJson;
 
     private $showError;
 

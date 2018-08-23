@@ -8,6 +8,8 @@ use Mdojr\EmailProvider\Service\Account;
 
 class LoginController
 {
+    use Helper\JsonResponse;
+
     private $auth;
     private $account;
 
@@ -39,15 +41,13 @@ class LoginController
                 'id' => $id
             ]);
 
-            return $response->json(200, 'Autenticado com sucesso', [
+            return $this->toJson($response, 200, 'Autenticado com sucesso', [
                 'success' => 'Autenticado com sucesso',
                 'token' => $token
             ]);
 
         } catch (Exception $e) {
-            return $response->json(400, $e->getMessage(), [
-                'error' => 'Usuário ou senha incorreta'
-            ]);
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 }

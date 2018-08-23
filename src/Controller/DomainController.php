@@ -7,6 +7,8 @@ use Exception;
 
 class DomainController
 {
+    use Helper\JsonResponse;
+
     private $vdomain;
 
     public function __construct(VirtualDomain $vdomain)
@@ -18,9 +20,9 @@ class DomainController
     {
         try {
             $vdomainData = $this->vdomain->fetchAll();
-            return $response->json(200, 'ok', $vdomainData);
+            $this->toJson($response, 200, 'ok', $vdomainData);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -30,9 +32,9 @@ class DomainController
 
         try {
             $domain = $this->vdomain->create($params['name']);
-            return $response->json(200, 'ok', $domain);
+            $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -42,9 +44,9 @@ class DomainController
 
         try {
             $domain = $this->vdomain->update($urlParams[0], $params['name']);
-            return $response->json(200, 'ok', $domain);
+            $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            $this->toJson($response, 400, $ex->getMessage());
         }
 
         $rp->printJson();
@@ -55,7 +57,7 @@ class DomainController
         $params = $request->getParams();
         try {
             $this->vdomain->delete($params['domains']);
-            return $response->json(200);
+            $this->toJson($response);
         } catch(Exception $ex) {
             return $response->json(400, $ex->getMessage());
         }

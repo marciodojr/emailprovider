@@ -7,6 +7,8 @@ use Exception;
 
 class VirtualUserController
 {
+    use Helper\JsonResponse;
+
     private $vuser;
 
     public function __construct(VirtualUser $vuser)
@@ -18,9 +20,9 @@ class VirtualUserController
     {
         try {
             $vusersData = $this->vuser->fetchAll();
-            return $response->json(200, 'ok', $vusersData);
+            return $this->toJson($response, 200, 'ok', $vusersData);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -30,9 +32,9 @@ class VirtualUserController
 
         try {
             $vusersData = $this->vuser->create($params['email'], $params['password'], $params['domain']);
-            return $response->json(200, 'ok', $vusersData);
+            return $this->toJson($response, 200, 'ok', $vusersData);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -41,9 +43,9 @@ class VirtualUserController
         $params = $request->getParams();
         try {
             $this->vuser->delete($params['emails']);
-            return $response->json();
+            return $this->toJson($response);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 }

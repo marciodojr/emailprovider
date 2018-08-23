@@ -11,7 +11,6 @@ use Psr\Http\Message\ResponseInterface;
 
 class Auth implements MiddlewareInterface
 {
-    use Helper\AcceptJson;
 
     private $account;
 

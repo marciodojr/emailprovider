@@ -1,21 +1,5 @@
 <?php
 
-
-
-// Base
-
-$dependencies[EntityManager::class] = function ($c) {
-    $doctrine = $c['settings']['doctrine'];
-    $config = Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
-        $doctrine['meta']['entity_path'],
-        $doctrine['meta']['auto_generate_proxies'],
-        $doctrine['meta']['proxy_dir'],
-        $doctrine['meta']['cache'],
-        false
-    );
-    return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
-};
-
 // Controller
 
 use Mdojr\EmailProvider\Controller\DashboardController;
@@ -43,22 +27,36 @@ use Mdojr\EmailProvider\Service\Database\VirtualDomain;
 use Mdojr\EmailProvider\Service\Database\VirtualAlias;
 use Mdojr\EmailProvider\Service\Database\Admin;
 
-// Model
+$container = $app->getContainer();
+
+// Base
+
+$container[EntityManager::class] = function ($c) {
+    $doctrine = $c['settings']['doctrine'];
+    $config = Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
+        $doctrine['meta']['entity_path'],
+        $doctrine['meta']['auto_generate_proxies'],
+        $doctrine['meta']['proxy_dir'],
+        $doctrine['meta']['cache'],
+        false
+    );
+    return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
+};
 
 // Controller
-$dependencies[DomainController::class] = function ($c) {
+$container[DomainController::class] = function ($c) {
     $virtualDomain = $c[VirtualDomain::class];
     return new DomainController($virtualDomain);
 };
-$dependencies[VirtualUserController::class] = function ($c) {
+$container[VirtualUserController::class] = function ($c) {
     $virtualUser = $c[VirtualUser::class];
     return new VirtualUserController($virtualUser);
 };
-$dependencies[VirtualAliasController::class] = function ($c) {
+$container[VirtualAliasController::class] = function ($c) {
     $virtualAlias = $c[VirtualAlias::class];
     return new VirtualAliasController($virtualAlias);
 };
-$dependencies[LoginController::class] = function ($c) {
+$container[LoginController::class] = function ($c) {
     $account = $c[Account::class];
     $auth = $c[Auth::class];
     return new LoginController($account, $auth);
@@ -66,52 +64,52 @@ $dependencies[LoginController::class] = function ($c) {
 
 // Service
 
-$dependencies[Auth::class] = function ($c) {
+$container[Auth::class] = function ($c) {
     $admin = $c[Admin::class];
     return new Auth($admin);
 };
 
-$dependencies[JwtWrapper::class] = function ($c) {
+$container[JwtWrapper::class] = function ($c) {
     $jwtSettings = $c['settings']['jwt'];
     return new JwtWrapper($jwtSettings['app_secret'], $jwtSettings['token_expires']);
 };
 
-$dependencies[Account::class] = function ($c) {
+$container[Account::class] = function ($c) {
     $jwt = $c[JwtWrapper::class];
     return new Account($jwt);
 };
 
 // Service/Database
 
-$dependencies[VirtualUser::class] = function ($c) {
+$container[VirtualUser::class] = function ($c) {
     $em = $c[EntityManager::class];
     return new VirtualUser($em);
 };
-$dependencies[VirtualDomain::class] = function ($c) {
+$container[VirtualDomain::class] = function ($c) {
     $em = $c[EntityManager::class];
     return new VirtualDomain($em);
 };
-$dependencies[VirtualAlias::class] = function ($c) {
+$container[VirtualAlias::class] = function ($c) {
     $em = $c[EntityManager::class];
     return new VirtualAlias($em);
 };
-$dependencies[Admin::class] = function ($c) {
+$container[Admin::class] = function ($c) {
     $em = $c[EntityManager::class];
     return new Admin($em);
 };
 
 // Middleware
-
-$dependencies[AuthMiddleware::class] = function ($c) {
+$container[AuthMiddleware::class] = function ($c) {
     $account = $c[Account::class];
     return new AuthMiddleware($account);
 };
 
-$dependencies[InternalServerError::class] = function ($c) {
+$container[InternalServerError::class] = function ($c) {
     $showErrors = $c['settings']['display_errors'];
     return new InternalServerError($showErrors);
 };
 
-$dependencies[PageNotFound::class] = function ($c) {
-    return new PageNotFound;
+// Handlers
+$container['notFoundHandler'] = function ($c) {
+    return new \Mdojr\EmailProvider\Handler\NotFound;
 };

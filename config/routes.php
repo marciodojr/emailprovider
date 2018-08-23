@@ -1,93 +1,35 @@
 <?php
 
-namespace Mdojr\EmailProvider;
+namespace Mdojr\EmailProvider\Controller;
+
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 use Mdojr\EmailProvider\Middleware\Auth;
 
-return [
-    [
-        'method' => 'post',
-        'pattern' => '/user/login',
-        'callback' => Controller\LoginController::class . ':login',
-    ],
-    [
-        'method' => 'get',
-        'pattern' => '/virtual-users',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualUserController::class . ':listAll',
-    ],
-    [
-        'method' => 'post',
-        'pattern' => '/virtual-users',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualUserController::class . ':create',
-    ],
-    [
-        'method' => 'delete',
-        'pattern' => '/virtual-users',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualUserController::class . ':delete',
-    ],
-    [
-        'method' => 'get',
-        'pattern' => '/virtual-domains',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':listAll',
-    ],
-    [
-        'method' => 'post',
-        'pattern' => '/virtual-domains',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':create',
-    ],
-    [
-        'method' => 'patch',
-        'pattern' => '/virtual-domains/([0-9]+)',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':update',
-    ],
-    [
-        'method' => 'delete',
-        'pattern' => '/virtual-domains',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':delete',
-    ],
-    [
-        'method' => 'get',
-        'pattern' => '/virtual-aliases',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualAliasController::class . ':listAll',
-    ],
-    [
-        'method' => 'post',
-        'pattern' => '/virtual-aliases',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualAliasController::class . ':create',
-    ],
-    [
-        'method' => 'delete',
-        'pattern' => '/virtual-aliases',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualAliasController::class . ':delete',
-    ]
-];
+$app->post('/user/login', LoginController::class . ':login');
+
+// crud domínios
+$app->group('/virtual-domains', function () {
+    $this->get('', DomainController::class . ':listAll');
+    $this->post('', DomainController::class . ':create');
+    $this->patch('/{id:[0-9]+}', DomainController::class . ':update');
+    $this->delete('', DomainController::class . ':delete');
+});
+// ->add(Auth::class);
+
+// crud emails
+$app->group('/virtual-users', function() {
+    $this->get('', VirtualUserController::class . ':listAll');
+    $this->post('', VirtualUserController::class . ':create');
+    $this->delete('', VirtualUserController::class . ':delete');
+});
+// ->add(Auth::class);
+
+// crud aliases
+$app->group('/virtual-aliases', function(){
+    $this->get('', VirtualAliasController::class . ':listAll');
+    $this->post('', VirtualAliasController::class . ':create');
+    $this->delete('', VirtualAliasController::class . ':delete');
+});
+// ->add(Auth::class);

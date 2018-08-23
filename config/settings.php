@@ -3,7 +3,13 @@
 // as chaves iguais serão sobrescritas pelo array em settings.local.php
 
 return [
-    'display_errors' => getenv('DEV_MODE'),
+    'displayErrorDetails' => getenv('DEV_MODE'), // slim
+    'addContentLengthHeader' => false, // slim
+    'logger' => [ // slim log
+        'name' => 'slim-app',
+        'path' => 'php://stdout',
+        'level' => \Monolog\Logger::DEBUG,
+    ],
     'doctrine' => [
         'meta' => [
             'entity_path' => [
