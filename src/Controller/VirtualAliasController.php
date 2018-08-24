@@ -7,6 +7,8 @@ use Exception;
 
 class VirtualAliasController
 {
+    use Helper\JsonResponse;
+
     private $valias;
 
     public function __construct(VirtualAlias $valias)
@@ -18,9 +20,9 @@ class VirtualAliasController
     {
         try {
             $valiasesData = $this->valias->fetchAll();
-            return $response->json(200, 'ok', $valiasesData);
+            return $this->toJson($response, 200, 'ok', $valiasesData);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -30,9 +32,9 @@ class VirtualAliasController
 
         try {
             $alias = $this->valias->create($params['sourceId'], $params['destination']);
-            return $response->json(200, 'ok', $alias);
+            return $this->toJson($response, 200, 'ok', $alias);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 
@@ -41,9 +43,9 @@ class VirtualAliasController
         $params = $request->getParams();
         try {
             $this->valias->delete($params['aliases']);
-            return $response->json();
+            return $this->toJson($response);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 }

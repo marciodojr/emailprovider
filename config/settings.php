@@ -3,7 +3,13 @@
 // as chaves iguais serão sobrescritas pelo array em settings.local.php
 
 return [
-    'display_errors' => getenv('DEV_MODE'),
+    'displayErrorDetails' => getenv('DEV_MODE'), // slim
+    'addContentLengthHeader' => false, // slim
+    'logger' => [ // slim log
+        'name' => 'AppLog',
+        'path' => getenv('DEV_MODE') ? 'php://stdout' :__DIR__ . '/../logs/app.log',
+        'level' => \Monolog\Logger::DEBUG,
+    ],
     'doctrine' => [
         'meta' => [
             'entity_path' => [
@@ -33,6 +39,6 @@ return [
     ],
     'jwt' => [
         'app_secret' => getenv('APP_SECRET'),
-        'token_expires' => 1800 // 30 min
+        'token_expires' => 18000 // 5h
     ]
 ];

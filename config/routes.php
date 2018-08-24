@@ -1,93 +1,51 @@
 <?php
 
-namespace Mdojr\EmailProvider;
+namespace Mdojr\EmailProvider\Controller;
+
+use Slim\Http\Request;
+use Slim\Http\Response;
 
 use Mdojr\EmailProvider\Middleware\Auth;
+use Mdojr\EmailProvider\Middleware\AllowOrigin;
 
-return [
-    [
-        'method' => 'post',
-        'pattern' => '/user/login',
-        'callback' => Controller\LoginController::class . ':login',
-    ],
-    [
-        'method' => 'get',
-        'pattern' => '/virtual-users',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualUserController::class . ':listAll',
-    ],
-    [
-        'method' => 'post',
-        'pattern' => '/virtual-users',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualUserController::class . ':create',
-    ],
-    [
-        'method' => 'delete',
-        'pattern' => '/virtual-users',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualUserController::class . ':delete',
-    ],
-    [
-        'method' => 'get',
-        'pattern' => '/virtual-domains',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':listAll',
-    ],
-    [
-        'method' => 'post',
-        'pattern' => '/virtual-domains',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':create',
-    ],
-    [
-        'method' => 'patch',
-        'pattern' => '/virtual-domains/([0-9]+)',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':update',
-    ],
-    [
-        'method' => 'delete',
-        'pattern' => '/virtual-domains',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\DomainController::class . ':delete',
-    ],
-    [
-        'method' => 'get',
-        'pattern' => '/virtual-aliases',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualAliasController::class . ':listAll',
-    ],
-    [
-        'method' => 'post',
-        'pattern' => '/virtual-aliases',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualAliasController::class . ':create',
-    ],
-    [
-        'method' => 'delete',
-        'pattern' => '/virtual-aliases',
-        'middlewares' => [
-            Middleware\Auth::class,
-        ],
-        'callback' => Controller\VirtualAliasController::class . ':delete',
-    ]
-];
+
+
+
+$app->post('/user/login', LoginController::class . ':login');
+
+$app->group('', function(){
+    // crud domínios
+    $this->group('/virtual-domains', function () {
+        $this->get('', DomainController::class . ':listAll');
+        $this->post('', DomainController::class . ':create');
+        $this->patch('/{id:[0-9]+}', DomainController::class . ':update');
+        $this->delete('', DomainController::class . ':delete');
+    });
+    // crud emails
+    $this->group('/virtual-users', function() {
+        $this->get('', VirtualUserController::class . ':listAll');
+        $this->post('', VirtualUserController::class . ':create');
+        $this->delete('', VirtualUserController::class . ':delete');
+    });
+    // crud aliases
+    $this->group('/virtual-aliases', function(){
+        $this->get('', VirtualAliasController::class . ':listAll');
+        $this->post('', VirtualAliasController::class . ':create');
+        $this->delete('', VirtualAliasController::class . ':delete');
+    });
+})->add(Auth::class . ':process');
+
+
+// enable CORS
+$app->options('/{routes:.+}', function ($request, $response) {
+    return $response;
+});
+
+$app->add(AllowOrigin::class . ':process');
+
+// Catch-all route to serve a 404 Not Found page if none of the routes match
+// NOTE: make sure this route is defined last
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
+    $handler = $this->notFoundHandler; // handle using the default Slim page not found handler
+    return $handler($req, $res);
+});
