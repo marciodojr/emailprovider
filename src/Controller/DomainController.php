@@ -38,12 +38,12 @@ class DomainController
         }
     }
 
-    public function update($request, $response, $urlParams)
+    public function update($request, $response, $args)
     {
         $params = $request->getParams();
 
         try {
-            $domain = $this->vdomain->update($urlParams['id'], $params['name']);
+            $domain = $this->vdomain->update($args['id'], $params['name']);
             return $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
             return $this->toJson($response, 400, $ex->getMessage());
