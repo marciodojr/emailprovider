@@ -41,6 +41,14 @@ $container[EntityManager::class] = function ($c) {
     return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
 };
 
+$container['logger'] = function ($c) {
+    $settings = $c->get('settings')['logger'];
+    $logger = new Monolog\Logger($settings['name']);
+    $logger->pushProcessor(new Monolog\Processor\UidProcessor());
+    $logger->pushHandler(new Monolog\Handler\StreamHandler($settings['path'], $settings['level']));
+    return $logger;
+};
+
 // Controller
 $container[DomainController::class] = function ($c) {
     $virtualDomain = $c[VirtualDomain::class];
@@ -61,7 +69,6 @@ $container[LoginController::class] = function ($c) {
 };
 
 // Service
-
 $container[Auth::class] = function ($c) {
     $admin = $c[Admin::class];
     return new Auth($admin);
@@ -100,11 +107,6 @@ $container[Admin::class] = function ($c) {
 $container[AuthMiddleware::class] = function ($c) {
     $account = $c[Account::class];
     return new AuthMiddleware($account);
-};
-
-$container[InternalServerError::class] = function ($c) {
-    $showErrors = $c['settings']['display_errors'];
-    return new InternalServerError($showErrors);
 };
 
 // Handlers

@@ -6,8 +6,8 @@ return [
     'displayErrorDetails' => getenv('DEV_MODE'), // slim
     'addContentLengthHeader' => false, // slim
     'logger' => [ // slim log
-        'name' => 'slim-app',
-        'path' => 'php://stdout',
+        'name' => 'AppLog',
+        'path' => getenv('DEV_MODE') ? 'php://stdout' :__DIR__ . '/../logs/app.log',
         'level' => \Monolog\Logger::DEBUG,
     ],
     'doctrine' => [
