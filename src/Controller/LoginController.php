@@ -8,7 +8,7 @@ use Mdojr\EmailProvider\Service\Account;
 
 class LoginController
 {
-    use Helper\JsonResponse;
+    use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     private $auth;
     private $account;
@@ -24,12 +24,8 @@ class LoginController
         $params = $request->getParams();
 
         try {
-            if (empty($params['username'])) {
-                throw new Exception('Usuário não informado');
-            }
-
-            if (empty($params['password'])) {
-                throw new Exception('Senha não informada');
+            if (empty($params['username']) || empty($params['password'])) {
+                throw new Exception('Informe o nome de usuário e a senha');
             }
 
             $id = $this->auth->validate($params['username'], $params['password']);
@@ -42,12 +38,11 @@ class LoginController
             ]);
 
             return $this->toJson($response, 200, 'Autenticado com sucesso', [
-                'success' => 'Autenticado com sucesso',
                 'token' => $token
             ]);
 
         } catch (Exception $e) {
-            return $this->toJson($response, 400, $ex->getMessage());
+            return $this->toJson($response, 400, $e->getMessage());
         }
     }
 }

@@ -7,7 +7,7 @@ use Exception;
 
 class DomainController
 {
-    use Helper\JsonResponse;
+    use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     private $vdomain;
 
@@ -55,9 +55,9 @@ class DomainController
         $params = $request->getParams();
         try {
             $this->vdomain->delete($params['domains']);
-            return $this->toJson($response);
+            return $this->toJson($response, 204);
         } catch(Exception $ex) {
-            return $response->json(400, $ex->getMessage());
+            return $this->toJson($response, 400, $ex->getMessage());
         }
     }
 }

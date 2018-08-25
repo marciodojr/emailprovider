@@ -41,9 +41,9 @@ class Admin implements ArrayCopy
      *
      * @ORM\Column(name="is_active", type="boolean", nullable=false, options={"default"="1"})
      */
-    private $isActive = '1';
+    private $isActive = true;
 
-    public function getArrayCopy()
+    public function getArrayCopy() : array
     {
         return get_object_vars($this);
     }

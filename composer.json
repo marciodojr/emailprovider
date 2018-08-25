@@ -15,10 +15,21 @@
         "monolog/monolog": "^1.23",
         "doctrine/orm": "2.6.2",
         "firebase/php-jwt": "5.0.0",
-        "doctrine/migrations": "1.8",
-        "psr/http-server-middleware": "^1.0"
+        "doctrine/migrations": "1.8"
     },
     "autoload": {
         "psr-4": {"Mdojr\\EmailProvider\\": "src"}
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Mdojr\\EmailProvider\\Tests\\": "tests"
+        }
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.3",
+        "spatie/phpunit-watcher": "^1.6"
+    },
+   "config": {
+        "process-timeout": 0
     }
 }

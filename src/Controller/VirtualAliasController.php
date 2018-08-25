@@ -7,7 +7,7 @@ use Exception;
 
 class VirtualAliasController
 {
-    use Helper\JsonResponse;
+    use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     private $valias;
 

@@ -38,7 +38,7 @@ class VirtualAlias extends AbstractDbProvider
     public function delete(array $ids)
     {
         foreach($ids  as $id) {
-            $alias = $this->em->find(VirtualAliases::class, $id);
+            $alias = $this->em->getReference(VirtualAliases::class, $id);
             $this->em->remove($alias);
         }
         $this->em->flush();

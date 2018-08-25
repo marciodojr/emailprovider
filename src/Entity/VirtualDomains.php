@@ -38,7 +38,7 @@ class VirtualDomains implements ArrayCopy
         $this->name = $name;
     }
 
-    public function getArrayCopy()
+    public function getArrayCopy() : array
     {
         return get_object_vars($this);
     }

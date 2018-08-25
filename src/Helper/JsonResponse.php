@@ -1,6 +1,6 @@
 <?php
 
-namespace Mdojr\EmailProvider\Controller\Helper;
+namespace Mdojr\EmailProvider\Helper;
 
 use Psr\Http\Message\ResponseInterface;
 

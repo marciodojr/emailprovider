@@ -15,14 +15,14 @@ class Auth
 
     public function validate(string $username, string $password)
     {
-        $adm = $this->admin->searchByUsernameActive($username, true);
+        $adm = $this->admin->searchByUsername($username);
 
-        if($this->validatePassword($password, $adm['password'])) {
+        if($this->verifyPassword($password, $adm['password'])) {
             return $adm['id'];
         }
     }
 
-    private function validatePassword(string $pass, string $encryptedPass)
+    private function verifyPassword(string $pass, string $encryptedPass)
     {
         return password_verify($pass, $encryptedPass);
     }

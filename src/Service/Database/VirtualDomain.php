@@ -26,7 +26,7 @@ class VirtualDomain extends AbstractDbProvider
 
     public function update(int $id, string $domainName)
     {
-        $domain = $this->em->find(VirtualDomains::class, $id);
+        $domain = $this->em->getReference(VirtualDomains::class, $id);
         if(!$domain) {
             throw new Exception('Domínio não encontrado');
         }
@@ -39,7 +39,7 @@ class VirtualDomain extends AbstractDbProvider
     public function delete(array $ids)
     {
         foreach($ids as $id) {
-            $domain = $this->em->find(VirtualDomains::class, $id);
+            $domain = $this->em->getReference(VirtualDomains::class, $id);
             $this->em->remove($domain);
         }
 

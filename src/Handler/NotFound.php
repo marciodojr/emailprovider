@@ -7,7 +7,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class NotFound
 {
-    use \Mdojr\EmailProvider\Controller\Helper\JsonResponse;
+    use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response)
     {

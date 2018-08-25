@@ -6,7 +6,7 @@ use Mdojr\EmailProvider\Service\Account;
 
 class Auth
 {
-    use \Mdojr\EmailProvider\Controller\Helper\JsonResponse;
+    use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     private $account;
 

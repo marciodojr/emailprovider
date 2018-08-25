@@ -32,7 +32,7 @@ class VirtualUser extends AbstractDbProvider
     public function delete(array $ids)
     {
         foreach($ids as $id)  {
-            $domain = $this->em->find(VirtualUsers::class, $id);
+            $domain = $this->em->getReference(VirtualUsers::class, $id);
             $this->em->remove($domain);
         }
         $this->em->flush();

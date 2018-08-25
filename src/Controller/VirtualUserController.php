@@ -7,7 +7,7 @@ use Exception;
 
 class VirtualUserController
 {
-    use Helper\JsonResponse;
+    use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     private $vuser;
 

@@ -8,11 +8,11 @@ use Exception;
 
 class Admin extends AbstractDbProvider
 {
-    public function searchByUsernameActive(string $username, $isActive)
+    public function searchByUsername(string $username)
     {
         $admin = $this->em->getRepository(AdminEntity::class)->findOneBy([
             'username' => $username,
-            'isActive' => $isActive
+            'isActive' => true
         ]);
 
         if(!$admin) {
