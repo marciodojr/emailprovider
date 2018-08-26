@@ -31,6 +31,9 @@ class DomainController
         $params = $request->getParams();
 
         try {
+            if(empty($params['name'])) {
+                throw new Exception('Domínio não informado');
+            }
             $domain = $this->vdomain->create($params['name']);
             return $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
@@ -43,6 +46,9 @@ class DomainController
         $params = $request->getParams();
 
         try {
+            if(empty($params['name'])) {
+                throw new Exception('Domínio não informado');
+            }
             $domain = $this->vdomain->update($args['id'], $params['name']);
             return $this->toJson($response, 200, 'ok', $domain);
         } catch(Exception $ex) {
@@ -54,6 +60,9 @@ class DomainController
     {
         $params = $request->getParams();
         try {
+            if(empty($params['domains'])) {
+                throw new Exception('Nenhum domínio foi informado');
+            }
             $this->vdomain->delete($params['domains']);
             return $this->toJson($response, 204);
         } catch(Exception $ex) {

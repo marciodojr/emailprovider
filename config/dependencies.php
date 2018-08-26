@@ -1,5 +1,9 @@
 <?php
 
+// Base
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Tools\Setup;
+
 // Controller
 
 use Mdojr\EmailProvider\Controller\DashboardController;
@@ -27,18 +31,16 @@ use Mdojr\EmailProvider\Service\Database\Admin;
 
 $container = $app->getContainer();
 
-// Base
-
 $container[EntityManager::class] = function ($c) {
     $doctrine = $c['settings']['doctrine'];
-    $config = Doctrine\ORM\Tools\Setup::createAnnotationMetadataConfiguration(
+    $config = Setup::createAnnotationMetadataConfiguration(
         $doctrine['meta']['entity_path'],
         $doctrine['meta']['auto_generate_proxies'],
         $doctrine['meta']['proxy_dir'],
         $doctrine['meta']['cache'],
         false
     );
-    return Doctrine\ORM\EntityManager::create($doctrine['connection'], $config);
+    return EntityManager::create($doctrine['connection'], $config);
 };
 
 $container['logger'] = function ($c) {

@@ -1,15 +1,12 @@
 <?php
 
-namespace Mdojr\EmailProvider\Controller;
-
-use Slim\Http\Request;
-use Slim\Http\Response;
-
 use Mdojr\EmailProvider\Middleware\Auth;
 use Mdojr\EmailProvider\Middleware\AllowOrigin;
 
-
-
+use Mdojr\EmailProvider\Controller\LoginController;
+use Mdojr\EmailProvider\Controller\DomainController;
+use Mdojr\EmailProvider\Controller\VirtualUserController;
+use Mdojr\EmailProvider\Controller\VirtualAliasController;
 
 $app->post('/user/login', LoginController::class . ':login');
 
@@ -34,7 +31,6 @@ $app->group('', function(){
         $this->delete('', VirtualAliasController::class . ':delete');
     });
 })->add(Auth::class . ':process');
-
 
 // enable CORS
 $app->options('/{routes:.+}', function ($request, $response) {

@@ -31,6 +31,9 @@ class VirtualUserController
         $params = $request->getParams();
 
         try {
+            if(empty($params['email']) || empty($params['password']) || empty($params['domain'])) {
+                throw new Exception('Informe o email, a senha e o domínio');
+            }
             $vusersData = $this->vuser->create($params['email'], $params['password'], $params['domain']);
             return $this->toJson($response, 200, 'ok', $vusersData);
         } catch(Exception $ex) {
@@ -42,6 +45,9 @@ class VirtualUserController
     {
         $params = $request->getParams();
         try {
+            if(empty($params['emails'])) {
+                throw new Exception('Nenhum email foi informado');
+            }
             $this->vuser->delete($params['emails']);
             return $this->toJson($response, 204);
         } catch(Exception $ex) {

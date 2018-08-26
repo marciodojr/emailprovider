@@ -22,7 +22,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Mdojr\\EmailProvider\\Tests\\": "tests"
+            "Mdojr\\EmailProvider\\Test\\": "tests"
         }
     },
     "require-dev": {

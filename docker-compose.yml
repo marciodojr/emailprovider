@@ -26,7 +26,6 @@ services:
             - DB_USER=servermailadmin
             - DB_PASS=admin
             - APP_SECRET=holly_molly!
-            - APP_COOKIE_NAME=auth_token
         working_dir: /srv/vhosts/phpApp
         volumes:
             - .:/srv/vhosts/phpApp
