@@ -8,13 +8,13 @@
         </testsuite>
     </testsuites>
     <php>
-        <env name="DEV_MODE" value="1" force="true"/>
-        <env name="DB_HOST" value="localhost" force="true"/>
-        <env name="DB_PORT" value="3306" force="true"/>
-        <env name="DB_NAME" value="servermail_test" force="true"/>
-        <env name="DB_USER" value="root" force="true"/>
-        <env name="DB_PASS" value="root" force="true"/>
-        <env name="APP_SECRET" value="verysecretkey" force="true"/>
+        <env name="DEV_MODE" value="1"/>
+        <env name="DB_HOST" value="localhost"/>
+        <env name="DB_PORT" value="3306"/>
+        <env name="DB_NAME" value="servermail_test"/>
+        <env name="DB_USER" value="root"/>
+        <env name="DB_PASS" value="root"/>
+        <env name="APP_SECRET" value="verysecretkey"/>
     </php>
     <filter>
         <whitelist addUncoveredFilesFromWhitelist="true">

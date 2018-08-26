@@ -16,7 +16,7 @@ services:
             - 13306:3306
 
     php-apache:
-        image: marciodojr/phpstart-apache-docker-image:1.0.0
+        image: marciodojr/phpstart-apache-docker-image:dev
         container_name: emailprovider
         environment:
             - DEV_MODE=1
