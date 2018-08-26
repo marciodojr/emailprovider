@@ -3,7 +3,6 @@
 namespace Mdojr\EmailProvider\Tests\Service\Database;
 
 use PHPUnit\Framework\TestCase;
-use Mdojr\EmailProvider\Service\Database\Admin;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\DBAL\Connection;

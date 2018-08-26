@@ -50,11 +50,7 @@ class AdminTest extends TestCase
     {
         $userName = 'hello!';
 
-        $stubRepository = $this
-            ->getMockBuilder(EntityRepository::class)
-            ->disableOriginalConstructor()
-            ->getMock();
-
+        $stubRepository = $this->createMock(EntityRepository::class);
         $stubRepository
             ->method('findOneBy')
             ->with([

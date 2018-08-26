@@ -4,6 +4,7 @@ namespace Mdojr\EmailProvider\Service\Database;
 
 use Mdojr\EmailProvider\Entity\VirtualDomains;
 use Mdojr\EmailProvider\Service\Database\Helper\AbstractDbProvider;
+use Exception;
 
 class VirtualDomain extends AbstractDbProvider
 {
