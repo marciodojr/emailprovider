@@ -13,13 +13,6 @@ class DomainControllerTest extends TestCase
 {
     use \Mdojr\EmailProvider\Tests\ResponseTestCase;
 
-    public function testCreateInstance()
-    {
-        $fakeDomain = $this->createMock(VirtualDomain::class);
-        $controller = new DomainController($fakeDomain);
-        $this->assertInstanceOf(DomainController::class, $controller);
-    }
-
     public function testListAll()
     {
         $fetchAllArr = [
