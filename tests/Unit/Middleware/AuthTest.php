@@ -52,6 +52,9 @@ class AuthTest extends TestCase
     public function testAllowValidToken()
     {
         $token = '==valid==token==';
+        $tokenData = [
+            'id' => 1
+        ];
         $response = new Response();
         $env = Environment::mock();
         $req = Request::createFromEnvironment($env)->withHeader('Authorization', 'Bearer ' . $token);
@@ -59,12 +62,12 @@ class AuthTest extends TestCase
         $stubAcc
             ->method('get')
             ->with($token)
-            ->willReturn(true);
+            ->willReturn($tokenData);
 
         $auth = new Auth($stubAcc);
         $testCase = $this;
-        $returnResp = $auth->process($req, $response, function($req, $resp) use ($testCase, $token) {
-            $testCase->assertSame($token, $req->getAttribute('token'));
+        $returnResp = $auth->process($req, $response, function($req, $resp) use ($testCase, $tokenData) {
+            $testCase->assertSame($tokenData, $req->getAttribute('auth'));
             return $resp;
         });
 

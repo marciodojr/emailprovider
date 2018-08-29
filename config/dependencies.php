@@ -115,3 +115,8 @@ $container[AuthMiddleware::class] = function ($c) {
 $container['notFoundHandler'] = function ($c) {
     return new \Mdojr\EmailProvider\Handler\NotFound;
 };
+
+$container['phpErrorHandler'] = function ($c) {
+    $errorDetails = $c->get('settings')['displayErrorDetails'];
+    return new \Mdojr\EmailProvider\Handler\PhpError($errorDetails);
+};
