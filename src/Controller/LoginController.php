@@ -4,19 +4,19 @@ namespace Mdojr\EmailProvider\Controller;
 
 use Exception;
 use Mdojr\EmailProvider\Service\Auth;
-use Mdojr\EmailProvider\Service\Account;
+use Mdojr\EmailProvider\Service\JwtWrapper;
 
 class LoginController
 {
     use \Mdojr\EmailProvider\Helper\JsonResponse;
 
     private $auth;
-    private $account;
+    private $jwt;
 
-    public function __construct(Account $account, Auth $auth)
+    public function __construct(JwtWrapper $jwt, Auth $auth)
     {
         $this->auth = $auth;
-        $this->account = $account;
+        $this->jwt = $jwt;
     }
 
     public function login($request, $response)
@@ -33,7 +33,7 @@ class LoginController
                 throw new Exception('Usuário ou senha incorreta');
             }
 
-            $token = $this->account->login([
+            $token = $this->jwt->encode([
                 'id' => $id
             ]);
 

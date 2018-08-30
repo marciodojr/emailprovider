@@ -20,7 +20,6 @@ use Mdojr\EmailProvider\Middleware\Auth as AuthMiddleware;
 
 use Mdojr\EmailProvider\Service\Auth;
 use Mdojr\EmailProvider\Service\JwtWrapper;
-use Mdojr\EmailProvider\Service\Account;
 
 // Service\Database
 
@@ -65,9 +64,9 @@ $container[VirtualAliasController::class] = function ($c) {
     return new VirtualAliasController($virtualAlias);
 };
 $container[LoginController::class] = function ($c) {
-    $account = $c[Account::class];
+    $jwt = $c[JwtWrapper::class];
     $auth = $c[Auth::class];
-    return new LoginController($account, $auth);
+    return new LoginController($jwt, $auth);
 };
 
 // Service
@@ -79,11 +78,6 @@ $container[Auth::class] = function ($c) {
 $container[JwtWrapper::class] = function ($c) {
     $jwtSettings = $c['settings']['jwt'];
     return new JwtWrapper($jwtSettings['app_secret'], $jwtSettings['token_expires']);
-};
-
-$container[Account::class] = function ($c) {
-    $jwt = $c[JwtWrapper::class];
-    return new Account($jwt);
 };
 
 // Service/Database
@@ -107,8 +101,8 @@ $container[Admin::class] = function ($c) {
 
 // Middleware
 $container[AuthMiddleware::class] = function ($c) {
-    $account = $c[Account::class];
-    return new AuthMiddleware($account);
+    $jwt = $c[JwtWrapper::class];
+    return new AuthMiddleware($jwt);
 };
 
 // Handlers
@@ -118,5 +112,6 @@ $container['notFoundHandler'] = function ($c) {
 
 $container['phpErrorHandler'] = function ($c) {
     $errorDetails = $c->get('settings')['displayErrorDetails'];
-    return new \Mdojr\EmailProvider\Handler\PhpError($errorDetails);
+    $logger = $c->get('logger');
+    return new \Mdojr\EmailProvider\Handler\PhpError($errorDetails, $logger);
 };

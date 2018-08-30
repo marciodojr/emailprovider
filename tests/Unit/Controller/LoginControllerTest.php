@@ -8,7 +8,7 @@ use Slim\Http\Request;
 use Slim\Http\Response;
 use Exception;
 use Mdojr\EmailProvider\Service\Auth;
-use Mdojr\EmailProvider\Service\Account;
+use Mdojr\EmailProvider\Service\JwtWrapper;
 
 class LoginControllerTest extends TestCase
 {
@@ -30,9 +30,9 @@ class LoginControllerTest extends TestCase
             ->with($userData['username'], $userData['password'])
             ->willReturn($id);
 
-        $accStub = $this->createMock(Account::class);
-        $accStub
-            ->method('login')
+        $jwtStub = $this->createMock(JwtWrapper::class);
+        $jwtStub
+            ->method('encode')
             ->with([
                 'id' => $id
             ])
@@ -48,7 +48,7 @@ class LoginControllerTest extends TestCase
             ->method('getParams')
             ->willReturn($userData);
 
-        $jsonResponse = (new LoginController($accStub, $authStub))->login($mockRequest, $response);
+        $jsonResponse = (new LoginController($jwtStub, $authStub))->login($mockRequest, $response);
         $this->checkResponseAssertions($jsonResponse, $expectedJsonResponse);
     }
 
@@ -61,7 +61,7 @@ class LoginControllerTest extends TestCase
         ];
         $id = 998;
 
-        $fakeAcc = $this->createMock(Account::class);
+        $fakeJwt = $this->createMock(JwtWrapper::class);
         $authStub = $this->createMock(Auth::class);
         $authStub
             ->method('validate')
@@ -76,7 +76,7 @@ class LoginControllerTest extends TestCase
             ->method('getParams')
             ->willReturn($userData);
 
-        $jsonResponse = (new LoginController($fakeAcc, $authStub))->login($mockRequest, $response);
+        $jsonResponse = (new LoginController($fakeJwt, $authStub))->login($mockRequest, $response);
         $this->checkResponseAssertions($jsonResponse, $expectedJsonResponse);
     }
 
@@ -84,7 +84,7 @@ class LoginControllerTest extends TestCase
     {
         $message = 'Informe o nome de usuário e a senha';
 
-        $fakeAcc = $this->createMock(Account::class);
+        $fakeJwt = $this->createMock(JwtWrapper::class);
         $fakeAuth = $this->createMock(Auth::class);
         $mockRequest = $this->createMock(Request::class);
         $mockRequest->method('getParams')->willReturn([]);
@@ -92,7 +92,7 @@ class LoginControllerTest extends TestCase
         $response = new Response();
         $expectedJsonResponse = $this->toJson($response, 400, $message);
 
-        $jsonResponse = (new LoginController($fakeAcc, $fakeAuth))->login($mockRequest, $response);
+        $jsonResponse = (new LoginController($fakeJwt, $fakeAuth))->login($mockRequest, $response);
         $this->checkResponseAssertions($jsonResponse, $expectedJsonResponse);
     }
 }

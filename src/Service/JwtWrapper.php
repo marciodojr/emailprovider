@@ -3,6 +3,7 @@
 namespace Mdojr\EmailProvider\Service;
 
 use Firebase\JWT\JWT;
+use Exception;
 
 class JwtWrapper
 {
@@ -31,6 +32,10 @@ class JwtWrapper
 
     public function decode(string $jwtToken)
     {
-        return JWT::decode($jwtToken, $this->secret, ['HS256']);
+        try {
+            return JWT::decode($jwtToken, $this->secret, ['HS256'])->data;
+        } catch(Exception $e) {
+            return false;
+        }
     }
 }

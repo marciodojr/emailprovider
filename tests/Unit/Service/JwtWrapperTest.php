@@ -27,7 +27,7 @@ class JwtWrapperTest extends TestCase
             'some' => 'data'
         ];
         $token = $jwt->encode($data);
-        $this->assertEquals($data, (array)$jwt->decode($token)->data);
+        $this->assertEquals($data, (array)$jwt->decode($token));
     }
 
     public function testExpiredToken()
@@ -39,8 +39,7 @@ class JwtWrapperTest extends TestCase
         ];
 
         $token = $jwt->encode($data);
-        $this->expectException(ExpiredException::class);
-        $this->assertEquals($data, (array)$jwt->decode($token)->data);
+        $this->assertFalse($jwt->decode($token));
     }
 
     public function testBeforeValidToken()
@@ -52,8 +51,7 @@ class JwtWrapperTest extends TestCase
         ];
 
         $token = $jwt->encode($data);
-        $this->expectException(BeforeValidException::class);
-        $this->assertEquals($data, (array)$jwt->decode($token)->data);
+        $this->assertFalse($jwt->decode($token));
     }
 
     public function testInvalidToken()
@@ -64,8 +62,7 @@ class JwtWrapperTest extends TestCase
             'some' => 'data'
         ];
 
-        $token = $jwt->encode($data);
-        $this->expectException(UnexpectedValueException::class);
-        $this->assertEquals($data, (array)$jwt->decode('invalid token')->data);
+        $jwt->encode($data);
+        $this->assertFalse($jwt->decode('???'));
     }
 }

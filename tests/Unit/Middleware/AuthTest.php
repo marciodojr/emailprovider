@@ -4,7 +4,7 @@ namespace Mdojr\EmailProvider\Test\Unit\Middleware;
 
 use PHPUnit\Framework\TestCase;
 use Mdojr\EmailProvider\Middleware\Auth;
-use Mdojr\EmailProvider\Service\Account;
+use Mdojr\EmailProvider\Service\JwtWrapper;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Slim\Http\Environment;
@@ -35,13 +35,13 @@ class AuthTest extends TestCase
         $expectedJsonResponse = $this->toJson($response, 403, 'Você não possui permissão para acessar este recurso');
         $env = Environment::mock();
         $req = Request::createFromEnvironment($env)->withHeader('Authorization', 'Bearer ' . $token);
-        $stubAcc = $this->createMock(Account::class);
-        $stubAcc
-            ->method('get')
+        $stubJwt = $this->createMock(JwtWrapper::class);
+        $stubJwt
+            ->method('encode')
             ->with($token)
             ->willReturn(false);
 
-        $auth = new Auth($stubAcc);
+        $auth = new Auth($stubJwt);
         $jsonResponse = $auth->process($req, $response, function($req, $resp) {
             return null;
         });
@@ -58,13 +58,13 @@ class AuthTest extends TestCase
         $response = new Response();
         $env = Environment::mock();
         $req = Request::createFromEnvironment($env)->withHeader('Authorization', 'Bearer ' . $token);
-        $stubAcc = $this->createMock(Account::class);
-        $stubAcc
-            ->method('get')
+        $stubJwt = $this->createMock(JwtWrapper::class);
+        $stubJwt
+            ->method('decode')
             ->with($token)
             ->willReturn($tokenData);
 
-        $auth = new Auth($stubAcc);
+        $auth = new Auth($stubJwt);
         $testCase = $this;
         $returnResp = $auth->process($req, $response, function($req, $resp) use ($testCase, $tokenData) {
             $testCase->assertSame($tokenData, $req->getAttribute('auth'));
