@@ -3,6 +3,7 @@
 namespace Mdojr\EmailProvider\Service;
 
 use Mdojr\EmailProvider\Service\Database\Admin;
+use Exception;
 
 class Auth
 {
@@ -16,6 +17,10 @@ class Auth
     public function validate(string $username, string $password)
     {
         $adm = $this->admin->searchByUsername($username);
+
+        if(!$adm) {
+            throw new Exception('Usuário não encontrado');
+        }
 
         if($this->verifyPassword($password, $adm['password'])) {
             return $adm['id'];

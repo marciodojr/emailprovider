@@ -44,4 +44,24 @@ class AuthTest extends TestCase
         $this->assertSame($id, $auth->validate($username, $password));
         $this->assertNull($auth->validate($username, '???'));
     }
+
+    public function testValidateAdminNotFound()
+    {
+        $id = 10;
+        $username = 'helloworld';
+        $password = 'secret';
+        $correctEncryptedPass = password_hash($password, PASSWORD_BCRYPT);
+        $wrongEncryptedPass = 'aaaaaa';
+
+        $adminStub = $this->createMock(Admin::class);
+        $adminStub
+            ->method('searchByUsername')
+            ->with($username)
+            ->willReturn(null);
+
+        $auth = new Auth($adminStub);
+
+        $this->expectExceptionMessage('Usuário não encontrado');
+        $auth->validate($username, $password);
+    }
 }
