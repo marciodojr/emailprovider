@@ -1,20 +1,20 @@
 # Select image from https://hub.docker.com/_/php/
 image: marciodojr/phpstart-apache-docker-image:dev
- 
+
 # Select what we should cache
 cache:
-  paths:
-  - vendor/
- 
+    paths:
+        - vendor/
+
 before_script:
-# Install git, the php image doesn't have installed
-- apt-get update -yqq
-- apt-get install git -yqq
-- composer install
- 
+    # Install git, the php image doesn't have installed
+    - apt-get update -yqq
+    - apt-get install git -yqq
+    - composer install
+
 services:
-- mysql
- 
+    - mysql
+
 variables:
     - MYSQL_DATABASE: servermail
     - MYSQL_USER: servermailadmin
@@ -27,8 +27,8 @@ variables:
     - DB_USER: servermailadmin
     - DB_PASS: admin
     - APP_SECRET: holly_molly!
- 
+
 test:mysql:
-  script:
-  - vendor/bin/phpunit --coverage-text --testdox
-  - allow_failure: true
+    script:
+        - vendor/bin/phpunit --coverage-text --testdox
+        - allow_failure: true
