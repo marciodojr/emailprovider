@@ -16,19 +16,18 @@ services:
     - mysql
 
 variables:
-    - MYSQL_DATABASE: servermail
-    - MYSQL_USER: servermailadmin
-    - MYSQL_PASSWORD: admin
-    - MYSQL_ROOT_PASSWORD: root
-    - DEV_MODE: 1
-    - DB_HOST: mysql
-    - DB_PORT: 3306
-    - DB_NAME: servermail
-    - DB_USER: servermailadmin
-    - DB_PASS: admin
-    - APP_SECRET: holly_molly!
+    MYSQL_DATABASE: servermail
+    MYSQL_USER: servermailadmin
+    MYSQL_PASSWORD: admin
+    MYSQL_ROOT_PASSWORD: root
+    DEV_MODE: 1
+    DB_HOST: mysql
+    DB_PORT: 3306
+    DB_NAME: servermail
+    DB_USER: servermailadmin
+    DB_PASS: admin
+    APP_SECRET: holly_molly!
 
-test:mysql:
+test:app:
     script:
-        - vendor/bin/phpunit --coverage-text --testdox
-        - allow_failure: true
+    - vendor/bin/phpunit --coverage-text --testdox
