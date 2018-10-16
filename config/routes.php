@@ -10,7 +10,10 @@ use Mdojr\EmailProvider\Controller\VirtualAliasController;
 
 $app->post('/user/login', LoginController::class . ':login');
 
-$app->group('', function(){
+$app->group('', function () {
+    $this->get('', function ($req, $resp) {
+        return $resp;
+    });
     // crud domínios
     $this->group('/virtual-domains', function () {
         $this->get('', DomainController::class . ':listAll');
@@ -19,13 +22,13 @@ $app->group('', function(){
         $this->delete('', DomainController::class . ':delete');
     });
     // crud emails
-    $this->group('/virtual-users', function() {
+    $this->group('/virtual-users', function () {
         $this->get('', VirtualUserController::class . ':listAll');
         $this->post('', VirtualUserController::class . ':create');
         $this->delete('', VirtualUserController::class . ':delete');
     });
     // crud aliases
-    $this->group('/virtual-aliases', function(){
+    $this->group('/virtual-aliases', function () {
         $this->get('', VirtualAliasController::class . ':listAll');
         $this->post('', VirtualAliasController::class . ':create');
         $this->delete('', VirtualAliasController::class . ':delete');
@@ -41,7 +44,7 @@ $app->add(AllowOrigin::class . ':process');
 
 // Catch-all route to serve a 404 Not Found page if none of the routes match
 // NOTE: make sure this route is defined last
-$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function($req, $res) {
+$app->map(['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], '/{routes:.+}', function ($req, $res) {
     $handler = $this->notFoundHandler; // handle using the default Slim page not found handler
     return $handler($req, $res);
 });
