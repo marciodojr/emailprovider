@@ -8,32 +8,33 @@ use Mdojr\EmailProvider\Controller\DomainController;
 use Mdojr\EmailProvider\Controller\VirtualUserController;
 use Mdojr\EmailProvider\Controller\VirtualAliasController;
 
-$app->post('/user/login', LoginController::class . ':login');
-
 $app->group('', function () {
-    $this->get('', function ($req, $resp) {
+    $this->post('/user/login', LoginController::class . ':login');
+    $this->get('/', function ($req, $resp) {
         return $resp;
     });
-    // crud domínios
-    $this->group('/virtual-domains', function () {
-        $this->get('', DomainController::class . ':listAll');
-        $this->post('', DomainController::class . ':create');
-        $this->patch('/{id:[0-9]+}', DomainController::class . ':update');
-        $this->delete('', DomainController::class . ':delete');
-    });
-    // crud emails
-    $this->group('/virtual-users', function () {
-        $this->get('', VirtualUserController::class . ':listAll');
-        $this->post('', VirtualUserController::class . ':create');
-        $this->delete('', VirtualUserController::class . ':delete');
-    });
-    // crud aliases
-    $this->group('/virtual-aliases', function () {
-        $this->get('', VirtualAliasController::class . ':listAll');
-        $this->post('', VirtualAliasController::class . ':create');
-        $this->delete('', VirtualAliasController::class . ':delete');
-    });
-})->add(Auth::class . ':process');
+    $this->group('', function(){
+        // crud domínios
+        $this->group('/virtual-domains', function () {
+            $this->get('', DomainController::class . ':listAll');
+            $this->post('', DomainController::class . ':create');
+            $this->patch('/{id:[0-9]+}', DomainController::class . ':update');
+            $this->delete('', DomainController::class . ':delete');
+        });
+        // crud emails
+        $this->group('/virtual-users', function () {
+            $this->get('', VirtualUserController::class . ':listAll');
+            $this->post('', VirtualUserController::class . ':create');
+            $this->delete('', VirtualUserController::class . ':delete');
+        });
+        // crud aliases
+        $this->group('/virtual-aliases', function () {
+            $this->get('', VirtualAliasController::class . ':listAll');
+            $this->post('', VirtualAliasController::class . ':create');
+            $this->delete('', VirtualAliasController::class . ':delete');
+        });
+    })->add(Auth::class . ':process');
+});
 
 // enable CORS
 $app->options('/{routes:.+}', function ($request, $response) {
