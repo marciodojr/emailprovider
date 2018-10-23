@@ -8,7 +8,6 @@ use Exception;
 
 class VisitorTest extends TestCase
 {
-
     private $secret;
 
     public function setUp()
@@ -17,9 +16,15 @@ class VisitorTest extends TestCase
         $this->secret = $this->app->getContainer()->get('settings')['jwt']['app_secret'];
     }
 
-    public function testResourceNotFound()
+    public function testApiHealthCheck()
     {
         $response = $this->runApp('GET', '/');
+        $this->assertEquals(200, $response->getStatusCode());
+    }
+
+    public function testResourceNotFound()
+    {
+        $response = $this->runApp('GET', '/invalid-route');
         $jsonBody = $this->decodeResponse($response);
 
         $this->assertEquals(404, $response->getStatusCode());
@@ -45,7 +50,6 @@ class VisitorTest extends TestCase
         $decodedInfo = JWT::decode($jsonBody['data']['token'], $this->secret, ['HS256']);
         $this->assertSame(1, $decodedInfo->data->id);
     }
-
 
     public function testLoginWrongUser()
     {

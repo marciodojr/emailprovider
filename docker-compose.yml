@@ -1,7 +1,7 @@
 version: '3.1'
 services:
     mysql:
-        image: mysql:8.0.12
+        image: mysql:5.7.23
         container_name: emailprovider-mysql
         environment:
             - MYSQL_DATABASE=servermail

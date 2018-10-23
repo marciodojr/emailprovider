@@ -57,8 +57,10 @@ class VirtualAliases implements ArrayCopy
 
     public function getArrayCopy() : array
     {
-        $vars = get_object_vars($this);
-        unset($vars['domain']);
-        return $vars;
+        return [
+            'id' => $this->id,
+            'source' => $this->source,
+            'destination' => $this->destination
+        ];
     }
 }

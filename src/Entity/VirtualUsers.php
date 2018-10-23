@@ -56,10 +56,10 @@ class VirtualUsers implements ArrayCopy
 
     public function getArrayCopy() : array
     {
-        $vars = get_object_vars($this);
-        unset($vars['password']);
-        unset($vars['domain']);
-        return $vars;
+        return [
+            'id' => $this->id,
+            'email' => $this->email
+        ];
     }
 
     public function __get($propertyName)

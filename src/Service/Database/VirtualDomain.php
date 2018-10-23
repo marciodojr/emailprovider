@@ -32,7 +32,7 @@ class VirtualDomain extends AbstractDbProvider
             throw new Exception('Domínio não encontrado');
         }
         $domain->setName($domainName);
-        $this->em->persist($domain);
+        $this->em->merge($domain);
         $this->em->flush();
         return $domain->getArrayCopy();
     }

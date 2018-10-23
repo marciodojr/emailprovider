@@ -51,6 +51,7 @@ class VirtualUserController
             $this->vuser->delete($params['emails']);
             return $this->toJson($response, 204);
         } catch(Exception $ex) {
+            var_dump($ex->getMessage());
             return $this->toJson($response, 400, $ex->getMessage());
         }
     }
