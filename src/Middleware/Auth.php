@@ -15,7 +15,7 @@ class Auth
         $this->jwt = $jwt;
     }
 
-    public function process($request, $response, $next)
+    public function __invoke($request, $response, $next)
     {
         $header = $request->getHeader('Authorization');
         $token = $header ? $this->getToken($header[0]) : '';

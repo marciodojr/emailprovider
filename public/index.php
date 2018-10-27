@@ -1,5 +1,7 @@
 <?php
 
+use Mdojr\EmailProvider\App;
+
 //Everything is relative to the application root now.
 chdir(dirname(__DIR__));
 
@@ -10,11 +12,8 @@ if(file_exists('config/settings.local.php')) {
     $settings = array_replace_recursive($settings, require './config/settings.local.php');
 }
 
-$app = new \Slim\App([
-    'settings' => $settings
-]);
+$app = new App($settings);
 
-require './config/dependencies.php';
 require './config/routes.php';
 
 $app->run();

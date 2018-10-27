@@ -1,16 +1,16 @@
 <?php
 
-namespace Mdojr\EmailProvider\Test\Unit\Controller;
+namespace Mdojr\EmailProvider\Test\Unit\Action;
 
 use PHPUnit\Framework\TestCase;
-use Mdojr\EmailProvider\Controller\LoginController;
 use Slim\Http\Request;
 use Slim\Http\Response;
 use Exception;
 use Mdojr\EmailProvider\Service\Auth;
 use Mdojr\EmailProvider\Service\JwtWrapper;
+use Mdojr\EmailProvider\Action\Login;
 
-class LoginControllerTest extends TestCase
+class LoginTest extends TestCase
 {
     use \Mdojr\EmailProvider\Test\Unit\ResponseTestCase;
 
@@ -48,7 +48,7 @@ class LoginControllerTest extends TestCase
             ->method('getParams')
             ->willReturn($userData);
 
-        $jsonResponse = (new LoginController($jwtStub, $authStub))->login($mockRequest, $response);
+        $jsonResponse = (new Login($jwtStub, $authStub))->__invoke($mockRequest, $response);
         $this->checkResponseAssertions($jsonResponse, $expectedJsonResponse);
     }
 
@@ -76,7 +76,7 @@ class LoginControllerTest extends TestCase
             ->method('getParams')
             ->willReturn($userData);
 
-        $jsonResponse = (new LoginController($fakeJwt, $authStub))->login($mockRequest, $response);
+        $jsonResponse = (new Login($fakeJwt, $authStub))->__invoke($mockRequest, $response);
         $this->checkResponseAssertions($jsonResponse, $expectedJsonResponse);
     }
 
@@ -92,7 +92,7 @@ class LoginControllerTest extends TestCase
         $response = new Response();
         $expectedJsonResponse = $this->toJson($response, 400, $message);
 
-        $jsonResponse = (new LoginController($fakeJwt, $fakeAuth))->login($mockRequest, $response);
+        $jsonResponse = (new Login($fakeJwt, $fakeAuth))->__invoke($mockRequest, $response);
         $this->checkResponseAssertions($jsonResponse, $expectedJsonResponse);
     }
 }
