@@ -72,7 +72,7 @@ class VirtualDomainTest extends TestCase
             ->willReturn($domain);
         $stubEm
             ->expects($this->once())
-            ->method('persist');
+            ->method('merge');
         $stubEm
             ->expects($this->once())
             ->method('flush');

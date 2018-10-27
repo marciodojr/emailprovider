@@ -15,7 +15,7 @@ class AllowOriginTest extends TestCase
     {
         $fakeReq = $this->createMock(Request::class);
         $aOrigin = new AllowOrigin();
-        $response = $aOrigin->process($fakeReq, new Response, function($req, $resp) {
+        $response = $aOrigin->__invoke($fakeReq, new Response, function($req, $resp) {
             return $resp;
         });
         $this->assertSame(

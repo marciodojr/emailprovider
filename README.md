@@ -14,8 +14,3 @@ docker-compose up
 - Acessar um container em execução: `docker exec -it <container-name> sh`
 - Gerar entidades a partir do banco de dados: `php vendor/bin/doctrine orm:convert-mapping --force --from-database annotation ./src/Entity/`
 - executar testes: `vendor/bin/phpunit --stop-on-failure --testdox --coverage-text`
-
-## Imagem para produção
-```
-docker build -t emailprovider .
-```

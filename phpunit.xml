@@ -4,7 +4,7 @@
             <directory>tests/Unit</directory>
         </testsuite>
         <testsuite name="f">
-            <directory>tests/Functional</directory>
+            <directory suffix="Func.php">tests/Functional</directory>
         </testsuite>
     </testsuites>
     <php>

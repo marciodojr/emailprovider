@@ -1,12 +1,12 @@
 <?php
 
-namespace Mdojr\EmailProvider\Controller;
+namespace Mdojr\EmailProvider\Action;
 
 use Exception;
 use Mdojr\EmailProvider\Service\Auth;
 use Mdojr\EmailProvider\Service\JwtWrapper;
 
-class LoginController
+class Login
 {
     use \Mdojr\EmailProvider\Helper\JsonResponse;
 
@@ -19,7 +19,7 @@ class LoginController
         $this->jwt = $jwt;
     }
 
-    public function login($request, $response)
+    public function __invoke($request, $response)
     {
         $params = $request->getParams();
 

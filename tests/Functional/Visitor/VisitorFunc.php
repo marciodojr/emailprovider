@@ -6,14 +6,14 @@ use Mdojr\EmailProvider\Test\Functional\TestCase;
 use Firebase\JWT\JWT;
 use Exception;
 
-class VisitorTest extends TestCase
+class VisitorFunc extends TestCase
 {
     private $secret;
 
     public function setUp()
     {
         parent::setUp();
-        $this->secret = $this->app->getContainer()->get('settings')['jwt']['app_secret'];
+        $this->secret = $this->app->getContainer()->get('jwt.app_secret');
     }
 
     public function testApiHealthCheck()

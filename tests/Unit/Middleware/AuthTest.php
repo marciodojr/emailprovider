@@ -42,7 +42,7 @@ class AuthTest extends TestCase
             ->willReturn(false);
 
         $auth = new Auth($stubJwt);
-        $jsonResponse = $auth->process($req, $response, function($req, $resp) {
+        $jsonResponse = $auth->__invoke($req, $response, function($req, $resp) {
             return null;
         });
 
@@ -66,7 +66,7 @@ class AuthTest extends TestCase
 
         $auth = new Auth($stubJwt);
         $testCase = $this;
-        $returnResp = $auth->process($req, $response, function($req, $resp) use ($testCase, $tokenData) {
+        $returnResp = $auth->__invoke($req, $response, function($req, $resp) use ($testCase, $tokenData) {
             $testCase->assertSame($tokenData, $req->getAttribute('auth'));
             return $resp;
         });
